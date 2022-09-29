@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application" %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
   </head>
 
   <body>
+    <%= link_to root_path do %>
+      <h1>Sistema de Frete</h1>
+    <% end %>
+    <nav class="menu">
+      <%= link_to 'Modalidades de Transporte', modes_of_transport_index_path, class: 'link'%>
+    </nav>
     <%= yield %>
+
   </body>
 </html>

@@ -1,0 +1,2 @@
+class ModeOfTransport < ApplicationRecord
+end

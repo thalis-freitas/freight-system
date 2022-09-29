@@ -1,0 +1,50 @@
+:root {
+    --dark: #333333;
+    --light: #d3d3d3;
+    --hover: #dddbdb;
+}
+
+body{
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Sawarabi Mincho', serif;
+}
+
+h1{
+    padding-left: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.menu{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+}
+
+.link:hover{
+    background-color: var(--hover);
+}
+
+.link{
+    border-top: solid 1px var(--dark);
+    border-bottom: solid 1px var(--dark);
+    padding: 10px;
+}
+
+li{
+    list-style-type: square;
+}
+
+@media screen and (max-width: 850px){
+    .menu{
+        position: relative;
+        flex-direction: column;
+        right: 0;
+        top: 0;
+    }
+}

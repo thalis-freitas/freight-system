@@ -1,0 +1,9 @@
+<h2>Modalidades de Transporte</h2>
+
+<% if @modes_of_transport.any? %>
+  <% @modes_of_transport.each do |mt| %>
+    <h3><li><%= mt.name %></li></h3>
+  <% end %>
+<% else %>
+  <p>Nenhuma Modalidade de Transporte cadastrada</p>
+<% end %>

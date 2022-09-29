@@ -1,7 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+ModeOfTransport.destroy_all
+ModeOfTransport.create!(name:'Express', minimum_distance: 50, maximum_distance: 500, 
+                        minimum_weight: 200, maximum_weight: 30000, flat_rate: 10)
+ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 1000, 
+                        minimum_weight: 50, maximum_weight: 50000, flat_rate: 15)
