@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
-    <title>FreightSystem</title>
+    <title>Sistema de Frete</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,13 +12,18 @@
   </head>
 
   <body>
-    <%= link_to root_path do %>
-      <h1>Sistema de Frete</h1>
-    <% end %>
-    <nav class="menu">
-      <%= link_to 'Modalidades de Transporte', modes_of_transport_index_path, class: 'link'%>
-    </nav>
-    <%= yield %>
-
+    <header>
+      <%= link_to root_path do %>
+        <h1>Sistema de Frete</h1>
+      <% end %>
+      <nav class="menu">
+        <%= link_to 'Modalidades de Transporte', mode_of_transports_path, class: 'link' %>
+      </nav>
+    </header>
+    <main>
+      <p class='notice'><%= flash.notice %></p>
+      <p class='alert'><%= flash.alert%></p>
+      <%= yield %>
+    </main>
   </body>
 </html>

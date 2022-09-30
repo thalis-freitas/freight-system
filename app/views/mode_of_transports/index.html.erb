@@ -1,0 +1,16 @@
+<h2><%= ModeOfTransport.model_name.human %></h2>
+<%= link_to 'Cadastrar Modalidade de Transporte', new_mode_of_transport_path, class:'new' %>
+<% if @mode_of_transports.any? %>
+  <% @mode_of_transports.each do |mt| %>
+    <h3><%= mt.name %></h3>
+    <ul>
+      <li><%="Distância mínima: #{mt.minimum_distance}km"%></li>
+      <li><%="Distância máxima: #{mt.maximum_distance}km"%></li>
+      <li><%="Peso mínimo: #{mt.minimum_weight}kg"%></li>
+      <li><%="Peso máximo: #{mt.maximum_weight}kg"%></li>
+      <li><%="Taxa fixa: R$#{mt.flat_rate},00"%></li>
+    </ul>
+  <% end %>
+<% else %>
+  <p>Nenhuma Modalidade de Transporte cadastrada</p>
+<% end %>

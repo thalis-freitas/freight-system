@@ -1,11 +1,23 @@
 :root {
     --dark: #333333;
-    --light: #d3d3d3;
+    --ligth: #d3d3d3;
     --hover: #dddbdb;
 }
 
+.alert{
+    color: #d30001;
+}
+
+.notice{
+    color: #008a2b;
+}
+
+.errors{
+    border: 1px solid #d30001;
+}
+
 body{
-    background-color: var(--light);
+    background-color: var(--ligth);
     color: var(--dark);
     font-family: 'Sawarabi Mincho', serif;
 }
@@ -24,6 +36,7 @@ a{
     top: 20px;
     right: 20px;
     display: flex;
+    background-color: var(--ligth);
 }
 
 .link:hover{
@@ -40,11 +53,56 @@ li{
     list-style-type: square;
 }
 
+.new{
+    border: 1px solid;
+    padding: 8px;
+    background-color: var(--dark);
+    color: var(--ligth);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.new:hover{
+    background-color: var(--ligth);
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.form{
+    padding: 15px;
+    filter: blur(5px 5px 10px);
+    width: 500px;
+    max-width: 80%;
+}
+
+label{
+    display: block;
+    padding-left: 5px;
+}
+
+input{
+    padding: 5px;
+    margin: 3px;
+    width: 400px;
+    max-width: 80%;
+}
+
+input[type='submit']{
+    width: 80px;
+}
+
 @media screen and (max-width: 850px){
     .menu{
         position: relative;
         flex-direction: column;
         right: 0;
         top: 0;
+    }
+}
+
+@media screen and (max-width: 330px){
+    .new{
+       padding: 5px;
+       font-size: 5vw;
     }
 }

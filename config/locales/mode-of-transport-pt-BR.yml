@@ -1,12 +1,12 @@
-pr-BR:
+pt-BR:
   activerecord:
     models:
       mode_of_transport: Modalidade de Transporte
     attributes:
       mode_of_transport:
         name: 'Nome'
-        minimum_distance: 'Distância máxima'
-        maximum_distance: 'Distância mínima'
+        minimum_distance: 'Distância mínima'
+        maximum_distance: 'Distância máxima'
         minimum_weight: 'Peso mínimo'
         maximum_weight: 'Peso máximo'
         flat_rate: 'Taxa fixa'

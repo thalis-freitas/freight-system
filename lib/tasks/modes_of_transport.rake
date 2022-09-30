@@ -1,6 +1,6 @@
 namespace :modes_of_transport do
   desc "Popular a tabela modalidades de transporte"
-  if Rails.env.development? || Rails.env.test?
+  if Rails.env.development?
     task set_modes_of_transport: :environment do
       ModeOfTransport.create!(name:'Express', minimum_distance: 50, maximum_distance: 500, 
                               minimum_weight: 200, maximum_weight: 30000, flat_rate: 10)
