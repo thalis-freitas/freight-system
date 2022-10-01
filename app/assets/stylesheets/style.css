@@ -1,7 +1,16 @@
 :root {
     --dark: #333333;
     --ligth: #d3d3d3;
-    --hover: #dddbdb;
+}
+
+.dark{
+    background-color: var(--dark);
+    color: var(--ligth);
+}
+
+.ligth{
+    background-color: var(--ligth);
+    color: var(--dark);
 }
 
 .alert{
@@ -12,13 +21,11 @@
     color: #008a2b;
 }
 
-.errors{
-    border: 1px solid #d30001;
+.text-center{
+    text-align: center;
 }
 
 body{
-    background-color: var(--ligth);
-    color: var(--dark);
     font-family: 'Sawarabi Mincho', serif;
 }
 
@@ -35,12 +42,22 @@ a{
     position: fixed;
     top: 20px;
     right: 20px;
-    display: flex;
-    background-color: var(--ligth);
 }
 
-.link:hover{
-    background-color: var(--hover);
+.container{
+    position: relative;
+    top: 30px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    border: 1px solid #c7c4c4;
+}
+
+.contents{
+    border: 1px solid #c7c4c4;
+}
+
+.contents:hover{
+    background-color: #ccc9c9;
 }
 
 .link{
@@ -49,29 +66,31 @@ a{
     padding: 10px;
 }
 
+.link:hover{
+    background-color: #ccc9c9;
+}
+
 li{
     list-style-type: square;
 }
 
-.new{
+.btn{
     border: 1px solid;
     padding: 8px;
-    background-color: var(--dark);
-    color: var(--ligth);
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.new:hover{
-    background-color: var(--ligth);
+.btn:hover{
     color: var(--dark);
     font-weight: 700;
+    background-color: var(--ligth);
 }
 
 .form{
+    position: relative;
     padding: 15px;
-    filter: blur(5px 5px 10px);
-    width: 500px;
+    width: 400px;
     max-width: 80%;
 }
 
@@ -83,25 +102,43 @@ label{
 input{
     padding: 5px;
     margin: 3px;
-    width: 400px;
-    max-width: 80%;
+    width: 100%;
 }
 
 input[type='submit']{
-    width: 80px;
+    margin-top: 10px;
+    width: 100px;
+    position: absolute;
+    right: -5px;
+}
+
+@media screen and (max-width: 1100px){
+    .container{
+        grid-template-columns: auto auto auto;
+    }
 }
 
 @media screen and (max-width: 850px){
     .menu{
+        display: flex;
         position: relative;
         flex-direction: column;
         right: 0;
         top: 0;
     }
+    .container{
+        grid-template-columns: auto auto;
+    }
+}
+
+@media screen and (max-width: 550px){
+    .container{
+        grid-template-columns: auto;
+    }
 }
 
 @media screen and (max-width: 330px){
-    .new{
+    .btn{
        padding: 5px;
        font-size: 5vw;
     }

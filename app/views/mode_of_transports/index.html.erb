@@ -1,16 +1,22 @@
-<h2><%= ModeOfTransport.model_name.human %></h2>
-<%= link_to 'Cadastrar Modalidade de Transporte', new_mode_of_transport_path, class:'new' %>
+<h2><%= ModeOfTransport.model_name.human(count: 2) %></h2>
+<%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn dark btn:hover' %>
 <% if @mode_of_transports.any? %>
-  <% @mode_of_transports.each do |mt| %>
-    <h3><%= mt.name %></h3>
-    <ul>
-      <li><%="Distância mínima: #{mt.minimum_distance}km"%></li>
-      <li><%="Distância máxima: #{mt.maximum_distance}km"%></li>
-      <li><%="Peso mínimo: #{mt.minimum_weight}kg"%></li>
-      <li><%="Peso máximo: #{mt.maximum_weight}kg"%></li>
-      <li><%="Taxa fixa: R$#{mt.flat_rate},00"%></li>
-    </ul>
-  <% end %>
+  <div class="container">
+    <% @mode_of_transports.each do |mt| %>
+      <%= link_to mode_of_transport_path(mt) do %>
+        <div class= "contents">
+          <h3 class= "text-center"><%= mt.name %></h3>
+          <ul>
+            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_distance)}: #{mt.minimum_distance}km"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mt.maximum_distance}km"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mt.minimum_weight}kg"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mt.maximum_weight}kg"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate)}"%></li>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% else %>
-  <p>Nenhuma Modalidade de Transporte cadastrada</p>
+  <p><%=" #{t :none} #{ModeOfTransport.model_name.human} #{t :registered}" %></p>
 <% end %>

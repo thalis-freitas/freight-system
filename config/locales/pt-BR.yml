@@ -1,0 +1,15 @@
+pt-BR:
+  check_the_errors:
+    one: 'Por favor verifique o erro abaixo'
+    other: 'Por favor verifique os erros abaixo'
+  freight_system: 'Sistema de Frete'
+  successfully: 'com sucesso'
+  could_not_register: 'Não foi possível cadastrar a'
+  unable_to_update: 'Não foi possível atualizar a'
+  save: 'Salvar'
+  none: 'Nenhuma'
+  register: 'Cadastrar'
+  registered: 'cadastrada'
+  edit: 'Editar'
+  updated: 'atualizada'
+  no_modification_found: 'Nenhuma modificação encontrada'

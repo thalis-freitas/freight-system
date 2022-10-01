@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      mode_of_transport: Modalidade de Transporte
+      mode_of_transport: 
+        one: Modalidade de Transporte
+        other: Modalidades de Transporte
     attributes:
       mode_of_transport:
         name: 'Nome'

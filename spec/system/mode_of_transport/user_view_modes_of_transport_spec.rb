@@ -17,13 +17,13 @@ describe 'Usuário vê modalidades de transporte' do
     expect(page).to have_content 'Distância máxima: 2000km'
     expect(page).to have_content 'Peso mínimo: 0kg'
     expect(page).to have_content 'Peso máximo: 200kg'
-    expect(page).to have_content 'Taxa fixa: R$15,00'
+    expect(page).to have_content 'Taxa fixa: R$ 15,00'
     expect(page).to have_content 'Econômica'
     expect(page).to have_content 'Distância mínima: 100km'
     expect(page).to have_content 'Distância máxima: 4000km'
     expect(page).to have_content 'Peso mínimo: 20kg'
     expect(page).to have_content 'Peso máximo: 500kg'
-    expect(page).to have_content 'Taxa fixa: R$5,00'
+    expect(page).to have_content 'Taxa fixa: R$ 5,00'
   end
 
   it 'e não existem modalidades de transporte cadastradas' do

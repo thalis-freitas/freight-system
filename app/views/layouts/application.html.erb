@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <title>Sistema de Frete</title>
+    <title><%= t :freight_system %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,13 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
   </head>
 
-  <body>
+  <body class="ligth">
     <header>
       <%= link_to root_path do %>
-        <h1>Sistema de Frete</h1>
+        <h1><%= t :freight_system %></h1>
       <% end %>
       <nav class="menu">
-        <%= link_to 'Modalidades de Transporte', mode_of_transports_path, class: 'link' %>
+        <%= link_to ModeOfTransport.model_name.human(count: 2), mode_of_transports_path, class: 'link' %>
       </nav>
     </header>
     <main>

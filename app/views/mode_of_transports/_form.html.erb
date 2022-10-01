@@ -1,5 +1,5 @@
 <% if @mode_of_transport.errors.any? %>
-  <p class='alert'><b>Por favor verifique os erros abaixo:</b></p>
+  <p class='alert'><b> <%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b></p>
   <ul>
     <% @mode_of_transport.errors.full_messages.each do |msg| %>
       <li class="alert"><%= msg %></li>
@@ -35,7 +35,7 @@
       <%= f.number_field :flat_rate %>
     </div>
     <div>
-      <%= f.submit 'Salvar', class: 'new' %>
+      <%= f.submit t(:save), class: 'btn dark' %>
     </div>
   <% end %>
 </div>

@@ -9,5 +9,6 @@
 <li><b><%= ModeOfTransport.human_attribute_name(:maximum_weight) %>:</b>
 <%=@mode_of_transport.maximum_weight %>kg</li>
 <li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
-<%= "R$#{@mode_of_transport.flat_rate},00" %></li>
+<%= number_to_currency(@mode_of_transport.flat_rate) %></li>
 </ul>
+<p><%= link_to "#{t :edit} #{ModeOfTransport.model_name.human}", edit_mode_of_transport_path, class:'btn dark btn:hover' %></p>
