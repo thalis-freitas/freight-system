@@ -17,7 +17,13 @@
         <h1><%= t :freight_system %></h1>
       <% end %>
       <nav class="menu">
-        <%= link_to ModeOfTransport.model_name.human(count: 2), mode_of_transports_path, class: 'link' %>
+        <% if user_signed_in? %>
+          <%= link_to ModeOfTransport.model_name.human(count: 2), mode_of_transports_path, class: 'link' %>
+          <span class='link'><%= current_user.name %></span>
+          <%= button_to t(:logout), destroy_user_session_path, method: :delete, class: 'link hover-sub' %>
+        <% else %>
+          <%= link_to t(:login), new_user_session_path, class: 'link hover-sub' %>
+        <% end %>
       </nav>
     </header>
     <main>

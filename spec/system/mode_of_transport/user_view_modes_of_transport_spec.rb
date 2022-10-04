@@ -1,12 +1,25 @@
 require 'rails_helper'
 
 describe 'Usuário vê modalidades de transporte' do
+  it 'se estiver autenticado' do 
+    visit root_path
+    expect(page).not_to have_content 'Modalidades de Transporte'
+  end
+
+  it 'a partir da da url se estiver autenticado' do 
+    visit mode_of_transports_path
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se'
+  end
+
   it 'a partir do menu' do 
+    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                             minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
     ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
                             minimum_weight: 20, maximum_weight: 500, flat_rate: 5)
-
+    login_as(user)
     visit root_path
     within('.menu') do 
       click_link 'Modalidades de Transporte'
@@ -27,15 +40,17 @@ describe 'Usuário vê modalidades de transporte' do
   end
 
   it 'e não existem modalidades de transporte cadastradas' do
+    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+    login_as(user)
     visit mode_of_transports_path
-
     expect(page).to have_content 'Nenhuma Modalidade de Transporte cadastrada'
   end
 
   it 'e volta para a página inicial' do
+    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+    login_as(user)
     visit mode_of_transports_path
     click_link 'Sistema de Frete'
-    
     expect(current_path).to eq root_path
   end
 end

@@ -1,6 +1,8 @@
 class ModeOfTransportsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_mode_of_transport, only:[:show, :edit, :update]
   before_action :mode_of_transport_params, only:[:create, :update]
+  before_action :admins_only, only:[:new, :edit]
 
   def index
     @mode_of_transports = ModeOfTransport.all
@@ -48,5 +50,11 @@ class ModeOfTransportsController < ApplicationController
     params.require(:mode_of_transport).permit(:name, :minimum_distance,
                                               :maximum_distance, :minimum_weight,
                                               :maximum_weight, :flat_rate)
+  end
+
+  def admins_only
+    unless current_user.role == 'admin'
+      return redirect_to root_path, alert: t(:unauthorized_access)
+    end
   end
 end

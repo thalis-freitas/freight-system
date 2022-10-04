@@ -48,18 +48,50 @@ RSpec.describe ModeOfTransport, type: :model do
 
     context 'comparison' do
       it 'distância máxima deve ser maior que 0' do
-        mode_of_transport = ModeOfTransport.new(maximum_distance: 0)
+        mode_of_transport = ModeOfTransport.new(maximum_distance: '0')
         mode_of_transport.valid?
         expect(mode_of_transport.errors.include? :maximum_distance).to be true
         expect(mode_of_transport.errors[:maximum_distance]).to include 'deve ser maior que 0'
       end
 
       it 'peso máximo deve ser maior que 0' do
-        mode_of_transport = ModeOfTransport.new(maximum_weight: 0)
+        mode_of_transport = ModeOfTransport.new(maximum_weight: '0')
         mode_of_transport.valid?
         expect(mode_of_transport.errors.include? :maximum_weight).to be true
         expect(mode_of_transport.errors[:maximum_weight]).to include 'deve ser maior que 0'
       end
+
+      it 'distância mínima deve ser maior ou igual a 0' do 
+        mode_of_transport = ModeOfTransport.new(minimum_distance: '-2')
+        mode_of_transport.valid?
+        expect(mode_of_transport.errors.include? :minimum_distance).to be true
+        expect(mode_of_transport.errors[:minimum_distance]).to include 'deve ser maior ou igual a 0'
+      end
+
+      it 'peso mínimo deve ser maior ou igual a 0' do 
+        mode_of_transport = ModeOfTransport.new(minimum_weight: '-10')
+        mode_of_transport.valid?
+        expect(mode_of_transport.errors.include? :minimum_weight).to be true
+        expect(mode_of_transport.errors[:minimum_weight]).to include 'deve ser maior ou igual a 0'
+      end
+
+      it 'taxa fixa deve ser maior ou igual a 0' do 
+        mode_of_transport = ModeOfTransport.new(flat_rate: '-10')
+        mode_of_transport.valid?
+        expect(mode_of_transport.errors.include? :flat_rate).to be true
+        expect(mode_of_transport.errors[:flat_rate]).to include 'deve ser maior ou igual a 0'
+      end
+    end
+  end
+  describe '#==(other)' do
+    it 'retorna true se os atributos forem iguais' do
+      mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+      second_mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                         minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+    
+      result = true if mode_of_transport == second_mode_of_transport  
+      expect(result).to eq true
     end
   end
 end

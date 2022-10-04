@@ -1,4 +1,6 @@
 ModeOfTransport.destroy_all
+User.destroy_all
+
 ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                         minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
 ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
@@ -15,4 +17,12 @@ ModeOfTransport.create!(name:'Rota 10', minimum_distance: 50, maximum_distance: 
                         minimum_weight: 0, maximum_weight: 2900, flat_rate: 5)                       
 ModeOfTransport.create!(name:'Envios e Cargas MTR', minimum_distance: 60, maximum_distance: 700, 
                         minimum_weight: 1, maximum_weight: 400, flat_rate: 7)     
+
+User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
+User.create!(name: 'Marcelo Costa', email: 'marcelo@sistemadefrete.com.br', password: 'pass1234')
+User.create!(name: 'Janete de Jesus', email: 'janete@sistemadefrete.com.br', password: 'pass1234')
+User.create!(name: 'Lara Machado', email: 'lara@sistemadefrete.com.br', password: 'pass1234', role: 'admin')
+User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
+User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
                                                

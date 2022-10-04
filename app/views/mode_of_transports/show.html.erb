@@ -11,4 +11,7 @@
 <li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
 <%= number_to_currency(@mode_of_transport.flat_rate) %></li>
 </ul>
-<p><%= link_to "#{t :edit} #{ModeOfTransport.model_name.human}", edit_mode_of_transport_path, class:'btn dark btn:hover' %></p>
+
+<% if current_user.role == 'admin' %>
+  <p><%= link_to "#{t :edit} #{ModeOfTransport.model_name.human}", edit_mode_of_transport_path, class:'btn dark btn:hover' %></p>
+<% end %>

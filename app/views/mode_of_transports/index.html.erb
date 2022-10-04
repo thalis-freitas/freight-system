@@ -1,7 +1,9 @@
 <h2><%= ModeOfTransport.model_name.human(count: 2) %></h2>
-<%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn dark btn:hover' %>
+<% if current_user.role == 'admin' %>
+  <%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn dark btn:hover' %>
+<% end %>
 <% if @mode_of_transports.any? %>
-  <div class="container">
+  <div class="container relative">
     <% @mode_of_transports.each do |mt| %>
       <%= link_to mode_of_transport_path(mt) do %>
         <div class= "contents">

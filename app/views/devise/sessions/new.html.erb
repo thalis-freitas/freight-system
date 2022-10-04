@@ -1,0 +1,26 @@
+<h2><%= t(:login) %></h2>
+<div class='form'>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div>
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class='relative div-check'>
+        <span class="check"><%= f.check_box :remember_me %></span>
+        <span class="label-check"><%= f.label :remember_me %></span>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit t(:login), class: 'btn dark' %>
+    </div>
+  <% end %>
+</div>
+<%= render "devise/shared/links" %>

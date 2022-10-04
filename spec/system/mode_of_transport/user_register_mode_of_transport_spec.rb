@@ -1,7 +1,31 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra modalidade de transporte' do
+  it 'se estiver autenticado' do 
+    visit new_mode_of_transport_path
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se'
+  end
+
+  it 'se for admin' do 
+    user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
+    login_as user
+    visit mode_of_transports_path
+    expect(page).not_to have_link 'Cadastrar Modalidade de Transporte'
+  end
+
+  it 'a partir da da url se for admin' do 
+    user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
+    login_as user 
+    visit new_mode_of_transport_path
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Acesso não autorizado'
+  end
+
   it 'a partir do menu' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    
+    login_as admin
     visit root_path
     within('.menu') do 
       click_link 'Modalidades de Transporte'
@@ -20,6 +44,9 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
   
   it 'com sucesso' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    
+    login_as admin
     visit new_mode_of_transport_path
     fill_in 'Nome', with: 'Express'
     fill_in 'Distância mínima', with: '20'
@@ -38,7 +65,10 @@ describe 'Usuário cadastra modalidade de transporte' do
     expect(page).to have_content 'Taxa fixa: R$ 15,00'
   end
 
-  it 'com dados incompletos' do 
+  it 'com dados incompletos' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    
+    login_as admin
     visit new_mode_of_transport_path
     fill_in 'Nome', with: ''
     fill_in 'Distância mínima', with: ''
@@ -57,6 +87,9 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
 
   it 'com dados inválidos' do 
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    
+    login_as admin
     visit new_mode_of_transport_path
     fill_in 'Nome', with: ''
     fill_in 'Distância mínima', with: '-1'
