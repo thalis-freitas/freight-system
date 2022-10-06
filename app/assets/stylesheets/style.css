@@ -1,60 +1,7 @@
-:root {
-    --dark: #333333;
-    --ligth: #d3d3d3;
-}
-
-.dark{
-    background-color: var(--dark);
-    color: var(--ligth);
-}
-
-.ligth{
-    background-color: var(--ligth);
-    color: var(--dark);
-}
-
-.alert{
-    color: #d30001;
-}
-
-.notice{
-    color: #008a2b;
-}
-
-.text-center{
-    text-align: center;
-}
-
-body{
-    font-family: 'Sawarabi Mincho', serif;
-}
-
-h1{
-    padding-left: 10px;
-}
-
-a{
-    text-decoration: none;
-    color: var(--dark);
-}
-
-.menu{
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    margin: 0;
-    display: flex;
-}
-
-.relative{
-    position: relative;
-}
-
-.container{
+.container_list{
     top: 30px;
     display: grid;
     grid-template-columns: auto auto auto auto;
-    border: 1px solid #c7c4c4;
 }
 
 .contents{
@@ -65,119 +12,14 @@ a{
     background-color: #ccc9c9;
 }
 
-.link{
-    padding: 10px;
-    border: solid 1px #c7c4c4;
-}
-
-.link:hover{
-    background-color: #c7c4c4;
-}
-
-.hover-sub:hover{
-    text-decoration: underline;
-}
-
-li{
-    list-style-type: square;
-}
-
-.btn{
-    border: 1px solid;
-    padding: 8px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.btn:hover{
-    color: var(--dark);
-    font-weight: 700;
-    background-color: var(--ligth);
-}
-
-.form{
-    position: relative;
-    padding: 15px;
-    width: 400px;
-    max-width: 80%;
-}
-
-.check, .label-check{
-    position: absolute;
-    cursor: pointer;
-}
-
-.label-check{
-    left: 20px;
-}
-
-.div-check{
-    margin-bottom: 25px;
-}
-
-button{
-    background-color: var(--ligth);
-    cursor: pointer;
-    height: 100%;
-    font-family: 'Sawarabi Mincho', serif;
-    font-size: medium;
-    color: var(--dark);
-    text-align: left;
-}
-
-label{
-    padding-left: 5px;
-}
-
-input{
-    padding: 5px;
-    margin: 3px;
-    width: 100%;
-}
-
-input[type='submit']{
-    margin-top: 10px;
-    width: 100px;
-    position: absolute;
-    right: -5px;
-}
-
 @media screen and (max-width: 1100px){
-    .container{
-        grid-template-columns: auto auto auto;
-    }
-}
-
-@media screen and (max-width: 850px){
-    .menu{
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        right: 0;
-        top: 0;
-        padding: 0;
-    }
-    .container{
+    .container_list{
         grid-template-columns: auto auto;
-    }
-    .link{
-        border: solid 1px #c7c4c4;
-        margin: 0;
-    }
-    button{
-        width: 100%;
     }
 }
 
 @media screen and (max-width: 550px){
-    .container{
+    .container_list{
         grid-template-columns: auto;
-    }
-}
-
-@media screen and (max-width: 330px){
-    .btn{
-       padding: 5px;
-       font-size: 5vw;
     }
 }

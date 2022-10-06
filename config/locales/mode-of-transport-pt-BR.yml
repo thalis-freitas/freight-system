@@ -1,4 +1,11 @@
 pt-BR:
+  activate: 'Ativar'
+  disable: 'Desativar'
+  disabled: 'desativada'
+  activated: 'ativada'
+  inactive: 
+    one: 'Inativa'
+    other: 'Inativas'
   activerecord:
     models:
       mode_of_transport: 

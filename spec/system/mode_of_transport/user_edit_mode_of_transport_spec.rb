@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário edita uma modalidade de transporte' do 
   it 'se estiver autenticado' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     visit edit_mode_of_transport_path(mode_of_transport)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
@@ -11,7 +11,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
@@ -20,7 +20,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'a partir da da url se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user 
     visit edit_mode_of_transport_path(mode_of_transport)
@@ -31,11 +31,11 @@ describe 'Usuário edita uma modalidade de transporte' do
   it 'a partir do menu' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     
     login_as admin                         
     visit root_path
-    within('.menu') do 
+    within('nav') do 
       click_link 'Modalidades de Transporte'
     end
     click_link 'Express'
@@ -53,7 +53,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'com sucesso' do
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
     
     login_as admin  
@@ -80,7 +80,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'e deixa campos obrigatórios em branco' do
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
     
     login_as admin  
@@ -108,7 +108,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'com dados inválidos' do
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
     
     login_as admin  
@@ -132,7 +132,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'sem modificar os campos' do
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'active')
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
     
     login_as admin  

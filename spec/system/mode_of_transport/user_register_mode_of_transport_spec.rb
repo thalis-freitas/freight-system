@@ -27,7 +27,7 @@ describe 'Usuário cadastra modalidade de transporte' do
     
     login_as admin
     visit root_path
-    within('.menu') do 
+    within('nav') do 
       click_link 'Modalidades de Transporte'
     end
     click_link 'Cadastrar Modalidade de Transporte'

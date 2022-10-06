@@ -1,6 +1,6 @@
 class ModeOfTransportsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_mode_of_transport, only:[:show, :edit, :update]
+  before_action :set_mode_of_transport, only:[:show, :edit, :update, :inactive, :active]
   before_action :mode_of_transport_params, only:[:create, :update]
   before_action :admins_only, only:[:new, :edit]
 
@@ -38,6 +38,16 @@ class ModeOfTransportsController < ApplicationController
         render :new
       end
     end
+  end
+
+  def active
+    @mode_of_transport.active!
+    redirect_to @mode_of_transport, notice: "#{ModeOfTransport.model_name.human(count: 1)} #{t(:activated)} #{t(:successfully)}"
+  end
+
+  def inactive
+    @mode_of_transport.inactive!
+    redirect_to @mode_of_transport, notice: "#{ModeOfTransport.model_name.human(count: 1)} #{t(:disabled)} #{t(:successfully)}"
   end
 
   private

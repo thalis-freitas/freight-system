@@ -1,10 +1,10 @@
 <% if @mode_of_transport.errors.any? %>
-  <p class='alert'><b> <%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b></p>
-  <ul>
+    <div class="alert alert-danger container" role="alert">
+      <b> <%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b>
     <% @mode_of_transport.errors.full_messages.each do |msg| %>
-      <li class="alert"><%= msg %></li>
+      <div> - <%= msg %></div>
     <% end %>
-  </ul>
+    </div>
 <% end %>
 </div>
 
@@ -35,7 +35,7 @@
       <%= f.number_field :flat_rate %>
     </div>
     <div>
-      <%= f.submit t(:save), class: 'btn dark' %>
+      <%= f.submit t(:save), class: 'btn btn-primary' %>
     </div>
   <% end %>
 </div>

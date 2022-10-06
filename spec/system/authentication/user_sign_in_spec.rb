@@ -5,11 +5,11 @@ describe 'Usuário faz autenticação' do
     User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
 
     visit root_path
-    within('.menu') do
+    within('nav') do
       click_link 'Entrar'
     end
     expect(current_path).to eq new_user_session_path
-    within('form') do
+    within('.form') do
       fill_in 'E-mail', with: 'daiane_silva@sistemadefrete.com.br'
       fill_in 'Senha', with: 'senha123'
       click_button 'Entrar'
@@ -29,10 +29,10 @@ describe 'Usuário faz autenticação' do
     visit new_user_session_path
     fill_in 'E-mail', with: 'daiane_silva@sistemadefrete.com.br'
     fill_in 'Senha', with: 'senha123'
-    within('form') do 
+    within('.form') do 
       click_on 'Entrar'
     end
-    click_on 'Sair'
+    click_button 'Sair'
 
     expect(page).to have_content 'Logout efetuado com sucesso'
     expect(page).to have_link 'Entrar'
@@ -42,7 +42,7 @@ describe 'Usuário faz autenticação' do
 
   it 'com dados inválidos' do
     visit new_user_session_path
-    within('form') do
+    within('.form') do
       fill_in 'E-mail', with: ''
       click_on 'Entrar'
     end
