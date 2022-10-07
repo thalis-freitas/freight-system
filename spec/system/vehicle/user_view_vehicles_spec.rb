@@ -41,5 +41,13 @@ describe 'Usuário vê veículos' do
     login_as user
     visit vehicles_path
     expect(page).to have_content 'Nenhum veículo cadastrado'
+  end  
+  
+  it 'e volta para a página inicial' do
+    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+    login_as user 
+    visit vehicles_path
+    click_link 'Sistema de Frete'
+    expect(current_path).to eq root_path
   end
 end

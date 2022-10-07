@@ -34,5 +34,4 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include 'inválido'
     end
   end
-  
 end

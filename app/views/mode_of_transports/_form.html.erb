@@ -1,41 +1,53 @@
 <% if @mode_of_transport.errors.any? %>
-    <div class="alert alert-danger container" role="alert">
-      <b> <%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b>
+  <div class="alert alert-warning container" role="alert">
+      <b><%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b>
     <% @mode_of_transport.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %></div>
+      <div> - <%= msg %>
+      </div>
     <% end %>
-    </div>
+  </div>
 <% end %>
-</div>
 
-<div class='relative form'>
+<div class='form container'>
   <%= form_with model: @mode_of_transport do |f| %>
-    <div>
-      <%= f.label :name %>
-      <%= f.text_field :name, autofocus: true %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :name, class:'form-label' %>
+        <%= f.text_field :name, autofocus: true, class:'form-control' %>
+      </div>
     </div>
-    <div>
-      <%= f.label :minimum_distance %>
-      <%= f.number_field :minimum_distance %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :minimum_distance, class:'form-label' %>
+        <%= f.number_field :minimum_distance, class:'form-control' %>
+      </div>
     </div>
-    <div>
-      <%= f.label :maximum_distance %>
-      <%= f.number_field :maximum_distance %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :maximum_distance, class:'form-label' %>
+        <%= f.number_field :maximum_distance, class:'form-control' %>
+      </div>
     </div>
-    <div>
-      <%= f.label :minimum_weight %>
-      <%= f.number_field :minimum_weight  %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :minimum_weight, class:'form-label' %>
+        <%= f.number_field :minimum_weight, class:'form-control' %>
     </div>
-    <div>
-      <%= f.label :maximum_weight %>
-      <%= f.number_field :maximum_weight %>
     </div>
-    <div>
-      <%= f.label :flat_rate %>
-      <%= f.number_field :flat_rate %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :maximum_weight, class:'form-label' %>
+        <%= f.number_field :maximum_weight, class:'form-control' %>
+      </div>      
     </div>
-    <div>
-      <%= f.submit t(:save), class: 'btn btn-primary' %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :flat_rate, class:'form-label' %>
+        <%= f.number_field :flat_rate, class:'form-control' %>
+      </div>      
+    </div>
+    <div class="mb-2 ">
+      <%= f.submit t(:save), class: 'btn btn-primary mt-2' %>
     </div>
   <% end %>
 </div>

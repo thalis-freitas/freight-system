@@ -91,7 +91,6 @@ describe 'Usuário cadastra modalidade de transporte' do
     
     login_as admin
     visit new_mode_of_transport_path
-    fill_in 'Nome', with: ''
     fill_in 'Distância mínima', with: '-1'
     fill_in 'Distância máxima', with: '0'
     fill_in 'Peso mínimo', with: '-2'

@@ -1,0 +1,15 @@
+<h2><%= @vehicle.model %></h2>
+<ul>
+<li><b><%= Vehicle.human_attribute_name(:brand) %>:</b>
+<%=@vehicle.brand %></li>
+<li><b><%= Vehicle.human_attribute_name(:year_of_manufacture) %>:</b>
+<%=@vehicle.year_of_manufacture %></li>
+<li><b><%= Vehicle.human_attribute_name(:maximum_capacity) %>:</b>
+<%=@vehicle.maximum_capacity %>kg</li>
+<li><b><%= Vehicle.human_attribute_name(:nameplate) %>:</b>
+<%=@vehicle.nameplate.upcase %></li>
+</ul>
+
+<% if current_user.admin? %>
+  <%= link_to "#{t :edit} #{Vehicle.model_name.human}", edit_vehicle_path, class:'btn btn-primary' %>
+<% end %>

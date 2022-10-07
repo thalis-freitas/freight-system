@@ -2,7 +2,7 @@ class ModeOfTransportsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_mode_of_transport, only:[:show, :edit, :update, :inactive, :active]
   before_action :mode_of_transport_params, only:[:create, :update]
-  before_action :admins_only, only:[:new, :edit]
+  before_action :admins_only, only:[:new, :create, :edit, :update, :active, :inactive]
 
   def index
     @mode_of_transports = ModeOfTransport.all
@@ -17,7 +17,7 @@ class ModeOfTransportsController < ApplicationController
     if @mode_of_transport.save
       redirect_to @mode_of_transport, notice: "#{ModeOfTransport.model_name.human} #{t(:successfully_registered)}"
     else
-      flash.now[:alert] = "#{t(:could_not_register)} #{ModeOfTransport.model_name.human}"
+      flash.now[:alert] = "#{t(:could_not_register)} a #{ModeOfTransport.model_name.human}"
       render :new
     end
   end
@@ -30,13 +30,11 @@ class ModeOfTransportsController < ApplicationController
     if @mode_of_transport == mode_of_transport_params
       flash.now[:alert] = "#{t(:no_modification_found)}"
       render :new
+    elsif @mode_of_transport.update(mode_of_transport_params)
+      redirect_to mode_of_transport_path(@mode_of_transport), notice: "#{ModeOfTransport.model_name.human} #{t :successfully_updated}"
     else
-      if @mode_of_transport.update(mode_of_transport_params)
-        redirect_to mode_of_transport_path(@mode_of_transport), notice: "#{ModeOfTransport.model_name.human} #{t :updated} #{t :successfully}"
-      else
-        flash.now[:alert] = "#{t(:unable_to_update)} #{ModeOfTransport.model_name.human}"
-        render :new
-      end
+      flash.now[:alert] = "#{t(:unable_to_update)} a #{ModeOfTransport.model_name.human}"
+      render :new
     end
   end
 
