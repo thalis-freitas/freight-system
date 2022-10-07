@@ -1,0 +1,18 @@
+<h2><%= Vehicle.model_name.human(count: 2) %></h2>
+<% if @vehicles.any? %>
+  <div class="container_list">
+    <% @vehicles.each do |vehicle| %>
+      <div class="contents">
+        <ul>
+          <h4 class= "mt-2"><%= vehicle.model %></h4>
+          <li><%="#{Vehicle.human_attribute_name(:brand)}: #{vehicle.brand}"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:year_of_manufacture)}: #{vehicle.year_of_manufacture}"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:maximum_capacity)}: #{vehicle.maximum_capacity}kg"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:nameplate)}: #{vehicle.nameplate}"%></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase!} #{t :registered}" %></p>
+<% end %>

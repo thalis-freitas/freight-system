@@ -23,7 +23,7 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
 
   it 'a partir do menu' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin
     visit root_path
@@ -44,7 +44,7 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
   
   it 'com sucesso' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin
     visit new_mode_of_transport_path
@@ -66,7 +66,7 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
 
   it 'com dados incompletos' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin
     visit new_mode_of_transport_path
@@ -87,7 +87,7 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
 
   it 'com dados inválidos' do 
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: 'admin')
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin
     visit new_mode_of_transport_path

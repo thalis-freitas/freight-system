@@ -21,12 +21,15 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <% if user_signed_in?%>
               <li class="nav-item">
-                <% if user_signed_in?%>
                 <a class="nav-link" href=<%= mode_of_transports_path %>><%= ModeOfTransport.model_name.human(count: 2) %></a>
-                <li class="nav-item">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href=<%= vehicles_path %>><%= Vehicle.model_name.human(count: 2) %></a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link disabled"><%= current_user.name %></a>
-                </li>
               </li>
             </ul>
             <%= button_to t(:logout), destroy_user_session_path, method: :delete , class: "btn btn-outline-primary"%>

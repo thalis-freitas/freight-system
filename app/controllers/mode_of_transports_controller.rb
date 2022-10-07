@@ -15,7 +15,7 @@ class ModeOfTransportsController < ApplicationController
   def create
     @mode_of_transport = ModeOfTransport.new(mode_of_transport_params)
     if @mode_of_transport.save
-      redirect_to @mode_of_transport, notice: "#{ModeOfTransport.model_name.human} #{t :registered} #{t :successfully}"
+      redirect_to @mode_of_transport, notice: "#{ModeOfTransport.model_name.human} #{t(:successfully_registered)}"
     else
       flash.now[:alert] = "#{t(:could_not_register)} #{ModeOfTransport.model_name.human}"
       render :new
@@ -63,7 +63,7 @@ class ModeOfTransportsController < ApplicationController
   end
 
   def admins_only
-    unless current_user.role == 'admin'
+    unless current_user.admin?
       return redirect_to root_path, alert: t(:unauthorized_access)
     end
   end

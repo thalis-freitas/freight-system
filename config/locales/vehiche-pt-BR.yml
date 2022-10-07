@@ -1,0 +1,15 @@
+pt-BR:
+  none: 'Nenhum'
+  registered: 'cadastrado'
+  activerecord:
+    models:
+      vehicle: 
+        one: Veículo
+        other: Veículos
+    attributes:
+      vehicle:
+        nameplate: 'Placa de identificação' 
+        brand: 'Marca' 
+        model: 'Modelo'
+        year_of_manufacture: 'Ano de fabricação' 
+        maximum_capacity: 'Capacidade máxima'

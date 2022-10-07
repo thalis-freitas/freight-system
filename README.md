@@ -9,3 +9,17 @@
 * Gem "devise" utilizada para autenticação
  
 * Banco de dados populado com seeds, necessário executar o comando "rails db:seeds" antes de rodar a app
+
+### Contas sugeridas para testar a app:
+
+* Usuário regular: 
+
+e-mail: daiane_silva@sistemadefrete.com.br
+
+senha: senha123
+
+* Admin: 
+
+e-mail: marta@sistemadefrete.com.br 
+
+senha: password

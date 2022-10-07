@@ -16,9 +16,9 @@ describe 'Usuário vê modalidades de transporte' do
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
 
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 200, flat_rate: 15, status: 'active')
+                            minimum_weight: 0, maximum_weight: 200, flat_rate: 15, status: :active)
     ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
-                            minimum_weight: 20, maximum_weight: 500, flat_rate: 5, status: 'active')
+                            minimum_weight: 20, maximum_weight: 500, flat_rate: 5, status: :active)
     login_as user
     visit root_path
     within('nav') do 
@@ -42,7 +42,7 @@ describe 'Usuário vê modalidades de transporte' do
   it 'inativas se for admin' do
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: 'inactive')
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :inactive)
     login_as user  
     visit mode_of_transports_path
 
@@ -51,11 +51,11 @@ describe 'Usuário vê modalidades de transporte' do
   end
 
   it 'inativas' do 
-    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: 'admin')
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, minimum_weight: 0,
-                            maximum_weight: 500, flat_rate: 15, status: 'inactive')
+                            maximum_weight: 500, flat_rate: 15, status: :inactive)
     ModeOfTransport.create!(name:'Rota 10', minimum_distance: 50, maximum_distance: 1200, minimum_weight: 0,
-                            maximum_weight: 2900, flat_rate: 5, status: 'inactive') 
+                            maximum_weight: 2900, flat_rate: 5, status: :inactive) 
     login_as admin   
     visit mode_of_transports_path
 
@@ -65,10 +65,11 @@ describe 'Usuário vê modalidades de transporte' do
   end
 
   it 'e não existem modalidades de transporte cadastradas' do
-    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    login_as admin
     visit mode_of_transports_path
-    expect(page).to have_content 'Nenhuma Modalidade de Transporte cadastrada'
+    expect(page).to have_content 'Nenhuma modalidade de transporte ativa'
+    expect(page).to have_content 'Nenhuma modalidade de transporte inativa'
   end
 
   it 'e volta para a página inicial' do
