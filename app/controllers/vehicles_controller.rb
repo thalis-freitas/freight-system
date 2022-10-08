@@ -1,8 +1,8 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
   before_action :vehicle_params, only:[:create]
-  before_action :set_vehicle, only:[:show, :edit, :update]
-  before_action :admins_only, only:[:new, :create, :edit, :update]
+  before_action :set_vehicle, only:[:show, :edit, :update, :in_maintenance, :in_operation]
+  before_action :admins_only, only:[:new, :create, :edit, :update, :in_maintenance, :in_operation]
   
   def index 
     @vehicles = Vehicle.all
@@ -36,6 +36,25 @@ class VehiclesController < ApplicationController
       flash.now[:alert] = "#{t(:unable_to_update)} o #{Vehicle.model_name.human}"
       render :new
     end
+  end
+
+  def search 
+    @nameplate = params["query"]
+    if @nameplate.strip != ""
+      @vehicles = Vehicle.where("nameplate LIKE ?", "%#{@nameplate}%")
+    else
+      flash.now[:alert] = "#{t(:need_to_fill_in_the_field_to_search)}"
+    end
+  end
+
+  def in_maintenance
+    @vehicle.in_maintenance!
+    redirect_to @vehicle, notice: "#{Vehicle.human_attribute_name(:status).capitalize} do #{Vehicle.model_name.human} #{t :updated} #{t(:for)}: #{t(:in_maintenance)}"
+  end
+  
+  def in_operation
+    @vehicle.in_operation!
+    redirect_to @vehicle, notice: "#{Vehicle.human_attribute_name(:status).capitalize} do #{Vehicle.model_name.human} #{t :updated} #{t(:for)}: #{t(:in_operation)}"
   end
 
   private 

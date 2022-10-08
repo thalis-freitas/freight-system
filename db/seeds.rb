@@ -30,16 +30,16 @@ User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', pa
 Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
                 maximum_capacity: 23000)
 Vehicle.create!(nameplate: 'IOC0693', brand: 'KIA', model: 'BONGO K 2500', year_of_manufacture: '2015', 
-                maximum_capacity: 3400)
+                maximum_capacity: 3400, status: :in_maintenance)
 Vehicle.create!(nameplate: 'AKL7566', brand: 'Mercedez Benz', model: 'ATEGO 1315', year_of_manufacture: '2014',
                 maximum_capacity: 13000)
 Vehicle.create!(nameplate: 'HQZ9585', brand: 'Volvo', model: 'VM 310', year_of_manufacture: '2016', 
-                maximum_capacity: 17500)
+                maximum_capacity: 17500, status: :in_maintenance)
 Vehicle.create!(nameplate: 'KER0414', brand: 'Volks', model: 'Constelallation 17.250', year_of_manufacture: '2012',
                 maximum_capacity: 16000)
 Vehicle.create!(nameplate: 'HUX6583', brand: 'Renault', model: 'Master', year_of_manufacture: '2015', 
-                maximum_capacity: 3500)
+                maximum_capacity: 3500, status: :in_maintenance)
 Vehicle.create!(nameplate: 'ISX8398', brand: 'Mercedez Benz', model: '710 PLUS', year_of_manufacture: '2020',
                 maximum_capacity: 6700)
 Vehicle.create!(nameplate: 'JZZ2991', brand: 'Iveco', model: 'Tector 170 E 25', year_of_manufacture: '2012', 
-                maximum_capacity: 17000)
+                maximum_capacity: 17000, status: :in_maintenance)

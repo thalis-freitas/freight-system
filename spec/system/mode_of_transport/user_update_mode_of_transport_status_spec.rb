@@ -7,7 +7,7 @@ describe 'Usuário atualiza status da modalidade de transporte' do
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
-    expect(page).not_to have_link 'Desativar'
+    expect(page).not_to have_button 'Desativar'
   end
 
   it 'a partir do menu' do 

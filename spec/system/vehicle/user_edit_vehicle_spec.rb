@@ -38,7 +38,7 @@ describe 'Usuário edita um veículo' do
     within('nav') do 
       click_link 'Veículos'
     end
-    click_link 'Cargo 2428 E'
+    click_link 'HPK3528'
     click_link 'Editar Veículo'
 
     within('.form') do 
@@ -66,11 +66,12 @@ describe 'Usuário edita um veículo' do
     click_button 'Salvar'
 
     expect(page).to have_content 'Veículo atualizado com sucesso'
-    expect(page).to have_content 'ATEGO 1315'
+    expect(page).to have_content 'AKL7566'
     expect(page).to have_content 'Marca: Mercedez Benz'
     expect(page).to have_content 'Ano de fabricação: 2014'
+    expect(page).to have_content 'Modelo: ATEGO 1315'
     expect(page).to have_content 'Capacidade máxima: 13000kg'
-    expect(page).to have_content 'Placa de identificação: AKL7566'
+
   end
 
   it 'e deixa campos obrigatórios em branco' do
@@ -123,5 +124,20 @@ describe 'Usuário edita um veículo' do
     visit edit_vehicle_path(vehicle)
     click_button 'Salvar'
     expect(page).to have_content 'Nenhuma modificação encontrada'
+  end
+
+  it 'com placa de identificação que já está em uso' do
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    Vehicle.create!(nameplate: 'HQZ9585', brand: 'Volvo', model: 'VM 310', year_of_manufacture: '2016', 
+                    maximum_capacity: 17500, status: :in_maintenance)
+    vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+                              maximum_capacity: 23000)
+    login_as admin  
+    visit edit_vehicle_path(vehicle)
+    fill_in 'Placa de identificação', with: 'HQZ9585'
+    click_button 'Salvar'
+
+    expect(page).to have_content 'Por favor verifique o erro abaixo'
+    expect(page).to have_content 'Placa de identificação já está em uso'
   end
 end

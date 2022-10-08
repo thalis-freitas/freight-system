@@ -1,0 +1,12 @@
+<div class="float-lg-end float-center"">
+  <%= form_with(url: search_vehicles_path, method: :get) do |f| %>
+    <div class="row">
+      <div class="mb-2 col-6 col-lg-7">
+        <%= f.text_field :query, class:'form-control me-2 mb-3'%>
+      </div>
+      <div class="mb-2 col-2 col-lg-2">
+        <%= f.submit "#{t(:query)} #{Vehicle.model_name.human(count: 1)}", class:'btn btn-outline-success ' %>
+      </div>    
+    </div>
+  <% end %>
+</div>

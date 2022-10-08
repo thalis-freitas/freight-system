@@ -1,22 +1,31 @@
 <h2><%= @mode_of_transport.name %></h2>
 <ul>
-<li><b><%= ModeOfTransport.human_attribute_name(:minimum_distance) %>:</b>
-<%=@mode_of_transport.minimum_distance %>km</li>
-<li><b><%= ModeOfTransport.human_attribute_name(:maximum_distance) %>:</b>
-<%=@mode_of_transport.maximum_distance %>km</li>
-<li><b><%= ModeOfTransport.human_attribute_name(:minimum_weight) %>:</b>
-<%=@mode_of_transport.minimum_weight %>kg</li>
-<li><b><%= ModeOfTransport.human_attribute_name(:maximum_weight) %>:</b>
-<%=@mode_of_transport.maximum_weight %>kg</li>
-<li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
-<%= number_to_currency(@mode_of_transport.flat_rate) %></li>
+  <li><b><%= ModeOfTransport.human_attribute_name(:minimum_distance) %>:</b>
+    <%=@mode_of_transport.minimum_distance %>km
+  </li>
+  <li><b><%= ModeOfTransport.human_attribute_name(:maximum_distance) %>:</b>
+    <%=@mode_of_transport.maximum_distance %>km
+  </li>
+  <li><b><%= ModeOfTransport.human_attribute_name(:minimum_weight) %>:</b>
+    <%=@mode_of_transport.minimum_weight %>kg
+  </li>
+  <li><b><%= ModeOfTransport.human_attribute_name(:maximum_weight) %>:</b>
+    <%=@mode_of_transport.maximum_weight %>kg
+  </li>
+  <li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
+    <%= number_to_currency(@mode_of_transport.flat_rate) %>
+  </li>
 </ul>
 
 <% if current_user.admin? %>
   <%= link_to "#{t :edit} #{ModeOfTransport.model_name.human}", edit_mode_of_transport_path, class:'btn btn-primary' %>
   <% if @mode_of_transport.active? %>
-    <div><%= button_to "#{t :disable}", inactive_mode_of_transport_path(@mode_of_transport.id), class: 'btn btn-secondary mt-1'%></div>
+    <div>
+      <%= button_to "#{t :disable}", inactive_mode_of_transport_path(@mode_of_transport.id), class: 'btn btn-secondary mt-1'%>
+    </div>
   <% else %>
-    <div><%= button_to "#{t :activate}", active_mode_of_transport_path(@mode_of_transport.id), class: 'btn btn-secondary mt-1'%></div>
+    <div>
+      <%= button_to "#{t :activate}", active_mode_of_transport_path(@mode_of_transport.id), class: 'btn btn-secondary mt-1'%>
+    </div>  
   <% end %>
 <% end %>

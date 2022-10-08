@@ -1,6 +1,9 @@
 pt-BR:
   none: 'Nenhum'
   registered: 'cadastrado'
+  mark_as: 'Marcar como'
+  in_operation: 'em operação'
+  in_maintenance: 'em manutenção'
   activerecord:
     models:
       vehicle: 
@@ -13,3 +16,4 @@ pt-BR:
         model: 'Modelo'
         year_of_manufacture: 'Ano de fabricação' 
         maximum_capacity: 'Capacidade máxima'
+        status: 'Status'

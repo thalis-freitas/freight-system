@@ -55,11 +55,12 @@ describe 'Usuário cadastra veículos' do
     click_button 'Salvar'
 
     expect(page).to have_content 'Veículo cadastrado com sucesso'
-    expect(page).to have_content 'Cargo 2428 E'
+    expect(page).to have_content 'HPK3528'
     expect(page).to have_content 'Marca: Ford'
     expect(page).to have_content 'Ano de fabricação: 2011'
     expect(page).to have_content 'Capacidade máxima: 23000kg'
-    expect(page).to have_content 'Placa de identificação: HPK3528'
+    expect(page).to have_content 'Modelo: Cargo 2428 E'
+    expect(page).to have_content 'Status: em operação'
   end
 
   it 'com dados incompletos' do

@@ -17,3 +17,10 @@ pt-BR:
   minimum: 'Mínimo de'
   characters: 'caracteres'
   unauthorized_access: 'Acesso não autorizado'
+  for: 'para'
+  query: 'Buscar'
+  search_results: 'Resultados da busca por'
+  found: 
+    one: 'encontrado'
+    other: 'encontrados'
+  need_to_fill_in_the_field_to_search: 'É necessário preencher o campo para fazer a busca'

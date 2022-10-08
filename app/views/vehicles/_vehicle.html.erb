@@ -1,0 +1,21 @@
+<ul>
+  <li><b><%= Vehicle.human_attribute_name(:brand) %>:</b>
+    <%=vehicle.brand %>
+  </li>
+  <li><b><%= Vehicle.human_attribute_name(:year_of_manufacture) %>:</b>
+    <%=vehicle.year_of_manufacture %>
+  </li>
+  <li><b><%= Vehicle.human_attribute_name(:maximum_capacity) %>:</b>
+    <%=vehicle.maximum_capacity %>kg
+  </li>
+  <li><b><%= Vehicle.human_attribute_name(:model) %>:</b>
+    <%=vehicle.model %>
+  </li>
+  <li><b><%= Vehicle.human_attribute_name(:status) %>:
+  <% if vehicle.in_operation? %>
+    <span class="text-primary"><%= t (vehicle.status) %></span>
+  <% else %>
+    <span class="text-danger"><%= t (vehicle.status) %></span>
+  <% end %>
+  </b></li>
+</ul>
