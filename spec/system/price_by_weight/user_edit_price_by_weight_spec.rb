@@ -120,6 +120,23 @@ describe 'Usuário edita uma configuração de preço por peso de uma modalidade
     expect(page).not_to have_content 'Configuração de preço por peso atualizada com sucesso'
   end
 
+  it 'com pesos não atendidos pela modalidade de transporte' do 
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+    price_by_weight = PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 1, 
+                                            mode_of_transport: mode_of_transport)   
+
+    login_as admin  
+    visit edit_price_by_weight_path(price_by_weight)
+    fill_in 'Peso mínimo', with: '600'
+    fill_in 'Peso máximo', with: '0'
+    click_button 'Salvar'
+
+    expect(page).to have_content 'Peso mínimo deve ser menor que 500'
+    expect(page).to have_content 'Peso máximo deve ser maior que 0'
+  end
+
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 

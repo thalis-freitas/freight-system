@@ -99,14 +99,31 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
     
     login_as admin
     visit new_price_by_weight_path
-    fill_in 'Peso mínimo', with: '-2'
+    select 'Express', from: 'Modalidade de transporte'
+    fill_in 'Peso mínimo', with: '300'
     fill_in 'Peso máximo', with: '0'
     fill_in 'Valor por km', with: '-10'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível cadastrar a configuração de preço por peso'
     expect(page).to have_content 'Peso máximo deve ser maior que 0'
-    expect(page).to have_content 'Peso mínimo deve ser maior ou igual a 0'
+    expect(page).to have_content 'Peso mínimo deve ser menor que 200'
+    expect(page).to have_content 'Valor por km deve ser maior ou igual a 0'
+  end
+
+  it 'com pesos não atendidos pela modalidade de transporte' do 
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 10, maximum_weight: 200, flat_rate: 15, status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    
+    login_as admin
+    visit new_price_by_weight_path
+    fill_in 'Peso mínimo', with: '5'
+    fill_in 'Peso máximo', with: '250'
+    fill_in 'Valor por km', with: '-10'
+    click_button 'Salvar'
+
+    expect(page).to have_content 'Peso mínimo deve ser maior ou igual a 10'
+    expect(page).to have_content 'Peso máximo deve ser menor ou igual a 200'
     expect(page).to have_content 'Valor por km deve ser maior ou igual a 0'
   end
 end

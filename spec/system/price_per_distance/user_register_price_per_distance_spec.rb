@@ -97,14 +97,32 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     
     login_as admin
     visit new_price_per_distance_path
-    fill_in 'Distância mínima', with: '-2'
-    fill_in 'Distância máxima', with: '0'
+    select 'Express', from: 'Modalidade de transporte'
+    fill_in 'Distância mínima', with: '2300'
+    fill_in 'Distância máxima', with: '10'
     fill_in 'Taxa', with: '-5'
     click_button 'Salvar'
 
     expect(page).to have_content 'Não foi possível cadastrar a configuração de preço por distância'
-    expect(page).to have_content 'Distância máxima deve ser maior que 0'
-    expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'
+    expect(page).to have_content 'Distância máxima deve ser maior que 20'
+    expect(page).to have_content 'Distância mínima deve ser menor que 2000'
     expect(page).to have_content 'Taxa deve ser maior ou igual a 0'
+  end
+
+  it 'com distâncias não atendidas pela modalidade de transporte' do 
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 15, status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    
+    login_as admin
+    visit new_price_per_distance_path
+    select 'Express', from: 'Modalidade de transporte'
+    fill_in 'Distância mínima', with: '0'
+    fill_in 'Distância máxima', with: '3000'
+    click_button 'Salvar'
+
+    expect(page).to have_content 'Não foi possível cadastrar a configuração de preço por distância'
+    expect(page).to have_content 'Distância máxima deve ser menor ou igual a 2000'
+    expect(page).to have_content 'Distância mínima deve ser maior ou igual a 20'
   end
 end

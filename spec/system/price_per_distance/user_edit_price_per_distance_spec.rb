@@ -111,8 +111,8 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
     click_button 'Salvar'
 
     expect(page).to have_content 'Não foi possível atualizar a configuração de preço por distância'
-    expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'
-    expect(page).to have_content 'Distância máxima deve ser maior que 0'
+    expect(page).to have_content 'Distância mínima deve ser maior ou igual a 20'
+    expect(page).to have_content 'Distância máxima deve ser maior que 20'
     expect(page).to have_content 'Taxa deve ser maior ou igual a 0'
   end
 
