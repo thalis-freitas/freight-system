@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     post 'in_maintenance', on: :member
     get 'search', on: :collection
   end
+  resources :price_by_weights, only:[:new, :create, :edit, :update]
 end

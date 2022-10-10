@@ -1,0 +1,29 @@
+<h2><%="#{t :edit} #{t(:price_by_weight_setting, count: 1)} #{t(:modality)} #{@price_by_weight.mode_of_transport.name}" %></h2>
+
+<%= render 'errors' %>
+
+<div class='form container'>
+  <%= form_with model: @price_by_weight do |f| %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :minimum_weight, class:'form-label' %>
+        <%= f.number_field :minimum_weight, class:'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :maximum_weight, class:'form-label' %>
+        <%= f.number_field :maximum_weight, class:'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :value, class:'form-label' %>
+        <%= f.number_field :value, class:'form-control' %>
+      </div>
+    </div>
+    <div class="mb-2 ">
+      <%= f.submit t(:save), class: 'btn btn-primary mt-2' %>
+    </div>
+  <% end %>
+</div>

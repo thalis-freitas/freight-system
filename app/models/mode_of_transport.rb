@@ -1,7 +1,8 @@
 class ModeOfTransport < ApplicationRecord
-  validates :name, :minimum_distance, :maximum_distance, :minimum_weight, :maximum_weight, :flat_rate, presence: true
-  validates :maximum_distance, :maximum_weight, comparison: { greater_than: 0 }, allow_blank: true
-  validates :minimum_distance, :minimum_weight, :flat_rate, comparison: { greater_than_or_equal_to: 0 }, allow_blank: true
+  has_many :price_by_weights
+  validates :name, presence: true
+  validates :maximum_distance, :maximum_weight, comparison: { greater_than: 0 }
+  validates :minimum_distance, :minimum_weight, :flat_rate, comparison: { greater_than_or_equal_to: 0 }
   enum status: { inactive: 0, active: 5 }
 
   def ==(other)

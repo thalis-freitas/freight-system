@@ -1,0 +1,18 @@
+pt-BR:
+  interval: 'Intervalo'
+  price_by_weight_setting:
+    one: 'configuração de preço por peso'
+    other: 'Configuração de preços por peso'
+  from: 'De'
+  to: 'a'
+  for_the_modality: 'para a modalidade'
+  activerecord:
+    models:
+      price_by_weight: 'preços por peso'
+    attributes:
+      price_by_weight:
+        minimum_weight: 'Peso mínimo' 
+        maximum_weight: 'Peso máximo' 
+        value: 'Valor por km'
+        mode_of_transport: 'Modalidade de transporte' 
+        mode_of_transport_id: 'Modalidade de transporte'
