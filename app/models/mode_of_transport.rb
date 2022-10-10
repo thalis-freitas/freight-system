@@ -1,5 +1,6 @@
 class ModeOfTransport < ApplicationRecord
   has_many :price_by_weights
+  has_many :price_per_distances
   validates :name, presence: true
   validates :maximum_distance, :maximum_weight, comparison: { greater_than: 0 }
   validates :minimum_distance, :minimum_weight, :flat_rate, comparison: { greater_than_or_equal_to: 0 }

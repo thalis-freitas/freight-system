@@ -29,10 +29,10 @@
     </div>  
   <% end %>
 <% end %>
-
-<div class="table-responsive mt-4">
+<hr>
+<div class="table-responsive mt-1">
   <table class="table">
-  <h4 class="ms-2"><%= t(:price_by_weight_setting, count: 2) %></h4>
+  <h4><%= t(:price_by_weight_setting, count: 2) %></h4>
     <thead>
       <tr>
         <th scope="col"><%= t :interval %></th>
@@ -43,17 +43,43 @@
     <tbody>
       <% @mode_of_transport.price_by_weights.each do |price_by_weight| %>
         <tr>
-            <td scope="row"> <%= t :from %> <%= price_by_weight.minimum_weight %>kg <%= t :to %> <%= price_by_weight.maximum_weight %>kg</td>
-            <td><%= number_to_currency(price_by_weight.value) %></td>
-            <% if current_user.admin? %>
-              <td><%= link_to 'Editar', edit_price_by_weight_path(price_by_weight) %></td>
-            <% end %>
+          <td scope="row"> <%= t :from %> <%= price_by_weight.minimum_weight %>kg <%= t :to %> <%= price_by_weight.maximum_weight %>kg</td>
+          <td><%= number_to_currency(price_by_weight.value) %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Editar', edit_price_by_weight_path(price_by_weight) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-
 <% if current_user.admin? %>
   <%= link_to "#{t :register} #{t(:price_by_weight_setting, count: 1)}", new_price_by_weight_path, class:'btn btn-primary' %>
+<% end %>
+<hr>
+<div class="table-responsive mt-1">
+  <table class="table">
+  <h4><%= t(:distance_pricing_setup, count: 2) %></h4>
+    <thead>
+      <tr>
+        <th scope="col"><%= t :interval %></th>
+        <th scope="col"><%= PricePerDistance.human_attribute_name(:rate) %></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mode_of_transport.price_per_distances.each do |price_per_distance| %>
+        <tr>
+          <td scope="row"> <%= t :from %> <%= price_per_distance.minimum_distance %>km <%= t :to %> <%= price_per_distance.maximum_distance %>km</td>
+          <td><%= number_to_currency(price_per_distance.rate) %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Editar', edit_price_per_distance_path(price_per_distance) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% if current_user.admin? %>
+  <%= link_to "#{t :register} #{t(:distance_pricing_setup, count: 1)}", new_price_per_distance_path, class:'btn btn-primary' %>
 <% end %>

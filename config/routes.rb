@@ -11,4 +11,5 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
   resources :price_by_weights, only:[:new, :create, :edit, :update]
+  resources :price_per_distances, only:[:new, :create, :edit, :update]
 end

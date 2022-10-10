@@ -1,0 +1,14 @@
+pt-BR:
+  distance_pricing_setup:
+    one: 'configuração de preço por distância'
+    other: 'Configuração de preços por distância'
+  activerecord:
+    models:
+      price_per_distance: 'preços por distância'
+    attributes:
+      price_per_distance:
+        minimum_distance: 'Distância mínima'
+        maximum_distance: 'Distância máxima'
+        rate: 'Taxa'
+        mode_of_transport: 'Modalidade de transporte' 
+        mode_of_transport_id: 'Modalidade de transporte'
