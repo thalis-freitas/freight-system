@@ -74,8 +74,7 @@ describe 'Usuário edita uma configuração de preço por peso de uma modalidade
     click_button 'Salvar'
 
     expect(page).to have_content 'Configuração de preço por peso atualizada com sucesso'
-    expect(page).to have_content 'De 20kg a 70kg'
-    expect(page).to have_content 'R$ 2,00'
+    expect(page).to have_content 'De 20kg a 70kg R$ 2,00'
   end
 
   it 'e deixa campos obrigatórios em branco' do
@@ -113,11 +112,9 @@ describe 'Usuário edita uma configuração de preço por peso de uma modalidade
     fill_in 'Valor por km', with: '-20'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível atualizar a configuração de preço por peso'
     expect(page).to have_content 'Peso mínimo deve ser maior ou igual a 0'
     expect(page).to have_content 'Peso máximo deve ser maior que 0'
     expect(page).to have_content 'Valor por km deve ser maior ou igual a 0'
-    expect(page).not_to have_content 'Configuração de preço por peso atualizada com sucesso'
   end
 
   it 'com pesos não atendidos pela modalidade de transporte' do 

@@ -65,10 +65,7 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
 
     expect(page).to have_content 'Configuração de preço por peso cadastrada com sucesso para a modalidade Express'
     expect(current_path).to eq mode_of_transport_path(mode_of_transport)
-    expect(page).to have_content 'Intervalo'
-    expect(page).to have_content 'De 0kg a 50kg'
-    expect(page).to have_content 'Valor por km'
-    expect(page).to have_content 'R$ 1,00'
+    expect(page).to have_content 'De 0kg a 50kg R$ 1,00'
   end
 
   it 'com dados incompletos' do

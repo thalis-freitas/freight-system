@@ -83,3 +83,37 @@
 <% if current_user.admin? %>
   <%= link_to "#{t :register} #{t(:distance_pricing_setup, count: 1)}", new_price_per_distance_path, class:'btn btn-primary' %>
 <% end %>
+<hr>
+<div class="table-responsive mt-1">
+  <table class="table">
+  <h4><%= t(:deadline_setting, count: 2) %></h4>
+    <thead>
+      <tr>
+        <th scope="col"><%= t :interval %></th>
+        <th scope="col"><%= Deadline.human_attribute_name(:estimated_time) %></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mode_of_transport.deadlines.each do |deadline| %>
+        <tr>
+          <td scope="row"> <%= t :from %> <%= deadline.minimum_distance %>km <%= t :to %> <%= deadline.maximum_distance %>km</td>
+          <% if deadline.estimated_time <= 120 %>
+            <td><%= deadline.estimated_time %> horas </td>
+          <% else %>
+            <td><%= (deadline.estimated_time / 24) %> dias </td>
+          <% end %>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Editar', edit_deadline_path(deadline) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% if current_user.admin? %>
+  <%= link_to "#{t :register} #{t(:deadline_setting, count: 1)}", new_deadline_path, class:'btn btn-primary' %>
+<% end %>
+
+
+

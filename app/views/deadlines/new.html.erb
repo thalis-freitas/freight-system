@@ -1,0 +1,35 @@
+<h2><%="#{t :register} #{t(:deadline_setting, count: 1)}"%></h2>
+
+<%= render 'errors' %>
+
+<div class='form container'>
+  <%= form_with model: @deadline do |f| %>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :mode_of_transport_id, class:'form-label'%>
+        <%= f.collection_select :mode_of_transport_id, @mode_of_transports, :id, :name, {}, {class:'form-select'}%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :minimum_distance, class:'form-label' %>
+        <%= f.number_field :minimum_distance, class:'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :maximum_distance, class:'form-label' %>
+        <%= f.number_field :maximum_distance, class:'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-2 col-12 col-lg-6">
+        <%= f.label :estimated_time, "#{Deadline.human_attribute_name(:estimated_time)} #{t :in_hours }", class:'form-label' %>
+        <%= f.number_field :estimated_time, class:'form-control' %>
+      </div>
+    </div>
+    <div class="mb-2 ">
+      <%= f.submit t(:save), class: 'btn btn-primary mt-2' %>
+    </div>
+  <% end %>
+</div>

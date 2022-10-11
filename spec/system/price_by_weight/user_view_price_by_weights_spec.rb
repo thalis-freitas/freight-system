@@ -18,12 +18,9 @@ describe 'Usuário vê as configurações de preço por peso de uma modalidade d
 
     expect(page).to have_content 'Configuração de preços por peso'
     expect(page).to have_content 'Intervalo'
-    expect(page).to have_content 'De 20kg a 150kg'
-    expect(page).to have_content 'De 151kg a 320kg'
-    expect(page).to have_content 'De 321kg a 500kg'
     expect(page).to have_content 'Valor por km'
-    expect(page).to have_content 'R$ 1,00'
-    expect(page).to have_content 'R$ 2,00'
-    expect(page).to have_content 'R$ 3,00'
+    expect(page).to have_content 'De 20kg a 150kg R$ 1,00'
+    expect(page).to have_content 'De 151kg a 320kg R$ 2,00'
+    expect(page).to have_content 'De 321kg a 500kg R$ 3,00'
   end
 end

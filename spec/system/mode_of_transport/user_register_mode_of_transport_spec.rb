@@ -98,7 +98,6 @@ describe 'Usuário cadastra modalidade de transporte' do
     fill_in 'Taxa fixa', with: '-5'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível cadastrar a Modalidade de Transporte'
     expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'
     expect(page).to have_content 'Distância máxima deve ser maior que 0'
     expect(page).to have_content 'Peso máximo deve ser maior que 0'

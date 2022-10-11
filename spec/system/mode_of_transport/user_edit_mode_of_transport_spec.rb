@@ -116,7 +116,6 @@ describe 'Usuário edita uma modalidade de transporte' do
     fill_in 'Taxa fixa', with: '-1'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível atualizar a Modalidade de Transporte'
     expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'
     expect(page).to have_content 'Distância máxima deve ser maior que 0'
     expect(page).to have_content 'Peso máximo deve ser maior que 0'

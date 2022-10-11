@@ -1,0 +1,15 @@
+pt-BR:
+  deadline_setting:
+    one: 'configuração de prazo'
+    other: 'Configuração de prazos'
+  in_hours: 'em horas'
+  activerecord:
+    models:
+      deadline: 'Prazo'
+    attributes:
+      deadline:
+        minimum_distance: 'Distância mínima' 
+        maximum_distance: 'Distância máxima' 
+        estimated_time: 'Prazo'
+        mode_of_transport: 'Modalidade de transporte' 
+        mode_of_transport_id: 'Modalidade de transporte'

@@ -110,7 +110,6 @@ describe 'Usuário edita um veículo' do
     fill_in 'Placa de identificação', with: 'HPM4820475'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível atualizar o Veículo'
     expect(page).to have_content 'Ano de fabricação não possui o tamanho esperado (4 caracteres)'
     expect(page).to have_content 'Capacidade máxima deve ser maior que 0'
     expect(page).to have_content 'Placa de identificação não possui o tamanho esperado (7 caracteres)'

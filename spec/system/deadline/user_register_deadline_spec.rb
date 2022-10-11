@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'Usuário cadastra configuração de preço por distância para uma modalidade de transporte' do
+describe 'Usuário cadastra uma configuração de prazo para uma modalidade de transporte' do
   it 'se estiver autenticado' do 
-    visit new_price_per_distance_path
+    visit new_deadline_path
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
@@ -13,13 +13,13 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
-    expect(page).not_to have_link 'Cadastrar configuração de preço por distância'
+    expect(page).not_to have_link 'Cadastrar configuração de prazo'
   end
 
   it 'a partir da da url se for admin' do 
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user 
-    visit new_price_per_distance_path
+    visit new_deadline_path
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
   end
@@ -35,15 +35,15 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
       click_link 'Modalidades de Transporte'
     end
     click_link 'Express'
-    click_link 'Cadastrar configuração de preço por distância'
+    click_link 'Cadastrar configuração de prazo'
 
-    expect(current_path).to eq new_price_per_distance_path
-    expect(page).to have_content 'Cadastrar configuração de preço por distância'
+    expect(current_path).to eq new_deadline_path
+    expect(page).to have_content 'Cadastrar configuração de prazo'
     within('.form') do 
       expect(page).to have_field 'Modalidade de transporte', type: 'select'
       expect(page).to have_field 'Distância mínima', type: 'number'
       expect(page).to have_field 'Distância máxima', type: 'number'
-      expect(page).to have_field 'Taxa', type: 'number'
+      expect(page).to have_field 'Prazo em horas', type: 'number'
       expect(page).to have_button 'Salvar'
     end
   end
@@ -56,16 +56,16 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
 
     login_as admin
-    visit new_price_per_distance_path
+    visit new_deadline_path
     fill_in 'Distância mínima', with: '20'
-    fill_in 'Distância máxima', with: '80'
-    fill_in 'Taxa', with: '10'
+    fill_in 'Distância máxima', with: '100'
+    fill_in 'Prazo em horas', with: '6'
     select 'Express', from: 'Modalidade de transporte'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Configuração de preço por distância cadastrada com sucesso para a modalidade Express'
+    expect(page).to have_content 'Configuração de prazo cadastrada com sucesso para a modalidade Express'
     expect(current_path).to eq mode_of_transport_path(mode_of_transport)
-    expect(page).to have_content 'De 20km a 80km R$ 10,00'
+    expect(page).to have_content 'De 20km a 100km 6 horas'
   end
 
   it 'com dados incompletos' do
@@ -74,17 +74,17 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
 
     login_as admin
-    visit new_price_per_distance_path
+    visit new_deadline_path
     fill_in 'Distância mínima', with: ''
     fill_in 'Distância máxima', with: ''
-    fill_in 'Taxa', with: ''
+    fill_in 'Prazo em horas', with: ''
     click_button 'Salvar'
 
-    expect(page).not_to have_content 'Configuração de preço por distância cadastrada com sucesso para a modalidade Express'
-    expect(page).to have_content 'Não foi possível cadastrar a configuração de preço por distância'
+    expect(page).not_to have_content 'Configuração de prazo cadastrada com sucesso para a modalidade Express'
+    expect(page).to have_content 'Não foi possível cadastrar a configuração de prazo'
     expect(page).to have_content 'Distância mínima não pode ficar em branco'
     expect(page).to have_content 'Distância máxima não pode ficar em branco'
-    expect(page).to have_content 'Taxa não pode ficar em branco'
+    expect(page).to have_content 'Prazo não pode ficar em branco'
   end
 
   it 'com dados inválidos' do 
@@ -93,16 +93,16 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin
-    visit new_price_per_distance_path
+    visit new_deadline_path
     select 'Express', from: 'Modalidade de transporte'
-    fill_in 'Distância mínima', with: '2300'
-    fill_in 'Distância máxima', with: '10'
-    fill_in 'Taxa', with: '-5'
+    fill_in 'Distância mínima', with: '3500'
+    fill_in 'Distância máxima', with: '5'
+    fill_in 'Prazo em horas', with: '-5'
     click_button 'Salvar'
 
     expect(page).to have_content 'Distância máxima deve ser maior que 20'
     expect(page).to have_content 'Distância mínima deve ser menor que 2000'
-    expect(page).to have_content 'Taxa deve ser maior ou igual a 0'
+    expect(page).to have_content 'Prazo deve ser maior que 0'
   end
 
   it 'com distâncias não atendidas pela modalidade de transporte' do 
@@ -113,8 +113,8 @@ describe 'Usuário cadastra configuração de preço por distância para uma mod
     login_as admin
     visit new_price_per_distance_path
     select 'Express', from: 'Modalidade de transporte'
-    fill_in 'Distância mínima', with: '0'
-    fill_in 'Distância máxima', with: '3000'
+    fill_in 'Distância mínima', with: '2'
+    fill_in 'Distância máxima', with: '2500'
     click_button 'Salvar'
 
     expect(page).to have_content 'Distância máxima deve ser menor ou igual a 2000'

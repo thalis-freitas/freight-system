@@ -1,0 +1,8 @@
+<% if @deadline.errors.any? %>
+  <div class="alert alert-warning container" role="alert">
+    <b><%= t(:check_the_errors, count: @deadline.errors.count) %>:</b>
+    <% @deadline.errors.full_messages.each do |msg| %>
+      <div> - <%= msg %> </div>
+    <% end %>
+  </div>
+<% end %>

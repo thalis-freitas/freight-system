@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_10_031002) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_202849) do
+  create_table "deadlines", force: :cascade do |t|
+    t.integer "minimum_distance"
+    t.integer "maximum_distance"
+    t.integer "estimated_time"
+    t.integer "mode_of_transport_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mode_of_transport_id"], name: "index_deadlines_on_mode_of_transport_id"
+  end
+
   create_table "mode_of_transports", force: :cascade do |t|
     t.string "name"
     t.integer "minimum_distance"
@@ -68,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_031002) do
     t.integer "status", default: 0
   end
 
+  add_foreign_key "deadlines", "mode_of_transports"
   add_foreign_key "price_by_weights", "mode_of_transports"
   add_foreign_key "price_per_distances", "mode_of_transports"
 end

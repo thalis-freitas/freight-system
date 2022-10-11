@@ -1,9 +1,8 @@
 <% if @price_per_distance.errors.any? %>
   <div class="alert alert-warning container" role="alert">
-      <b><%= t(:check_the_errors, count: @price_per_distance.errors.count) %>:</b>
+    <b><%= t(:check_the_errors, count: @price_per_distance.errors.count) %>:</b>
     <% @price_per_distance.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %>
-      </div>
+      <div> - <%= msg %> </div>
     <% end %>
   </div>
 <% end %>

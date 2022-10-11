@@ -19,14 +19,10 @@ describe 'Usuário vê as configurações de preço por distância de uma modali
 
     expect(page).to have_content 'Configuração de preços por distância'
     expect(page).to have_content 'Intervalo'
-    expect(page).to have_content 'De 100km a 500km'
-    expect(page).to have_content 'De 501km a 1000km'
-    expect(page).to have_content 'De 1001km a 2000km'
-    expect(page).to have_content 'De 2001km a 4000km'
     expect(page).to have_content 'Valor por km'
-    expect(page).to have_content 'R$ 8,00'
-    expect(page).to have_content 'R$ 15,00'
-    expect(page).to have_content 'R$ 22,00'
-    expect(page).to have_content 'R$ 30,00'
+    expect(page).to have_content 'De 100km a 500km R$ 8,00'
+    expect(page).to have_content 'De 501km a 1000km R$ 15,00'
+    expect(page).to have_content 'De 1001km a 2000km R$ 22,00'
+    expect(page).to have_content 'De 2001km a 4000km R$ 30,00'
   end
 end

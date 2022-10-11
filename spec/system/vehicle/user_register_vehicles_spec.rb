@@ -95,7 +95,6 @@ describe 'Usuário cadastra veículos' do
     fill_in 'Placa de identificação', with: 'HPM'
     click_button 'Salvar'
 
-    expect(page).to have_content 'Não foi possível cadastrar o Veículo'
     expect(page).to have_content 'Ano de fabricação não possui o tamanho esperado (4 caracteres)'
     expect(page).to have_content 'Capacidade máxima deve ser maior que 0'
     expect(page).to have_content 'Placa de identificação não possui o tamanho esperado (7 caracteres)'
@@ -111,7 +110,6 @@ describe 'Usuário cadastra veículos' do
     fill_in 'Placa de identificação', with: 'KER0414'
     click_button 'Salvar'   
 
-    expect(page).to have_content 'Não foi possível cadastrar o Veículo'
     expect(page).to have_content 'Placa de identificação já está em uso'
   end
 end
