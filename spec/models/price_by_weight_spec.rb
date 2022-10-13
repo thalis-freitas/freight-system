@@ -73,7 +73,7 @@ RSpec.describe PriceByWeight, type: :model do
   describe '#==(other)' do
     it 'retorna true se os atributos forem iguais' do
       mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
       price_by_weight = PriceByWeight.create!(minimum_weight: 10, maximum_weight: 40, value: 0, mode_of_transport: mode_of_transport)
       second_price_by_weight = PriceByWeight.create!(minimum_weight: 10, maximum_weight: 40, value: 0, mode_of_transport: mode_of_transport)
       result = price_by_weight == second_price_by_weight  

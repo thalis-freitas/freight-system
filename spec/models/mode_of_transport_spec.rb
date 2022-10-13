@@ -83,12 +83,22 @@ RSpec.describe ModeOfTransport, type: :model do
       end
     end
   end
+
+  describe '#inactive' do
+    it 'a modalidade de transporte tem status inativo por padrão' do 
+      mode_of_transport = ModeOfTransport.create!(name:'Econômica', minimum_distance: 500, maximum_distance: 4000, 
+                                                  minimum_weight: 20, maximum_weight: 800, flat_rate: 0) 
+      expect(mode_of_transport.inactive?).to eq true
+      expect(mode_of_transport.active?).to eq false
+    end
+  end
+
   describe '#==(other)' do
     it 'retorna true se os atributos forem iguais' do
       mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
       second_mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                         minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+                                                         minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
     
       result = mode_of_transport == second_mode_of_transport  
       expect(result).to eq true

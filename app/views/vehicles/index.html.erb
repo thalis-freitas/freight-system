@@ -1,4 +1,4 @@
-<h2><%= "#{Vehicle.model_name.human(count: 2)} #{t(:in_operation)}" %></h2>
+<h2><%= "#{Vehicle.model_name.human(count: 2)} #{t(:in_operation).downcase}" %></h2>
 <% if current_user.admin? %>
   <%= link_to "#{t :register} #{Vehicle.model_name.human}", new_vehicle_path, class:'btn btn-primary mb-4 mt-2' %>
 <% end %>
@@ -6,7 +6,7 @@
   <%= render 'search_form' %>
 
 <% if @vehicles.in_operation.any? %>
-  <div class="container container_list">
+  <div class="container-fluid container-list">
     <% @vehicles.in_operation.each do |vehicle| %>
       <div class="contents">
         <ul>
@@ -20,12 +20,12 @@
     <% end %>
   </div>
 <% else %>
-  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t :in_operation}" %></p>
+  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t(:in_operation).downcase}" %></p>
 <% end %>
 
-<h2 class="mt-5 mb-3"><%= "#{Vehicle.model_name.human(count: 2)} #{t(:in_maintenance)}" %></h2>
+<h2 class="mt-5 mb-3"><%= "#{Vehicle.model_name.human(count: 2)} #{t(:in_maintenance).downcase}" %></h2>
 <% if @vehicles.in_maintenance.any? %>
-  <div class="container_list">
+  <div class="container-list">
     <% @vehicles.in_maintenance.each do |vehicle| %>
       <div class="contents bg-dark text-light">
         <ul>
@@ -39,5 +39,5 @@
     <% end %>
   </div>
 <% else %>
-  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t :in_maintenance}" %></p>
+  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t(:in_maintenance).downcase}" %></p>
 <% end %>

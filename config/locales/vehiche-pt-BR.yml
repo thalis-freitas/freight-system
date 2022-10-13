@@ -1,9 +1,7 @@
 pt-BR:
-  none: 'Nenhum'
-  registered: 'cadastrado'
   mark_as: 'Marcar como'
-  in_operation: 'em operação'
-  in_maintenance: 'em manutenção'
+  in_operation: 'Em operação'
+  in_maintenance: 'Em manutenção'
   activerecord:
     models:
       vehicle: 

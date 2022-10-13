@@ -2,20 +2,19 @@ class DeadlinesController < ApplicationController
   before_action :authenticate_user!
   before_action :admins_only, only:[:new, :create, :edit, :update]
   before_action :set_deadline, only:[:edit, :update]
+  before_action :set_mode_of_transport, only:[:new, :edit, :create, :update]
 
   def new
     @deadline = Deadline.new
-    @mode_of_transports = ModeOfTransport.order(:name)
   end
 
   def create 
     @deadline = Deadline.new(deadline_params)
-    @mode_of_transport = @deadline.mode_of_transport
+    @deadline.mode_of_transport = @mode_of_transport
     if @deadline.save
-      redirect_to @mode_of_transport, notice: "#{t(:deadline_setting, count:1).capitalize} #{t(:successfully_registered)} #{t :for_the_modality} #{@mode_of_transport.name}"
+      redirect_to @mode_of_transport, notice: "#{t(:deadline_setting, count:1).capitalize} #{t(:successfully_registered)}"
     else
       flash.now[:alert] = "#{t(:could_not_register)} a #{t(:deadline_setting, count:1)}"
-      @mode_of_transports = ModeOfTransport.order(:name)
       render :new
     end
   end
@@ -38,6 +37,10 @@ class DeadlinesController < ApplicationController
 
   def deadline_params
     params.require(:deadline).permit(:minimum_distance, :maximum_distance, :estimated_time, :mode_of_transport_id)
+  end
+
+  def set_mode_of_transport
+    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
   end
 
   def admins_only

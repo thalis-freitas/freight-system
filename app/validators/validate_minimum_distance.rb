@@ -1,6 +1,6 @@
 class ValidateMinimumDistance < ActiveModel::Validator
   def validate record
-    if record.minimum_distance.present? && record.mode_of_transport.present?
+    if record.minimum_distance.present?
       if record.minimum_distance < record.mode_of_transport.minimum_distance
         record.errors.add :minimum_distance, "deve ser maior ou igual a #{record.mode_of_transport.minimum_distance}"
       elsif record.minimum_distance >= record.mode_of_transport.maximum_distance

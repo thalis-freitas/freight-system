@@ -13,7 +13,14 @@
     <%=@mode_of_transport.maximum_weight %>kg
   </li>
   <li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
-    <%= number_to_currency(@mode_of_transport.flat_rate) %>
+    <%= number_to_currency(@mode_of_transport.flat_rate.to_f/100) %>
+  </li>
+    <li><b><%= ModeOfTransport.human_attribute_name(:status) %>:</b>
+      <% if @mode_of_transport.active? %>
+        <b class="text-primary"><%= t(@mode_of_transport.status, count: 1).capitalize %></b>
+      <% else %>
+        <b class="text-danger"><%= t(@mode_of_transport.status, count: 1) %></b>
+      <% end %>
   </li>
 </ul>
 
@@ -29,91 +36,90 @@
     </div>  
   <% end %>
 <% end %>
-<hr>
-<div class="table-responsive mt-1">
-  <table class="table">
-  <h4><%= t(:price_by_weight_setting, count: 2) %></h4>
-    <thead>
-      <tr>
-        <th scope="col"><%= t :interval %></th>
-        <th scope="col"><%= PriceByWeight.human_attribute_name(:value) %></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @mode_of_transport.price_by_weights.each do |price_by_weight| %>
-        <tr>
-          <td scope="row"> <%= t :from %> <%= price_by_weight.minimum_weight %>kg <%= t :to %> <%= price_by_weight.maximum_weight %>kg</td>
-          <td><%= number_to_currency(price_by_weight.value) %></td>
-          <% if current_user.admin? %>
-            <td><%= link_to 'Editar', edit_price_by_weight_path(price_by_weight) %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% if current_user.admin? %>
-  <%= link_to "#{t :register} #{t(:price_by_weight_setting, count: 1)}", new_price_by_weight_path, class:'btn btn-primary' %>
-<% end %>
-<hr>
-<div class="table-responsive mt-1">
-  <table class="table">
-  <h4><%= t(:distance_pricing_setup, count: 2) %></h4>
-    <thead>
-      <tr>
-        <th scope="col"><%= t :interval %></th>
-        <th scope="col"><%= PricePerDistance.human_attribute_name(:rate) %></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @mode_of_transport.price_per_distances.each do |price_per_distance| %>
-        <tr>
-          <td scope="row"> <%= t :from %> <%= price_per_distance.minimum_distance %>km <%= t :to %> <%= price_per_distance.maximum_distance %>km</td>
-          <td><%= number_to_currency(price_per_distance.rate) %></td>
-          <% if current_user.admin? %>
-            <td><%= link_to 'Editar', edit_price_per_distance_path(price_per_distance) %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% if current_user.admin? %>
-  <%= link_to "#{t :register} #{t(:distance_pricing_setup, count: 1)}", new_price_per_distance_path, class:'btn btn-primary' %>
-<% end %>
-<hr>
-<div class="table-responsive mt-1">
-  <table class="table">
-  <h4><%= t(:deadline_setting, count: 2) %></h4>
-    <thead>
-      <tr>
-        <th scope="col"><%= t :interval %></th>
-        <th scope="col"><%= Deadline.human_attribute_name(:estimated_time) %></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @mode_of_transport.deadlines.each do |deadline| %>
-        <tr>
-          <td scope="row"> <%= t :from %> <%= deadline.minimum_distance %>km <%= t :to %> <%= deadline.maximum_distance %>km</td>
-          <% if deadline.estimated_time <= 120 %>
-            <td><%= deadline.estimated_time %> horas </td>
-          <% else %>
-            <td><%= (deadline.estimated_time / 24) %> dias </td>
-          <% end %>
-          <% if current_user.admin? %>
-            <td><%= link_to 'Editar', edit_deadline_path(deadline) %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% if current_user.admin? %>
-  <%= link_to "#{t :register} #{t(:deadline_setting, count: 1)}", new_deadline_path, class:'btn btn-primary' %>
-<% end %>
 
+<div class="d-flex flex-wrap">
+  <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
+    <table class="table">
+    <h4><%= t(:price_by_weight_setting, count: 2) %></h4>
+      <thead>
+        <tr>
+          <th scope="col"><%= t :weight %></th>
+          <th scope="col"><%= PriceByWeight.human_attribute_name(:value) %></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @mode_of_transport.price_by_weights.each do |price_by_weight| %>
+          <tr>
+            <td scope="row"> <%= t :from %> <%= price_by_weight.minimum_weight %>kg <%= t :to %> <%= price_by_weight.maximum_weight %>kg</td>
+            <td><%= number_to_currency((price_by_weight.value.to_f/100)) %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Editar', edit_mode_of_transport_price_by_weight_path(@mode_of_transport, price_by_weight) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.admin? %>
+      <%= link_to "#{t :register} #{t(:price_by_weight_setting, count: 1)}", new_mode_of_transport_price_by_weight_path(@mode_of_transport), class:'btn btn-primary' %>
+    <% end %>
+  </div>
 
+  <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
+    <table class="table">
+    <h4><%= t(:distance_pricing_setup, count: 2) %></h4>
+      <thead>
+        <tr>
+          <th scope="col"><%= t :distance %></th>
+          <th scope="col"><%= PricePerDistance.human_attribute_name(:rate) %></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @mode_of_transport.price_per_distances.each do |price_per_distance| %>
+          <tr>
+            <td scope="row"> <%= t :from %> <%= price_per_distance.minimum_distance %>km <%= t :to %> <%= price_per_distance.maximum_distance %>km</td>
+            <td><%= number_to_currency(price_per_distance.rate.to_f/100) %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Editar', edit_mode_of_transport_price_per_distance_path(@mode_of_transport, price_per_distance) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.admin? %>
+      <%= link_to "#{t :register} #{t(:distance_pricing_setup, count: 1)}", new_mode_of_transport_price_per_distance_path(@mode_of_transport), class:'btn btn-primary' %>
+    <% end %>
+  </div>
 
+  <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
+    <table class="table">
+    <h4><%= t(:deadline_setting, count: 2) %></h4>
+      <thead>
+        <tr>
+          <th scope="col"><%= t :distance %></th>
+          <th scope="col"><%= Deadline.human_attribute_name(:estimated_time) %></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <% @mode_of_transport.deadlines.each do |deadline| %>
+          <tr>
+            <td scope="row"> <%= t :from %> <%= deadline.minimum_distance %>km <%= t :to %> <%= deadline.maximum_distance %>km</td>
+            <% if deadline.estimated_time <= 120 %>
+              <td><%= deadline.estimated_time %> horas </td>
+            <% else %>
+              <td><%= (deadline.estimated_time / 24) %> dias </td>
+            <% end %>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Editar', edit_mode_of_transport_deadline_path(@mode_of_transport, deadline) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.admin? %>
+      <%= link_to "#{t :register} #{t(:deadline_setting, count: 1)}", new_mode_of_transport_deadline_path(@mode_of_transport), class:'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

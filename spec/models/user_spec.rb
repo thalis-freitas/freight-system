@@ -34,4 +34,11 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include 'inválido'
     end
   end
+
+  describe '#admin' do
+    it 'usuário não tem função admin por padrão' do 
+      user = User.create!(name: 'Julia Silva', email: 'julia@sistemadefrete.com.br', password:'password')
+      expect(user.admin?).to eq false
+    end
+  end
 end

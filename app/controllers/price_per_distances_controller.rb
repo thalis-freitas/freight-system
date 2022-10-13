@@ -2,7 +2,7 @@ class PricePerDistancesController < ApplicationController
   before_action :authenticate_user!
   before_action :admins_only, only:[:new, :create, :edit, :update]
   before_action :set_price_per_distance, only:[:edit, :update]
-  before_action :list_mode_of_transports, only:[:new, :edit]
+  before_action :set_mode_of_transport, only:[:new, :edit, :create, :update]
   
   def new 
     @price_per_distance = PricePerDistance.new
@@ -10,12 +10,11 @@ class PricePerDistancesController < ApplicationController
   
   def create
     @price_per_distance = PricePerDistance.new(price_per_distance_params)
-    @mode_of_transport = @price_per_distance.mode_of_transport
+    @price_per_distance.mode_of_transport = @mode_of_transport
     if @price_per_distance.save
-      redirect_to @mode_of_transport, notice: "#{t(:distance_pricing_setup, count:1).capitalize} #{t(:successfully_registered)} #{t :for_the_modality} #{@mode_of_transport.name}"
+      redirect_to @mode_of_transport, notice: "#{t(:distance_pricing_setup, count:1).capitalize} #{t(:successfully_registered)}"
     else
       flash.now[:alert] = "#{t(:could_not_register)} a #{t(:distance_pricing_setup, count:1)}"
-      @mode_of_transports = ModeOfTransport.order(:name)
       render :new
     end
   end
@@ -46,11 +45,11 @@ class PricePerDistancesController < ApplicationController
     end
   end
 
-  def set_price_per_distance
-    @price_per_distance = PricePerDistance.find(params[:id])
+  def set_mode_of_transport
+    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
   end
 
-  def list_mode_of_transports
-    @mode_of_transports = ModeOfTransport.order(:name)
+  def set_price_per_distance
+    @price_per_distance = PricePerDistance.find(params[:id])
   end
 end

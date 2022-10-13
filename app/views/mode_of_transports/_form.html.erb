@@ -42,7 +42,7 @@
     </div>
     <div class="row">
       <div class="mb-2 col-12 col-lg-6">
-        <%= f.label :flat_rate, class:'form-label' %>
+        <%= f.label :flat_rate, "#{ModeOfTransport.human_attribute_name(:flat_rate)} (#{t(:in_cents)})", class:'form-label' %>
         <%= f.number_field :flat_rate, class:'form-control' %>
       </div>      
     </div>

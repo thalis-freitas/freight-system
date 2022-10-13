@@ -23,3 +23,4 @@ pt-BR:
         minimum_weight: 'Peso mínimo'
         maximum_weight: 'Peso máximo'
         flat_rate: 'Taxa fixa'
+        status: 'Situação atual'

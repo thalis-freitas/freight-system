@@ -3,7 +3,7 @@
   <%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn btn-primary mb-4 mt-2' %>
 <% end %>
 <% if @mode_of_transports.active.any? %>
-  <div class="container_list">
+  <div class="container-list">
     <% @mode_of_transports.active.each do |mt| %>
       <div class="contents">
         <ul>
@@ -12,7 +12,7 @@
           <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mt.maximum_distance}km"%></li>
           <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mt.minimum_weight}kg"%></li>
           <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mt.maximum_weight}kg"%></li>
-          <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate)}"%></li>
+          <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate.to_f/100)}"%></li>
         </ul>
       </div>
     <% end %>
@@ -24,7 +24,7 @@
 <% if current_user.admin? %>
 <h2 class="mt-5 mb-3"><%="#{ModeOfTransport.model_name.human(count: ModeOfTransport.inactive.count)} #{t(:inactive, count: ModeOfTransport.inactive.count)} " %></h2>
   <% if @mode_of_transports.inactive.any? %>
-    <div class="container_list">
+    <div class="container-list">
       <% @mode_of_transports.inactive.each do |mt| %>
         <div class="contents bg-dark text-light">
           <ul>
@@ -33,7 +33,7 @@
             <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mt.maximum_distance}km"%></li>
             <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mt.minimum_weight}kg"%></li>
             <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mt.maximum_weight}kg"%></li>
-            <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate)}"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate.to_f/100)}"%></li>
           </ul>
         </div>
       <% end %>

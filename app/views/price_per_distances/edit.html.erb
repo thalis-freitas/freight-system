@@ -1,29 +1,4 @@
-<h2><%="#{t :edit} #{t(:distance_pricing_setup, count: 1)} #{t(:modality)} #{@price_per_distance.mode_of_transport.name}" %></h2>
-
-<%= render 'errors' %>
-
-<div class='form container'>
-  <%= form_with model: @price_per_distance do |f| %>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
-        <%= f.label :minimum_distance, class:'form-label' %>
-        <%= f.number_field :minimum_distance, class:'form-control' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
-        <%= f.label :maximum_distance, class:'form-label' %>
-        <%= f.number_field :maximum_distance, class:'form-control' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
-        <%= f.label :rate, class:'form-label' %>
-        <%= f.number_field :rate, class:'form-control' %>
-      </div>
-    </div>
-    <div class="mb-2 ">
-      <%= f.submit t(:save), class: 'btn btn-primary mt-2' %>
-    </div>
-  <% end %>
+<div class="container">
+  <h2><%="#{t :edit} #{t(:distance_pricing_setup, count: 1)}"%></h2>
 </div>
+<%= render 'form' %>

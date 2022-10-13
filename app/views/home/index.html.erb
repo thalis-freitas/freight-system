@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+<h2><%="#{ServiceOrder.model_name.human(count: 2)} #{t(:pending, count: 2)}"%></h2>
+  <% if current_user.admin? %>
+    <%= link_to 'Cadastrar Ordem de Serviço', new_service_order_path, class:'btn btn-primary mt-3 mb-3' %> 
+  <% end %>
+  <% if @service_orders.pending.any? %>
+    <div class="container-list">
+      <% @service_orders.pending.each do |service_order| %>
+        <div class="contents">
+          <ul>
+            <h5 class= "mt-2"> <%= link_to service_order.code, service_order_path(service_order)%></h5>
+            <li><%="#{ServiceOrder.human_attribute_name(:total_distance)}: #{service_order.total_distance}km"%></li>
+            <li><%="#{t(:dimensions)}: #{service_order.height}cm x #{service_order.width}cm x #{service_order.depth}cm"%></li>
+            <li><%="#{ServiceOrder.human_attribute_name(:weight)}: #{service_order.weight}kg"%></li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-success"><%= "#{t(:no_service_order)} #{t(:pending, count:1).downcase} "%></p>
+  <% end %>
+<% end %>

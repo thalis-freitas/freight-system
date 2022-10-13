@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário edita uma modalidade de transporte' do 
   it 'se estiver autenticado' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     visit edit_mode_of_transport_path(mode_of_transport)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
@@ -11,7 +11,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
@@ -20,7 +20,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'a partir da da url se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user 
     visit edit_mode_of_transport_path(mode_of_transport)
@@ -31,7 +31,7 @@ describe 'Usuário edita uma modalidade de transporte' do
   it 'a partir do menu' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                            minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                            minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     
     login_as admin                         
     visit root_path
@@ -47,13 +47,13 @@ describe 'Usuário edita uma modalidade de transporte' do
       expect(page).to have_field 'Distância máxima', with: '2000'
       expect(page).to have_field 'Peso mínimo', with: '0'
       expect(page).to have_field 'Peso máximo', with: '500'
-      expect(page).to have_field 'Taxa fixa', with: '15'
+      expect(page).to have_field 'Taxa fixa (em centavos)', with: '1500'
     end
   end
 
   it 'com sucesso' do
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin  
@@ -63,7 +63,7 @@ describe 'Usuário edita uma modalidade de transporte' do
     fill_in 'Distância máxima', with: '1400'
     fill_in 'Peso mínimo', with: '5'
     fill_in 'Peso máximo', with: '600'
-    fill_in 'Taxa fixa', with: '13'
+    fill_in 'Taxa fixa (em centavos)', with: '1300'
     click_button 'Salvar'
 
     expect(page).to have_content 'Modalidade de Transporte atualizada com sucesso'
@@ -73,12 +73,13 @@ describe 'Usuário edita uma modalidade de transporte' do
     expect(page).to have_content 'Peso mínimo: 5kg'
     expect(page).to have_content 'Peso máximo: 600kg'
     expect(page).to have_content 'Taxa fixa: R$ 13,00'
+    expect(page).to have_content 'Situação atual: Ativa'
     expect(page).not_to have_content 'Express'
   end
 
   it 'e deixa campos obrigatórios em branco' do
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin  
@@ -89,7 +90,7 @@ describe 'Usuário edita uma modalidade de transporte' do
     fill_in 'Distância máxima', with: ''
     fill_in 'Peso mínimo', with: ''
     fill_in 'Peso máximo', with: ''
-    fill_in 'Taxa fixa', with: ''
+    fill_in 'Taxa fixa (em centavos)', with: ''
     click_button 'Salvar'
 
     expect(page).to have_content 'Não foi possível atualizar a Modalidade de Transporte'
@@ -104,7 +105,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'com dados inválidos' do
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin  
@@ -113,7 +114,7 @@ describe 'Usuário edita uma modalidade de transporte' do
     fill_in 'Distância máxima', with: '0'
     fill_in 'Peso mínimo', with: '-2'
     fill_in 'Peso máximo', with: '0'
-    fill_in 'Taxa fixa', with: '-1'
+    fill_in 'Taxa fixa (em centavos)', with: '-1'
     click_button 'Salvar'
 
     expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'
@@ -125,7 +126,7 @@ describe 'Usuário edita uma modalidade de transporte' do
 
   it 'sem modificar os campos' do
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 15, status: :active)
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     
     login_as admin  

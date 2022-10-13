@@ -73,9 +73,9 @@ RSpec.describe PricePerDistance, type: :model do
   describe '#==(other)' do
     it 'retorna true se os atributos forem iguais' do
       mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
-      price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 5, mode_of_transport: mode_of_transport)
-      second_price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 5, mode_of_transport: mode_of_transport)
+                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
+      price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500, mode_of_transport: mode_of_transport)
+      second_price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500, mode_of_transport: mode_of_transport)
       result = price_per_distance == second_price_per_distance  
       expect(result).to eq true
     end

@@ -74,7 +74,7 @@ RSpec.describe Deadline, type: :model do
   describe '#==(other)' do
     it 'retorna true se os atributos forem iguais' do
       mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 15)
+                                                  minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
       deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
                                   mode_of_transport: mode_of_transport) 
       second_deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 

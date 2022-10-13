@@ -33,7 +33,7 @@ describe 'Usuário busca por um veículo' do
     expect(page).to have_content '1 veículo encontrado'
     expect(page).to have_link "HPK3528"
     expect(page).to have_content 'Capacidade máxima: 23000kg'
-    expect(page).to have_content 'Status: em operação'
+    expect(page).to have_content 'Status: Em operação'
   end 
 
   it 'e encontra múltiplos veículos' do

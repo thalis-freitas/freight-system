@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @service_orders = ServiceOrder.all
+  end
 end

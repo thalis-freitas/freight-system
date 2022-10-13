@@ -38,7 +38,7 @@ describe 'Usuário cadastra modalidade de transporte' do
       expect(page).to have_field 'Distância máxima', type: 'number'
       expect(page).to have_field 'Peso mínimo', type: 'number'
       expect(page).to have_field 'Peso máximo', type: 'number'
-      expect(page).to have_field 'Taxa fixa', type: 'number'
+      expect(page).to have_field 'Taxa fixa (em centavos)', type: 'number'
       expect(page).to have_button 'Salvar'
     end
   end
@@ -53,7 +53,7 @@ describe 'Usuário cadastra modalidade de transporte' do
     fill_in 'Distância máxima', with: '2000'
     fill_in 'Peso mínimo', with: '0'
     fill_in 'Peso máximo', with: '300'
-    fill_in 'Taxa fixa', with: '15'
+    fill_in 'Taxa fixa (em centavos)', with: '1500'
     click_button 'Salvar'
 
     expect(page).to have_content 'Modalidade de Transporte cadastrada com sucesso'
@@ -63,6 +63,7 @@ describe 'Usuário cadastra modalidade de transporte' do
     expect(page).to have_content 'Peso mínimo: 0kg'
     expect(page).to have_content 'Peso máximo: 300kg'
     expect(page).to have_content 'Taxa fixa: R$ 15,00'
+    expect(page).to have_content 'Situação atual: Inativa'
   end
 
   it 'com dados incompletos' do
@@ -95,7 +96,7 @@ describe 'Usuário cadastra modalidade de transporte' do
     fill_in 'Distância máxima', with: '0'
     fill_in 'Peso mínimo', with: '-2'
     fill_in 'Peso máximo', with: '0'
-    fill_in 'Taxa fixa', with: '-5'
+    fill_in 'Taxa fixa (em centavos)', with: '-5'
     click_button 'Salvar'
 
     expect(page).to have_content 'Distância mínima deve ser maior ou igual a 0'

@@ -3,8 +3,6 @@ pt-BR:
   price_by_weight_setting:
     one: 'configuração de preço por peso'
     other: 'Configuração de preços por peso'
-  from: 'De'
-  to: 'a'
   for_the_modality: 'para a modalidade'
   activerecord:
     models:

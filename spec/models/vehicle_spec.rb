@@ -60,6 +60,15 @@ RSpec.describe Vehicle, type: :model do
       end
     end
 
+    describe '#inactive' do
+      it 'um veículo tem por padrão status em operação' do 
+        vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+                                  maximum_capacity: 23000)
+        expect(vehicle.in_operation?).to eq true
+        expect(vehicle.in_maintenance?).to eq false
+      end
+    end
+
     describe '#==(other)' do
       it 'retorna true se os atributos forem iguais' do
         vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',

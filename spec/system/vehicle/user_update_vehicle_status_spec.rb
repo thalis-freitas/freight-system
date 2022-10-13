@@ -31,7 +31,7 @@ describe 'Usuário atualiza status do veículo' do
     visit vehicle_path(vehicle)
     click_button 'Marcar como em manutenção'
 
-    expect(page).to have_content 'Status do Veículo atualizado para: em manutenção'
+    expect(page).to have_content 'Status do Veículo atualizado para: Em manutenção'
     expect(page).not_to have_button 'Marcar como em manutenção'
     expect(page).to have_button 'Marcar como em operação'
   end
@@ -45,7 +45,7 @@ describe 'Usuário atualiza status do veículo' do
     visit vehicle_path(vehicle)
     click_button 'Marcar como em operação'
 
-    expect(page).to have_content 'Status do Veículo atualizado para: em operação'
+    expect(page).to have_content 'Status do Veículo atualizado para: Em operação'
     expect(page).not_to have_button 'Marcar como em operação'
     expect(page).to have_button 'Marcar como em manutenção'
   end

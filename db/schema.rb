@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_10_202849) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_12_201842) do
   create_table "deadlines", force: :cascade do |t|
     t.integer "minimum_distance"
     t.integer "maximum_distance"
@@ -51,6 +51,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_202849) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mode_of_transport_id"], name: "index_price_per_distances_on_mode_of_transport_id"
+  end
+
+  create_table "service_orders", force: :cascade do |t|
+    t.string "source_address"
+    t.string "product_code"
+    t.integer "height"
+    t.integer "width"
+    t.integer "depth"
+    t.integer "weight"
+    t.string "destination_address"
+    t.string "recipient"
+    t.string "recipient_phone"
+    t.integer "total_distance"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "code"
   end
 
   create_table "users", force: :cascade do |t|

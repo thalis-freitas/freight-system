@@ -60,7 +60,7 @@ describe 'Usuário cadastra veículos' do
     expect(page).to have_content 'Ano de fabricação: 2011'
     expect(page).to have_content 'Capacidade máxima: 23000kg'
     expect(page).to have_content 'Modelo: Cargo 2428 E'
-    expect(page).to have_content 'Status: em operação'
+    expect(page).to have_content 'Status: Em operação'
   end
 
   it 'com dados incompletos' do

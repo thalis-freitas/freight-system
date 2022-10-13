@@ -1,8 +1,8 @@
 class PriceByWeightsController < ApplicationController
   before_action :authenticate_user!
   before_action :admins_only, only:[:new, :create, :edit, :update]
+  before_action :set_mode_of_transport, only:[:new, :edit, :create, :update]
   before_action :set_price_by_weight, only:[:edit, :update]
-  before_action :list_mode_of_transports, only:[:new, :edit]
 
   def new
     @price_by_weight = PriceByWeight.new
@@ -10,12 +10,11 @@ class PriceByWeightsController < ApplicationController
 
   def create
     @price_by_weight = PriceByWeight.new(price_by_weight_params)
-    @mode_of_transport = @price_by_weight.mode_of_transport
+    @price_by_weight.mode_of_transport = @mode_of_transport
     if @price_by_weight.save
-      redirect_to @mode_of_transport, notice: "#{t(:price_by_weight_setting, count:1).capitalize} #{t(:successfully_registered)} #{t :for_the_modality} #{@mode_of_transport.name}"
+      redirect_to @mode_of_transport, notice: "#{t(:price_by_weight_setting, count:1).capitalize} #{t(:successfully_registered)}"
     else
       flash.now[:alert] = "#{t(:could_not_register)} a #{t(:price_by_weight_setting, count:1)}"
-      @mode_of_transports = ModeOfTransport.order(:name)
       render :new
     end
   end
@@ -27,7 +26,7 @@ class PriceByWeightsController < ApplicationController
       flash.now[:alert] = "#{t(:no_modification_found)}"
       render :edit
     elsif @price_by_weight.update(price_by_weight_params)
-      redirect_to mode_of_transport_path(@price_by_weight.mode_of_transport), notice: "#{t(:price_by_weight_setting, count:1).capitalize} #{t :successfully_updated}"
+      redirect_to mode_of_transport_path(@mode_of_transport), notice: "#{t(:price_by_weight_setting, count:1).capitalize} #{t :successfully_updated}"
     else
       flash.now[:alert] = "#{t(:unable_to_update)} a #{t(:price_by_weight_setting, count:1)}" 
       render :edit
@@ -44,13 +43,14 @@ class PriceByWeightsController < ApplicationController
 
   def set_price_by_weight
     @price_by_weight = PriceByWeight.find(params[:id])
+    @price_by_weight.mode_of_transport = @mode_of_transport
   end
 
-  def list_mode_of_transports
-    @mode_of_transports = ModeOfTransport.order(:name)
+  def set_mode_of_transport
+    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
   end
 
   def price_by_weight_params
-    params.require(:price_by_weight).permit(:minimum_weight, :maximum_weight, :value, :mode_of_transport_id)
+    params.require(:price_by_weight).permit(:minimum_weight, :maximum_weight, :value)
   end
 end

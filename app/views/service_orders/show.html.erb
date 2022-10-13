@@ -1,0 +1,32 @@
+<h2><%="#{ServiceOrder.model_name.human} #{@service_order.code}"%></h2>
+<ul>
+  <li><b><%= ServiceOrder.human_attribute_name(:source_address) %>:</b>
+    <%= @service_order.source_address %>
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:product_code) %>:</b>
+    <%= @service_order.product_code.upcase %>
+  </li>
+  <li><b><%= t(:dimensions) %>:</b>
+    <%="#{@service_order.height}cm x #{@service_order.width}cm x #{@service_order.depth}cm"%>
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:destination_address) %>:</b>
+    <%= @service_order.destination_address %>
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:recipient) %>:</b>
+    <%= @service_order.recipient %>
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:recipient_phone) %>:</b>
+    <%= @service_order.recipient_phone %>
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:total_distance) %>:</b>
+    <%= @service_order.total_distance %>km
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:weight) %>:</b>
+    <%= @service_order.weight %>kg
+  </li>
+  <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
+    <% if @service_order.pending? %>
+      <b class="text-danger"><%= t(@service_order.status, count:1) %></b>
+    <% end %>
+  </li>
+</ul>

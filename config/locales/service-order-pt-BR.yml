@@ -1,0 +1,25 @@
+pt-BR:
+  pending: 
+    one: 'Pendente'
+    other: 'Pendentes'
+  no_service_order: 'Nenhuma ordem de serviço'
+  dimensions: 'Dimensões'
+  activerecord:
+    models:
+      service_order: 
+        one: 'Ordem de Serviço'
+        other: 'Ordens de Serviço'
+    attributes:
+      service_order:
+        source_address: 'Endereço de origem' 
+        product_code: 'Código do produto' 
+        height: 'Altura'
+        width: 'Largura'
+        depth: 'Profundidade'
+        weight: 'Peso' 
+        destination_address: 'Endereço destino' 
+        recipient: 'Nome do destinatário'
+        recipient_phone: 'Telefone'
+        total_distance: 'Distância total'
+        status: 'Status'
+        code: 'Código'
