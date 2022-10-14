@@ -6,7 +6,7 @@
   <%= render 'search_form' %>
 
 <% if @vehicles.in_operation.any? %>
-  <div class="container-fluid container-list">
+  <div class="container-list">
     <% @vehicles.in_operation.each do |vehicle| %>
       <div class="contents">
         <ul>

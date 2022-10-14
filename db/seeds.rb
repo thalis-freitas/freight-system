@@ -6,7 +6,7 @@ ServiceOrder.create!(source_address: 'Rua José Pacheco, 25 - Maranguape', produ
                      recipient: 'Joana Matos', recipient_phone: '85999284839', total_distance: 30)
 ServiceOrder.create!(source_address: 'Avenida Esbertalina Barbosa Damiani, 85 - São Mateus', product_code: 'AMROS-SMDNT-EPSLD',
                      height: 200, width: 80, depth: 3, weight: 4, destination_address: 'Rua Tenente-Coronel Cardoso, 264 - Campos dos Goytacazes',
-                     recipient: 'Flávia Andrade', recipient_phone: '22996573849', total_distance: 480)
+                     recipient: 'Flávia Andrade', recipient_phone: '22996573849', total_distance: 510)
 ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
                      height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
                      recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)

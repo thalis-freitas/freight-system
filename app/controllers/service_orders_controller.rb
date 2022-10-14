@@ -1,8 +1,8 @@
 class ServiceOrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service_order, only:[:show]
+  before_action :set_service_order, only:[:show, :edit, :update]
   before_action :formatted_recipient_phone, only:[:show]
-  before_action :admins_only, only:[:new, :create]
+  before_action :admins_only, only:[:new, :create, :edit]
 
   def new 
     @service_order = ServiceOrder.new
@@ -18,7 +18,25 @@ class ServiceOrdersController < ApplicationController
     end
   end
 
-  def show; end
+  def update 
+    if @service_order == service_order_params
+      flash.now[:alert] = "#{t(:no_modification_found)}"
+      render :new
+    elsif @service_order.update(service_order_params)
+      redirect_to service_order_path(@service_order), notice: "#{ServiceOrder.model_name.human} #{t :successfully_updated}"
+    else
+      flash.now[:alert] = "#{t(:unable_to_update)} a #{ServiceOrder.model_name.human}"
+      render :new
+    end
+  end
+
+  def show
+    @mode_of_transports = ModeOfTransport.active.select do |mode_of_transport|
+      ModeOfTransportFinder.new(mode_of_transport, @service_order).compatible?
+    end
+  end
+
+  def edit; end
 
   private
 
@@ -37,10 +55,4 @@ class ServiceOrdersController < ApplicationController
     @service_order.recipient_phone.insert(3, ')') 
     @service_order.recipient_phone.insert(-5, '-') 
   end 
-
-  def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
-  end
 end

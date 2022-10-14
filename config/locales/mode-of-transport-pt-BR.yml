@@ -1,7 +1,5 @@
 pt-BR:
   no_transport_mode: 'Nenhuma modalidade de transporte'
-  successfully_registered: 'cadastrada com sucesso'
-  successfully_updated: 'atualizada com sucesso'
   activate: 'Ativar'
   disable: 'Desativar'
   disabled: 'desativada'

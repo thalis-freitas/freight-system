@@ -75,8 +75,7 @@ RSpec.describe Vehicle, type: :model do
                                   maximum_capacity: 23000)
         second_vehicle = Vehicle.new(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
                                      maximum_capacity: 23000)
-        result = vehicle == second_vehicle  
-        expect(result).to eq true
+        expect(vehicle == second_vehicle).to eq true
       end
     end
   end

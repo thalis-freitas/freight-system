@@ -76,8 +76,7 @@ RSpec.describe PriceByWeight, type: :model do
                                                   minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
       price_by_weight = PriceByWeight.create!(minimum_weight: 10, maximum_weight: 40, value: 0, mode_of_transport: mode_of_transport)
       second_price_by_weight = PriceByWeight.create!(minimum_weight: 10, maximum_weight: 40, value: 0, mode_of_transport: mode_of_transport)
-      result = price_by_weight == second_price_by_weight  
-      expect(result).to eq true
+      expect(price_by_weight == second_price_by_weight).to eq true
     end
   end
 end

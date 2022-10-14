@@ -2,7 +2,7 @@ class PricePerDistancesController < ApplicationController
   before_action :authenticate_user!
   before_action :admins_only, only:[:new, :create, :edit, :update]
   before_action :set_price_per_distance, only:[:edit, :update]
-  before_action :set_mode_of_transport, only:[:new, :edit, :create, :update]
+  before_action :set_mode_of_transport_id, only:[:new, :edit, :create, :update]
   
   def new 
     @price_per_distance = PricePerDistance.new
@@ -37,16 +37,6 @@ class PricePerDistancesController < ApplicationController
 
   def price_per_distance_params
     params.require(:price_per_distance).permit(:minimum_distance, :maximum_distance, :rate, :mode_of_transport_id)
-  end
-
-  def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
-  end
-
-  def set_mode_of_transport
-    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
   end
 
   def set_price_per_distance

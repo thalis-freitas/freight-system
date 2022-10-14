@@ -76,8 +76,7 @@ RSpec.describe PricePerDistance, type: :model do
                                                   minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
       price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500, mode_of_transport: mode_of_transport)
       second_price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500, mode_of_transport: mode_of_transport)
-      result = price_per_distance == second_price_per_distance  
-      expect(result).to eq true
+      expect(price_per_distance == second_price_per_distance).to eq true
     end
   end
 end

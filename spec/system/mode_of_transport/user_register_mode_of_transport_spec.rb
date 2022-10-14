@@ -32,7 +32,7 @@ describe 'Usuário cadastra modalidade de transporte' do
     end
     click_link 'Cadastrar Modalidade de Transporte'
 
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Distância mínima', type: 'number'
       expect(page).to have_field 'Distância máxima', type: 'number'

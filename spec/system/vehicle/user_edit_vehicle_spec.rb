@@ -41,7 +41,7 @@ describe 'Usuário edita um veículo' do
     click_link 'HPK3528'
     click_link 'Editar Veículo'
 
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Modelo', with: 'Cargo 2428 E'
       expect(page).to have_field 'Marca', with: 'Ford'
       expect(page).to have_field 'Ano de fabricação', with: '2011'
@@ -95,7 +95,7 @@ describe 'Usuário edita um veículo' do
     expect(page).to have_content 'Ano de fabricação não pode ficar em branco'
     expect(page).to have_content 'Capacidade máxima não pode ficar em branco'
     expect(page).to have_content 'Placa de identificação não pode ficar em branco'
-    expect(page).to_not have_content 'Veículo atualizado com sucesso'
+    expect(page).not_to have_content 'Veículo atualizado com sucesso'
   end
 
   it 'com dados inválidos' do

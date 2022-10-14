@@ -32,7 +32,7 @@ describe 'Usuário cadastra veículos' do
     end
     click_link 'Cadastrar Veículo'
 
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Modelo'
       expect(page).to have_field 'Marca'
       expect(page).to have_field 'Ano de fabricação', type: 'number'

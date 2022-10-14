@@ -44,7 +44,7 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
     expect(current_path).to eq new_mode_of_transport_price_by_weight_path(mode_of_transport)
     expect(page).to have_content 'Cadastrar configuração de preço por peso'
     expect(page).to have_content 'Modalidade Express'
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Peso mínimo', type: 'number'
       expect(page).to have_field 'Peso máximo', type: 'number'
       expect(page).to have_field 'Valor por km (em centavos)', type: 'number'

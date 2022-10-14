@@ -41,7 +41,7 @@ describe 'Usuário edita uma modalidade de transporte' do
     click_link 'Express'
     click_link 'Editar Modalidade de Transporte'
 
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Nome', with: 'Express'
       expect(page).to have_field 'Distância mínima', with: '20'
       expect(page).to have_field 'Distância máxima', with: '2000'

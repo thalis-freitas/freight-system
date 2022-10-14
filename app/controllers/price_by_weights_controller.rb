@@ -1,7 +1,7 @@
 class PriceByWeightsController < ApplicationController
   before_action :authenticate_user!
   before_action :admins_only, only:[:new, :create, :edit, :update]
-  before_action :set_mode_of_transport, only:[:new, :edit, :create, :update]
+  before_action :set_mode_of_transport_id, only:[:new, :edit, :create, :update]
   before_action :set_price_by_weight, only:[:edit, :update]
 
   def new
@@ -35,19 +35,9 @@ class PriceByWeightsController < ApplicationController
 
   private 
 
-  def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
-  end
-
   def set_price_by_weight
     @price_by_weight = PriceByWeight.find(params[:id])
     @price_by_weight.mode_of_transport = @mode_of_transport
-  end
-
-  def set_mode_of_transport
-    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
   end
 
   def price_by_weight_params

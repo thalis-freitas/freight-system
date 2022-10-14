@@ -13,19 +13,17 @@
 <div class="container">
   <%= form_with model: [@mode_of_transport, @deadline] do |f| %>
     <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-5 col-lg-2">
         <%= f.label :minimum_distance, class:'form-label' %>
         <%= f.number_field :minimum_distance, class:'form-control' %>
       </div>
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-5 col-lg-2">
         <%= f.label :maximum_distance, class:'form-label' %>
         <%= f.number_field :maximum_distance, class:'form-control' %>
       </div>
     </div>
     <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-10 col-lg-4">
         <%= f.label :estimated_time, "#{Deadline.human_attribute_name(:estimated_time)} #{t :in_hours }", class:'form-label' %>
         <%= f.number_field :estimated_time, class:'form-control' %>
       </div>

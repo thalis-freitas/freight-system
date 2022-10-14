@@ -6,4 +6,14 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
+
+  def admins_only
+    unless current_user.admin?
+      return redirect_to root_path, alert: t(:unauthorized_access)
+    end
+  end
+
+  def set_mode_of_transport_id
+    @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
+  end
 end

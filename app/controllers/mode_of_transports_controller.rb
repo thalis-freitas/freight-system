@@ -59,10 +59,4 @@ class ModeOfTransportsController < ApplicationController
                                               :maximum_distance, :minimum_weight,
                                               :maximum_weight, :flat_rate)
   end
-
-  def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
-  end
 end

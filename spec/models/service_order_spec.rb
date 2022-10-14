@@ -151,4 +151,16 @@ RSpec.describe ServiceOrder, type: :model do
       expect(service_order.code).to eq original_code
     end
   end
+  
+  describe '#==(other)' do
+    it 'retorna true se os atributos forem iguais' do
+      service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
+                                           height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                           recipient: 'João Cerqueira', recipient_phone: "54988475495", total_distance: 1120)
+      second_service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
+                                                  height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                                  recipient: 'João Cerqueira', recipient_phone: "54988475495", total_distance: 1120)
+      expect(service_order == second_service_order).to eq true
+    end
+  end
 end

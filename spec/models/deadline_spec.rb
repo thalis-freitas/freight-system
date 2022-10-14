@@ -79,8 +79,7 @@ RSpec.describe Deadline, type: :model do
                                   mode_of_transport: mode_of_transport) 
       second_deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
                                          mode_of_transport: mode_of_transport) 
-      result = deadline == second_deadline
-      expect(result).to eq true
+      expect(deadline == second_deadline).to eq true
     end
   end
 end

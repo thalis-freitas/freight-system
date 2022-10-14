@@ -66,10 +66,4 @@ class VehiclesController < ApplicationController
   def set_vehicle 
     @vehicle = Vehicle.find(params[:id])
   end
-
-  def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
-  end
 end

@@ -52,7 +52,7 @@ describe 'Usuário edita uma configuração de preço por peso de uma modalidade
     expect(current_path).to eq edit_mode_of_transport_price_by_weight_path(mode_of_transport, price_by_weight)
     expect(page).to have_content 'Editar configuração de preço por peso'
     expect(page).to have_content 'Modalidade Express'
-    within('.form') do 
+    within('main form') do 
       expect(page).to have_field 'Peso mínimo', with: '0'
       expect(page).to have_field 'Peso máximo', with: '50'
       expect(page).to have_field 'Valor por km', with: '100'

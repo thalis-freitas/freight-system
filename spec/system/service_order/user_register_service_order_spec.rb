@@ -30,7 +30,7 @@ describe 'Usuário cadastra uma ordem de serviço' do
     click_link 'Cadastrar Ordem de Serviço'
 
     expect(page).to have_content 'Cadastrar Ordem de Serviço'
-    within('.form') do
+    within('main form') do
       expect(page).to have_field 'Endereço de origem'
       expect(page).to have_field 'Código do produto'
       expect(page).to have_field 'Altura', type: 'number'

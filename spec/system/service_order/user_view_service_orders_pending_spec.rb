@@ -1,13 +1,6 @@
 require 'rails_helper'
 
 describe 'Usuário vê ordens de serviço pendentes' do 
-  it 'e não existem ordens de serviço pendentes' do 
-    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
-    login_as user
-    visit root_path
-    expect(page).to have_content 'Nenhuma ordem de serviço pendente'
-  end
-
   it 'na página inicial' do 
     allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('ABC123456789DEF')
     ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
@@ -30,5 +23,12 @@ describe 'Usuário vê ordens de serviço pendentes' do
     expect(page).to have_content 'Dimensões: 50cm x 120cm x 40cm'
     expect(page).to have_content 'Peso: 8kg'
     expect(page).to have_content 'Distância total: 100km'
+  end
+
+  it 'e não existem ordens de serviço pendentes' do 
+    user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+    login_as user
+    visit root_path
+    expect(page).to have_content 'Nenhuma ordem de serviço pendente'
   end
 end

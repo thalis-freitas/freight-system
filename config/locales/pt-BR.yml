@@ -12,6 +12,8 @@ pt-BR:
   register: 'Cadastrar'
   edit: 'Editar'
   updated: 'atualizado'
+  successfully_registered: 'cadastrada com sucesso'
+  successfully_updated: 'atualizada com sucesso'
   no_modification_found: 'Nenhuma modificação encontrada'
   login: 'Entrar'
   logout: 'Sair'
@@ -32,3 +34,8 @@ pt-BR:
   distance: 'Distância'
   weight: 'Peso'
   in_cents: 'em centavos'
+  compatible: 
+    one: 'compatível'
+    other: 'Compatíveis'
+  price: 'Preço'
+  deadline: 'Prazo'

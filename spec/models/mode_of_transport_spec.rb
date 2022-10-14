@@ -100,8 +100,7 @@ RSpec.describe ModeOfTransport, type: :model do
       second_mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                                          minimum_weight: 0, maximum_weight: 200, flat_rate: 1500)
     
-      result = mode_of_transport == second_mode_of_transport  
-      expect(result).to eq true
+      expect(mode_of_transport == second_mode_of_transport).to eq true
     end
   end
 end

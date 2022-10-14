@@ -8,42 +8,36 @@
   </div>
 <% end %>
 
-<div class='form container'>
+<div class='container'>
   <%= form_with model: @mode_of_transport do |f| %>
     <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-12 col-lg-3">
         <%= f.label :name, class:'form-label' %>
         <%= f.text_field :name, autofocus: true, class:'form-control' %>
       </div>
+      <div class="mb-2 col-12 col-lg-3">
+        <%= f.label :flat_rate, "#{ModeOfTransport.human_attribute_name(:flat_rate)} (#{t(:in_cents)})", class:'form-label' %>
+        <%= f.number_field :flat_rate, class:'form-control' %>
+      </div>      
     </div>
     <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-6 col-lg-3">
         <%= f.label :minimum_distance, class:'form-label' %>
         <%= f.number_field :minimum_distance, class:'form-control' %>
       </div>
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-6 col-lg-3">
         <%= f.label :maximum_distance, class:'form-label' %>
         <%= f.number_field :maximum_distance, class:'form-control' %>
       </div>
     </div>
     <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-6 col-lg-3">
         <%= f.label :minimum_weight, class:'form-label' %>
         <%= f.number_field :minimum_weight, class:'form-control' %>
       </div>
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
+      <div class="mb-2 col-6 col-lg-3">
         <%= f.label :maximum_weight, class:'form-label' %>
         <%= f.number_field :maximum_weight, class:'form-control' %>
-      </div>      
-    </div>
-    <div class="row">
-      <div class="mb-2 col-12 col-lg-6">
-        <%= f.label :flat_rate, "#{ModeOfTransport.human_attribute_name(:flat_rate)} (#{t(:in_cents)})", class:'form-label' %>
-        <%= f.number_field :flat_rate, class:'form-control' %>
       </div>      
     </div>
     <div class="mb-2 ">
