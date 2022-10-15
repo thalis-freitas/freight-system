@@ -2,8 +2,13 @@ pt-BR:
   pending: 
     one: 'Pendente'
     other: 'Pendentes'
+  in_progress: 'Em andamento'
   no_service_order: 'Nenhuma ordem de serviço'
   dimensions: 'Dimensões'
+  initiate: 'Iniciar'
+  unable_to_edit_a_service_order_that_has_already_been_started: 'Não é possível editar uma ordem de serviço que já foi iniciada'
+  service_order_started_successfully: 'Ordem de Serviço iniciada com sucesso'
+  oops_no_vehicle_in_operation_is_able_to_meet_this_service_order: 'Ops, nenhum veículo em operação é apto para atender esta Ordem de Serviço'
   activerecord:
     models:
       service_order: 
@@ -23,3 +28,6 @@ pt-BR:
         total_distance: 'Distância total'
         status: 'Status'
         code: 'Código'
+        price: 'Preço'
+        deadline: 'Prazo'
+        vehicle: 'Veículo'

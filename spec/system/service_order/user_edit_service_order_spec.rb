@@ -144,4 +144,47 @@ describe 'Usuário edita uma ordem de serviço' do
     click_button 'Salvar'
     expect(page).to have_content 'Nenhuma modificação encontrada'
   end
+
+  it 'se o status for pendente' do 
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: mode_of_transport)
+    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850, mode_of_transport: mode_of_transport)
+    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, mode_of_transport: mode_of_transport)
+    vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+                              maximum_capacity: 23000)
+
+    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
+                                         height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
+                                         recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
+                                         status: :in_progress, mode_of_transport: mode_of_transport, vehicle: vehicle)
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    service_order.register_price_and_deadline
+
+    login_as admin
+    visit service_order_path(service_order)
+    expect(page).not_to have_link 'Editar Ordem de Serviço'
+  end
+
+  it 'a partir da url se o status for pendente' do 
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: mode_of_transport)
+    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850, mode_of_transport: mode_of_transport)
+    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, mode_of_transport: mode_of_transport)
+
+    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
+                                         height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
+                                         recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
+                                         status: :in_progress, mode_of_transport: mode_of_transport)
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    service_order.register_price_and_deadline
+
+    login_as admin
+    visit edit_service_order_path(service_order)
+    expect(current_path).not_to eq edit_service_order_path(service_order)
+    expect(page).not_to have_field 'Distância total'
+    expect(page).not_to have_field 'Peso'
+    expect(page).to have_content 'Não é possível editar uma ordem de serviço que já foi iniciada'
+  end
 end

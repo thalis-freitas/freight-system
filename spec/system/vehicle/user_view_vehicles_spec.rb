@@ -18,6 +18,8 @@ describe 'Usuário vê veículos' do
                     maximum_capacity: 23000)
     Vehicle.create!(nameplate: 'IOC0693', brand: 'KIA', model: 'BONGO K 2500', year_of_manufacture: '2015', 
                     maximum_capacity: 3400, status: :in_maintenance)
+    Vehicle.create!(nameplate: 'KER0414', brand: 'Volks', model: 'Constelallation 17.250', year_of_manufacture: '2012',
+                    maximum_capacity: 16000, status: :on_delivery)
     login_as user
     visit root_path
     within('nav') do 
@@ -34,6 +36,12 @@ describe 'Usuário vê veículos' do
     expect(page).to have_content 'Modelo: BONGO K 2500'
     expect(page).to have_content 'Ano de fabricação: 2015'
     expect(page).to have_content 'Capacidade máxima: 3400kg'
+    expect(page).to have_link 'KER0414'
+    expect(page).to have_content 'Marca: Volks'
+    expect(page).to have_content 'Modelo: Constelallation 17.250'
+    expect(page).to have_content 'Ano de fabricação: 2012'
+    expect(page).to have_content 'Capacidade máxima: 16000kg'
+
   end
 
   it 'e não existem veículos cadastrados' do 

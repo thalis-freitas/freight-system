@@ -77,7 +77,6 @@ describe 'Usuário cadastra uma ordem de serviço' do
 
   it 'com dados incompletos' do
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('ABC123456789DEF')
 
     login_as admin
     visit new_service_order_path

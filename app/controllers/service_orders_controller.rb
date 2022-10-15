@@ -1,8 +1,9 @@
 class ServiceOrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service_order, only:[:show, :edit, :update]
+  before_action :set_service_order, only:[:show, :edit, :update, :in_progress]
   before_action :formatted_recipient_phone, only:[:show]
-  before_action :admins_only, only:[:new, :create, :edit]
+  before_action :admins_only, only:[:new, :create, :edit, :update]
+  before_action :can_only_edit_if_status_is_pending, only:[:edit, :update]
 
   def new 
     @service_order = ServiceOrder.new
@@ -17,6 +18,8 @@ class ServiceOrdersController < ApplicationController
       render :new
     end
   end
+
+  def edit; end
 
   def update 
     if @service_order == service_order_params
@@ -36,7 +39,22 @@ class ServiceOrdersController < ApplicationController
     end
   end
 
-  def edit; end
+  def in_progress
+    @vehicles = Vehicle.in_operation.select{|vehicle| vehicle if vehicle.maximum_capacity >= @service_order.weight}
+    if @vehicles.any?
+      @service_order.in_progress!
+      @service_order.mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
+      @service_order.register_price_and_deadline
+      @service_order.vehicle = @vehicles.first
+      @service_order.vehicle.on_delivery!
+      redirect_to @service_order
+    else
+      @mode_of_transports = ModeOfTransport.active.select do |mode_of_transport|
+        ModeOfTransportFinder.new(mode_of_transport, @service_order).compatible?
+      end
+      return redirect_to @service_order, alert: t(:oops_no_vehicle_in_operation_is_able_to_meet_this_service_order)
+    end
+  end
 
   private
 
@@ -55,4 +73,10 @@ class ServiceOrdersController < ApplicationController
     @service_order.recipient_phone.insert(3, ')') 
     @service_order.recipient_phone.insert(-5, '-') 
   end 
+
+  def can_only_edit_if_status_is_pending
+    unless @service_order.pending?
+      return redirect_to root_path, alert: t(:unable_to_edit_a_service_order_that_has_already_been_started)
+    end
+  end
 end

@@ -15,6 +15,7 @@ describe 'Usuário vê ordens de serviço pendentes' do
     login_as user
     visit root_path
 
+    expect(page).to have_content 'Ordens de Serviço pendentes'
     expect(page).to have_link 'ABC123456789DEF'
     expect(page).to have_content 'Dimensões: 120cm x 65cm x 70cm'
     expect(page).to have_content 'Peso: 12kg'
@@ -22,7 +23,7 @@ describe 'Usuário vê ordens de serviço pendentes' do
     expect(page).to have_link '123ABCDEFGHI456'
     expect(page).to have_content 'Dimensões: 50cm x 120cm x 40cm'
     expect(page).to have_content 'Peso: 8kg'
-    expect(page).to have_content 'Distância total: 100km'
+    expect(page).to have_content 'Distância total: 30km'
   end
 
   it 'e não existem ordens de serviço pendentes' do 

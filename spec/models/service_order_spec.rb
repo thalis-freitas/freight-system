@@ -163,4 +163,21 @@ RSpec.describe ServiceOrder, type: :model do
       expect(service_order == second_service_order).to eq true
     end
   end
+
+  describe '#register_price_and_deadline' do 
+    it 'cadastra o preço e o prazo de uma ordem de serviço de acordo com a modalidade de transporte associada' do 
+      economica = ModeOfTransport.create!(name:'Econômica', minimum_distance: 500, maximum_distance: 4000, 
+                                          minimum_weight: 20, maximum_weight: 800, flat_rate: 0, status: :active)    
+      PriceByWeight.create!(minimum_weight: 20, maximum_weight: 120, value: 0, mode_of_transport: economica)
+      PricePerDistance.create!(minimum_distance: 1501, maximum_distance: 2500, rate: 380, mode_of_transport: economica)
+      Deadline.create!(minimum_distance: 1001, maximum_distance: 2000, estimated_time: 336, mode_of_transport: economica)
+      service_order = ServiceOrder.create!(source_address: 'Avenida Tocantins, 384 - Jataí', product_code: 'SBDNF-PRIFM-SHFMD',
+                                           height: 87, width: 135, depth: 38, weight: 55, destination_address: 'Zona Portuária, 30 - Rio Grande',
+                                           recipient: 'Maurício Peixoto', recipient_phone: '53933204958', total_distance: 1730,
+                                           mode_of_transport: economica)
+      service_order.register_price_and_deadline
+      expect(service_order.price).to eq 380
+      expect(service_order.deadline).to eq 336
+    end
+  end
 end

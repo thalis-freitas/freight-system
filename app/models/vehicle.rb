@@ -4,7 +4,7 @@ class Vehicle < ApplicationRecord
   validates :nameplate, length: { is: 7 }, allow_blank: true
   validates :maximum_capacity, comparison: { greater_than: 0 }
   validates :nameplate, uniqueness: true
-  enum status: { in_operation: 0, in_maintenance: 5 }
+  enum status: { in_operation: 0, in_maintenance: 5, on_delivery: 10 }
   
   def ==(other)
     self.nameplate  == other[:nameplate] &&

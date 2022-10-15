@@ -13,5 +13,8 @@ Rails.application.routes.draw do
     post 'in_maintenance', on: :member
     get 'search', on: :collection
   end
-  resources :service_orders, only:[:new, :create, :show, :edit, :update]
+  resources :service_orders, only:[:new, :create, :show, :edit, :update] do 
+    post :in_progress, on: :member
+    # post 'in_progress', on: :member
+  end
 end

@@ -6,7 +6,7 @@
   <%= link_to "#{t :edit} #{Vehicle.model_name.human}", edit_vehicle_path, class:'btn btn-primary' %>
   <% if @vehicle.in_operation? %>
     <div><%= button_to "#{t :mark_as} #{t(:in_maintenance).downcase}", in_maintenance_vehicle_path(@vehicle.id), class: 'btn btn-secondary mt-1'%></div>
-  <% else %>
+  <% elsif @vehicle.in_maintenance? %>
     <div><%= button_to "#{t :mark_as} #{t(:in_operation).downcase}", in_operation_vehicle_path(@vehicle.id), class: 'btn btn-secondary mt-1'%></div>
   <% end %>
 <% end %>

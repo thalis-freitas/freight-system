@@ -2,6 +2,7 @@ pt-BR:
   mark_as: 'Marcar como'
   in_operation: 'Em operação'
   in_maintenance: 'Em manutenção'
+  on_delivery: 'Em entrega'
   activerecord:
     models:
       vehicle: 

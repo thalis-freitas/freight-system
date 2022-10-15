@@ -49,4 +49,14 @@ describe 'Usuário atualiza status do veículo' do
     expect(page).not_to have_button 'Marcar como em operação'
     expect(page).to have_button 'Marcar como em manutenção'
   end
+
+  it 'se o status atual for diferente de em entrega' do 
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+                              maximum_capacity: 23000, status: :on_delivery)
+    login_as admin    
+    visit vehicle_path(vehicle)
+    expect(page).not_to have_button 'Marcar como em operação'
+    expect(page).not_to have_button 'Marcar como em manutenção'
+  end
 end

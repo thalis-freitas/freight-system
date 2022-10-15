@@ -39,3 +39,6 @@ pt-BR:
     other: 'Compatíveis'
   price: 'Preço'
   deadline: 'Prazo'
+  hours: 'horas'
+  days: 'dias'
+  modality: 'Modalidade'

@@ -6,7 +6,7 @@
   <%= render 'search_form' %>
 
 <% if @vehicles.in_operation.any? %>
-  <div class="container-list">
+  <div class="container-list container-fluid">
     <% @vehicles.in_operation.each do |vehicle| %>
       <div class="contents">
         <ul>
@@ -25,7 +25,7 @@
 
 <h2 class="mt-5 mb-3"><%= "#{Vehicle.model_name.human(count: 2)} #{t(:in_maintenance).downcase}" %></h2>
 <% if @vehicles.in_maintenance.any? %>
-  <div class="container-list">
+  <div class="container-list container-fluid">
     <% @vehicles.in_maintenance.each do |vehicle| %>
       <div class="contents bg-dark text-light">
         <ul>
@@ -40,4 +40,23 @@
   </div>
 <% else %>
   <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t(:in_maintenance).downcase}" %></p>
+<% end %>
+
+<h2 class="mt-5 mb-3"><%= "#{Vehicle.model_name.human(count: 2)} #{t(:on_delivery).downcase}" %></h2>
+<% if @vehicles.on_delivery.any? %>
+  <div class="container-list container-fluid">
+    <% @vehicles.on_delivery.each do |vehicle| %>
+      <div class="contents">
+        <ul>
+          <h4 class= "mt-2"><%= link_to vehicle.nameplate.upcase, vehicle_path(vehicle)%></h4>
+          <li><%="#{Vehicle.human_attribute_name(:brand)}: #{vehicle.brand}"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:model)}: #{vehicle.model}"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:year_of_manufacture)}: #{vehicle.year_of_manufacture}"%></li>
+          <li><%="#{Vehicle.human_attribute_name(:maximum_capacity)}: #{vehicle.maximum_capacity}kg"%></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><%=" #{t :none} #{Vehicle.model_name.human.downcase} #{t(:on_delivery).downcase}" %></p>
 <% end %>
