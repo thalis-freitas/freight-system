@@ -35,6 +35,7 @@
             <% end %>
             <li><%=t(:modality)%>: <b><%= link_to service_order.mode_of_transport.name, mode_of_transport_path(service_order.mode_of_transport) %></b></li>
             <li><%="#{ServiceOrder.human_attribute_name(:total_distance)}: #{service_order.total_distance}km"%></li>
+            <li><%= ServiceOrder.human_attribute_name(:started_in) %>: <%= l(service_order.started_in, format: :short) %></li>
           </ul>
         </div>
       <% end %>
@@ -42,6 +43,7 @@
   <% else %>
     <p><%=" #{t :no_service_order} #{t(:in_progress).downcase}" %></p>
   <% end %>
-
-  <h2><%= link_to "#{ServiceOrder.model_name.human(count: 2)} #{t(:closed, count: 2)}", closeds_service_orders_path %></h2>
+  <h2 class="mt-5"><%= link_to "#{ServiceOrder.model_name.human(count: 2)} #{t(:closed, count: 2)}", closeds_service_orders_path %></h2>
+<% else %>
+  <%= render 'service_orders/search_form' %>
 <% end %>

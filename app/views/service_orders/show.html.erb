@@ -75,7 +75,7 @@
   <% if @service_order.on_deadline?  %>
     <%= button_to "#{t :close} #{ServiceOrder.model_name.human}", close_service_order_path(@service_order), method: :post, class: 'btn btn-primary mt-3' %> 
   <% elsif @service_order.overdue_reason.nil? %>
-    <%= link_to t(:record_the_reason_for_the_overdue), new_service_order_overdue_reason_path(@service_order), class: 'btn btn-primary' %> 
+    <%= link_to t(:record_the_reason_for_the_overdue), new_service_order_overdue_reason_path(@service_order), class: 'btn btn-danger' %> 
   <% end %>
 <% end %>
 

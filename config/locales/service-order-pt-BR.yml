@@ -19,6 +19,13 @@ pt-BR:
     one: 'encerrada'
     other: 'encerradas'
   no_service_orders_closed: 'Nenhuma ordem de serviço encerrada'
+  track_delivery: 'Rastrear entrega'
+  sent_in: 'Enviado em'
+  vehicle_allocated: 'Veículo alocado'
+  delivery_forecast: 'Previsão de entrega'
+  delivered_in: 'Entregue em'
+  no_service_order_found: 'Nenhuma Ordem de Serviço encontrada'
+  to_perform_the_search_it_is_necessary_to_fill_in_the_field_with_the_complete_code: 'Para realizar a busca é necessário preencher o campo com o código completo (15 caracteres)'
   activerecord:
     models:
       service_order: 

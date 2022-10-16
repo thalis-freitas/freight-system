@@ -1,0 +1,50 @@
+<%= render 'search_form' %>
+
+<% unless @service_orders.nil? %>
+  <div class="container">
+    <% if @service_orders.any? && @service_orders[0].pending? == false %>
+      <% @service_orders.each do |service_order| %>
+        <ul class="mt-3">
+          <h2><%=  ServiceOrder.human_attribute_name(:code) %> <%= service_order.code %></h2>
+          <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
+            <% if service_order.in_progress? %>
+              <b class="text-primary"><%= t(service_order.status, count:1) %></b>
+            <% elsif service_order.closed_on_deadline? %>
+              <b class="text-success"><%= t(service_order.status, count:1) %></b>
+            <% elsif service_order.closed_in_arrears? %>
+              <b class="text-danger"><%= t(service_order.status, count:1) %></b>
+            <% end %>
+          </li>
+          <% if service_order.closed_in_arrears? %>
+            <li><b><%= ServiceOrder.human_attribute_name(:overdue_reason) %>:</b>
+              <%= service_order.overdue_reason.overdue_reason  %>
+            </li>
+          <% end %>
+          <li><b><%=t(:vehicle_allocated) %>:</b>
+            <%= service_order.vehicle.nameplate %>, <%= service_order.vehicle.brand %> - <%= service_order.vehicle.model %>
+          </li>
+          <li><b><%= ServiceOrder.human_attribute_name(:source_address) %>:</b>
+            <%= service_order.source_address %>
+          </li>
+          <li><b><%= ServiceOrder.human_attribute_name(:destination_address) %>:</b>
+            <%= service_order.destination_address %>
+          </li>
+          <li><b><%= ServiceOrder.human_attribute_name(:started_in) %>:</b>
+            <%= l(service_order.started_in, format: :short) %>
+          </li>
+          <% if service_order.in_progress? %>
+            <li><b><%= t(:delivery_forecast) %>:</b>
+              <%= l((service_order.started_in + service_order.deadline), format: :short)  %>
+            </li>
+          <% elsif service_order.closed_on_deadline? || service_order.closed_in_arrears? %>
+            <li><b><%= ServiceOrder.human_attribute_name(:closed_in) %>:</b>
+              <%= l(service_order.closed_in, format: :short)  %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <h4 class="mt-3"><%= t(:no_service_order_found) %></h3>
+    <% end %>
+  </div>
+<% end %>

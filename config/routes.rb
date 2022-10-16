@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     post :close, on: :member
     post :close_overdue, on: :member
     get :closeds, on: :collection
+    get :search, on: :collection
     resources :overdue_reasons, only:[:new, :create]
   end
 end

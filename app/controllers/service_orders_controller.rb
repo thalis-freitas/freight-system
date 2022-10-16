@@ -1,5 +1,5 @@
 class ServiceOrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except:[:search]
   before_action :set_service_order, only:[:show, :edit, :update, :in_progress, :close, :close_overdue]
   before_action :formatted_recipient_phone, only:[:show]
   before_action :admins_only, only:[:new, :create, :edit, :update]
@@ -82,6 +82,14 @@ class ServiceOrdersController < ApplicationController
 
   def closeds
     @service_orders = ServiceOrder.all.select{|service_order| service_order.closed_on_deadline? || service_order.closed_in_arrears?}
+  end
+
+  def search 
+    if params["query"].strip != "" && params["query"].length == 15
+      @service_orders = ServiceOrder.where("code LIKE ?", "%#{params["query"]}%")
+    else
+      flash.now[:alert] = "#{t(:to_perform_the_search_it_is_necessary_to_fill_in_the_field_with_the_complete_code)}"
+    end
   end
 
   private

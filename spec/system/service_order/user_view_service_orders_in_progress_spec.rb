@@ -12,12 +12,12 @@ describe 'Usuário vê ordens de serviço em andamento' do
     service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
                                          height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
                                          recipient: 'Joana Matos', recipient_phone: "71999284839", total_distance: 100,
-                                         status: :in_progress, mode_of_transport: express)
+                                         status: :in_progress, mode_of_transport: express, started_in: 16.hours.ago)
     allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('123ABCDEFGHI456')
     second_service_order = ServiceOrder.create!(source_address: 'Rua José Pacheco, 25 - Maranguape', product_code: 'MDKSJ-RACKH-ASM24',
                                                 height: 50, width: 120, depth: 40, weight: 8, destination_address: 'Rua Beatriz, 57 - Fortaleza',
                                                 recipient: 'Joana Matos', recipient_phone: "85999284839", total_distance: 30,
-                                                status: :in_progress, mode_of_transport: express)
+                                                status: :in_progress, mode_of_transport: express, started_in: 1.day.ago)
     service_order.register_price_and_deadline
     second_service_order.register_price_and_deadline
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
