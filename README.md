@@ -8,7 +8,7 @@
 
 * Gem "devise" utilizada para autenticação
  
-* Banco de dados populado com seeds, necessário executar o comando "rails db:seeds" antes de rodar a app
+* Banco de dados populado com seeds, por favor executar o comando "rails db:seed" antes de rodar a app
 
 ### Contas sugeridas para testar a app:
 
