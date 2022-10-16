@@ -1,6 +1,5 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
-  before_action :vehicle_params, only:[:create]
   before_action :set_vehicle, only:[:show, :edit, :update, :in_maintenance, :in_operation]
   before_action :admins_only, only:[:new, :create, :edit, :update, :in_maintenance, :in_operation]
   

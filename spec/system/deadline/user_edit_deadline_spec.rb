@@ -119,22 +119,22 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
     expect(page).to have_content 'Prazo deve ser maior que 0'
   end
 
-it 'com distâncias não atendidas pela modalidade de transporte' do
-  admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-  mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                              minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-  deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                              mode_of_transport: mode_of_transport)                                       
-             
-  login_as admin  
-  visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
-  fill_in 'Distância mínima', with: '15'
-  fill_in 'Distância máxima', with: '4000'
-  click_button 'Salvar'
+  it 'com distâncias não atendidas pela modalidade de transporte' do
+    admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
+    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
+                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
+                                mode_of_transport: mode_of_transport)                                       
+              
+    login_as admin  
+    visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
+    fill_in 'Distância mínima', with: '15'
+    fill_in 'Distância máxima', with: '4000'
+    click_button 'Salvar'
 
-  expect(page).to have_content 'Distância mínima deve ser maior ou igual a 20'
-  expect(page).to have_content 'Distância máxima deve ser menor ou igual a 2000'
-end
+    expect(page).to have_content 'Distância mínima deve ser maior ou igual a 20'
+    expect(page).to have_content 'Distância máxima deve ser menor ou igual a 2000'
+  end
 
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)

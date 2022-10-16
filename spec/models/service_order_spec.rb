@@ -79,6 +79,7 @@ RSpec.describe ServiceOrder, type: :model do
         expect(service_order.errors[:recipient_phone]).to include 'é muito curto (mínimo: 10 caracteres)'
       end
     end
+    
     context 'comparison' do
       it 'altura deve ser maior que 0' do
         service_order = ServiceOrder.new(height: 0)

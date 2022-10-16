@@ -26,12 +26,16 @@
   </li>
   <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
     <% if @service_order.pending? %>
-      <b class="text-danger"><%= t(@service_order.status, count:1) %></b>
+      <b class="text-warning"><%= t(@service_order.status, count:1) %></b>
     <% elsif @service_order.in_progress? %>
+      <b class="text-primary"><%= t(@service_order.status, count:1) %></b>
+    <% elsif @service_order.closed_on_deadline? %>
       <b class="text-success"><%= t(@service_order.status, count:1) %></b>
+    <% elsif @service_order.closed_in_arrears? %>
+      <b class="text-danger"><%= t(@service_order.status, count:1) %></b>
     <% end %>
   </li>
-  <% if @service_order.in_progress? %>
+  <% unless @service_order.pending? %>
     <li><b><%= ModeOfTransport.model_name.human(count: 1) %>:</b>
       <%= link_to @service_order.mode_of_transport.name, mode_of_transport_path(@service_order.mode_of_transport) %>  
     </li>
@@ -48,8 +52,32 @@
     <li><b><%= ServiceOrder.human_attribute_name(:vehicle) %>:</b>
       <%= link_to @service_order.vehicle.nameplate, vehicle_path(@service_order.vehicle) %> 
     </li>
+    <li><b><%= ServiceOrder.human_attribute_name(:started_in) %>:</b>
+      <%= l(@service_order.started_in, format: :short) %>
+    </li>
+    <% if @service_order.closed_on_deadline? || @service_order.closed_in_arrears? %>
+    <li><b><%= ServiceOrder.human_attribute_name(:closed_in) %>:</b>
+      <%= l(@service_order.closed_in, format: :short) %>
+    </li>
+    <% end %>
+    <% if @service_order.overdue_reason.present? %>
+      <li><b><%= ServiceOrder.human_attribute_name(:overdue_reason) %>:</b>
+        <%= @service_order.overdue_reason.overdue_reason %>
+      </li>
+      <% if @service_order.in_progress? %>
+        <%= button_to "#{t :close_overdue}", close_overdue_service_order_path(@service_order), method: :post, class: 'btn btn-danger mt-3' %>
+      <% end %>
+    <% end %>
   <% end %>
 </ul>
+
+<% if @service_order.in_progress?%>
+  <% if @service_order.on_deadline?  %>
+    <%= button_to "#{t :close} #{ServiceOrder.model_name.human}", close_service_order_path(@service_order), method: :post, class: 'btn btn-primary mt-3' %> 
+  <% elsif @service_order.overdue_reason.nil? %>
+    <%= link_to t(:record_the_reason_for_the_overdue), new_service_order_overdue_reason_path(@service_order), class: 'btn btn-primary' %> 
+  <% end %>
+<% end %>
 
 <% if current_user.admin? && @service_order.pending? %>
   <%= link_to "#{t :edit} #{ServiceOrder.model_name.human}", edit_service_order_path, class:'btn btn-primary' %>

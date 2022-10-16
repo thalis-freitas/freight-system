@@ -6,9 +6,19 @@ pt-BR:
   no_service_order: 'Nenhuma ordem de serviço'
   dimensions: 'Dimensões'
   initiate: 'Iniciar'
+  close: 'Encerrar'
+  closed_on_deadline: 'Encerrada no prazo'
+  close_overdue: 'Encerrar Ordem de Serviço em atraso'
+  closed_in_arrears: 'Encerrada em atraso'
   unable_to_edit_a_service_order_that_has_already_been_started: 'Não é possível editar uma ordem de serviço que já foi iniciada'
   service_order_started_successfully: 'Ordem de Serviço iniciada com sucesso'
-  oops_no_vehicle_in_operation_is_able_to_meet_this_service_order: 'Ops, nenhum veículo em operação é apto para atender esta Ordem de Serviço'
+  oops_no_vehicle_available_to_meet_this_service_order: 'Ops, nenhum veículo disponível para atender esta Ordem de Serviço'
+  record_the_reason_for_the_overdue: 'Registrar o motivo do atraso'
+  unable_to_record_the_reason_for_the_overdue: 'Não foi possível registrar o motivo do atraso'
+  closed: 
+    one: 'encerrada'
+    other: 'encerradas'
+  no_service_orders_closed: 'Nenhuma ordem de serviço encerrada'
   activerecord:
     models:
       service_order: 
@@ -31,3 +41,6 @@ pt-BR:
         price: 'Preço'
         deadline: 'Prazo'
         vehicle: 'Veículo'
+        started_in: 'Iniciada em'
+        closed_in: 'Encerrada em'
+        overdue_reason: 'Motivo do atraso'

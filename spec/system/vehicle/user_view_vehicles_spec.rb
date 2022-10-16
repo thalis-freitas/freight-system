@@ -50,6 +50,7 @@ describe 'Usuário vê veículos' do
     visit vehicles_path
     expect(page).to have_content 'Nenhum veículo em operação'
     expect(page).to have_content 'Nenhum veículo em manutenção'
+    expect(page).to have_content 'Nenhum veículo em entrega'
   end  
   
   it 'e volta para a página inicial' do

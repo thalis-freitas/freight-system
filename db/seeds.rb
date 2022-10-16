@@ -154,7 +154,7 @@ User.create!(name: 'Lara Machado', email: 'lara@sistemadefrete.com.br', password
 User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
 User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
  
-Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
                 maximum_capacity: 23000)
 Vehicle.create!(nameplate: 'IOC0693', brand: 'KIA', model: 'BONGO K 2500', year_of_manufacture: '2015', 
                 maximum_capacity: 3400, status: :in_maintenance)
@@ -171,3 +171,10 @@ Vehicle.create!(nameplate: 'ISX8398', brand: 'Mercedez Benz', model: '710 PLUS',
 Vehicle.create!(nameplate: 'JZZ2991', brand: 'Iveco', model: 'Tector 170 E 25', year_of_manufacture: '2012', 
                 maximum_capacity: 17000, status: :in_maintenance)
                 
+
+
+service_order = ServiceOrder.create!(source_address: 'Avenida Tocantins, 384 - Jataí', product_code: 'SBDNF-PRIFM-SHFMD',
+                    height: 87, width: 135, depth: 38, weight: 55, destination_address: 'Zona Portuária, 30 - Rio Grande',
+                    recipient: 'Maurício Peixoto', recipient_phone: '53933204958', total_distance: 1730,
+                    mode_of_transport: economica, vehicle: vehicle, started_in: 3.week.ago, status: :in_progress)
+service_order.register_price_and_deadline  

@@ -43,7 +43,7 @@ RSpec.describe Deadline, type: :model do
       expect(deadline.errors[:maximum_distance]).to include 'deve ser menor ou igual a 4000'
     end
 
-    it 'distância máxima deve ser maior que distância mínima da modalidade de transporte' do
+    it 'distância máxima deve ser maior que a distância mínima da modalidade de transporte' do
       mode_of_transport = ModeOfTransport.create!(name:'Econômica', minimum_distance: 500, maximum_distance: 4000, 
                                                   minimum_weight: 20, maximum_weight: 800, flat_rate: 0, status: :active)    
       deadline = Deadline.new(maximum_distance: '300', mode_of_transport: mode_of_transport)

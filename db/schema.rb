@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_042955) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_16_025856) do
   create_table "associate_vehicles", force: :cascade do |t|
     t.integer "service_order_id", null: false
     t.integer "vehicle_id", null: false
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_042955) do
     t.integer "status", default: 0
   end
 
+  create_table "overdue_reasons", force: :cascade do |t|
+    t.integer "service_order_id", null: false
+    t.string "overdue_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_order_id"], name: "index_overdue_reasons_on_service_order_id"
+  end
+
   create_table "price_by_weights", force: :cascade do |t|
     t.integer "minimum_weight"
     t.integer "maximum_weight"
@@ -88,6 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_042955) do
     t.string "code"
     t.integer "price"
     t.integer "deadline"
+    t.datetime "started_in"
+    t.datetime "closed_in"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_042955) do
   add_foreign_key "deadlines", "mode_of_transports"
   add_foreign_key "initiate_service_orders", "mode_of_transports"
   add_foreign_key "initiate_service_orders", "service_orders"
+  add_foreign_key "overdue_reasons", "service_orders"
   add_foreign_key "price_by_weights", "mode_of_transports"
   add_foreign_key "price_per_distances", "mode_of_transports"
 end

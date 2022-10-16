@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    models:
+      overdue_reason: 'Motivo do atraso'
+    attributes:
+      overdue_reason:
+        overdue_reason: 'Motivo do atraso'

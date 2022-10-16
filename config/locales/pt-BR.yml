@@ -42,3 +42,4 @@ pt-BR:
   hours: 'horas'
   days: 'dias'
   modality: 'Modalidade'
+  overdue_reason: 'Motivo do atraso'

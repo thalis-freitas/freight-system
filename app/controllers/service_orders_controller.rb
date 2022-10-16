@@ -1,9 +1,10 @@
 class ServiceOrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service_order, only:[:show, :edit, :update, :in_progress]
+  before_action :set_service_order, only:[:show, :edit, :update, :in_progress, :close, :close_overdue]
   before_action :formatted_recipient_phone, only:[:show]
   before_action :admins_only, only:[:new, :create, :edit, :update]
   before_action :can_only_edit_if_status_is_pending, only:[:edit, :update]
+  before_action :closed_overdue_only_if_the_reason_is_present, only:[:close_overdue]
 
   def new 
     @service_order = ServiceOrder.new
@@ -43,6 +44,7 @@ class ServiceOrdersController < ApplicationController
     @vehicles = Vehicle.in_operation.select{|vehicle| vehicle if vehicle.maximum_capacity >= @service_order.weight}
     if @vehicles.any?
       @service_order.in_progress!
+      @service_order.started_in = Time.current
       @service_order.mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
       @service_order.register_price_and_deadline
       @service_order.vehicle = @vehicles.first
@@ -52,8 +54,34 @@ class ServiceOrdersController < ApplicationController
       @mode_of_transports = ModeOfTransport.active.select do |mode_of_transport|
         ModeOfTransportFinder.new(mode_of_transport, @service_order).compatible?
       end
-      return redirect_to @service_order, alert: t(:oops_no_vehicle_in_operation_is_able_to_meet_this_service_order)
+      return redirect_to @service_order, alert: t(:oops_no_vehicle_available_to_meet_this_service_order)
     end
+  end
+
+  def close 
+    @service_order.closed_in = Time.current
+    if @service_order.on_deadline?
+      @service_order.closed_on_deadline!
+      @service_order.vehicle.in_operation!
+      redirect_to @service_order
+    else
+      return redirect_to root_path
+    end
+  end
+
+  def close_overdue
+    if @service_order.on_deadline?
+      return redirect_to root_path
+    else
+      @service_order.closed_in = Time.current
+      @service_order.closed_in_arrears!
+      @service_order.vehicle.in_operation!
+      redirect_to @service_order
+    end
+  end
+
+  def closeds
+    @service_orders = ServiceOrder.all.select{|service_order| service_order.closed_on_deadline? || service_order.closed_in_arrears?}
   end
 
   private
@@ -77,6 +105,12 @@ class ServiceOrdersController < ApplicationController
   def can_only_edit_if_status_is_pending
     unless @service_order.pending?
       return redirect_to root_path, alert: t(:unable_to_edit_a_service_order_that_has_already_been_started)
+    end
+  end
+
+  def closed_overdue_only_if_the_reason_is_present
+    unless @service_order.overdue_reason.present?
+      return redirect_to root_path
     end
   end
 end

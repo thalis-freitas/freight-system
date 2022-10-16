@@ -157,7 +157,7 @@ describe 'Usuário edita uma ordem de serviço' do
     service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
                                          height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
                                          recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
-                                         status: :in_progress, mode_of_transport: mode_of_transport, vehicle: vehicle)
+                                         status: :in_progress, mode_of_transport: mode_of_transport, vehicle: vehicle, started_in: 1.day.ago)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     service_order.register_price_and_deadline
 
@@ -176,7 +176,7 @@ describe 'Usuário edita uma ordem de serviço' do
     service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
                                          height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
                                          recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
-                                         status: :in_progress, mode_of_transport: mode_of_transport)
+                                         status: :in_progress, mode_of_transport: mode_of_transport, started_in: 1.day.ago)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     service_order.register_price_and_deadline
 

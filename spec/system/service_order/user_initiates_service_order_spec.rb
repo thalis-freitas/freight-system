@@ -27,6 +27,7 @@ describe 'Usuário inicia uma ordem serviço pendente' do
     expect(page).to have_content 'Econômica'
     expect(page).to have_content 'Disk Envios'
     expect(page).to have_button 'Iniciar Ordem de Serviço'
+    expect(page).not_to have_button 'Encerrar Ordem de Serviço'
   end
 
   it 'com sucesso' do 
@@ -48,7 +49,7 @@ describe 'Usuário inicia uma ordem serviço pendente' do
     user = User.create!(name: 'Marcelo Costa', email: 'marcelo@sistemadefrete.com.br', password: 'pass1234')
     vehicle = Vehicle.create!(nameplate: 'ISX8398', brand: 'Mercedez Benz', model: '710 PLUS', year_of_manufacture: '2020',
                               maximum_capacity: 6700)
-                 
+
     login_as user                 
     visit service_order_path(service_order)
     select 'Econômica', from: 'Modalidade de Transporte'
@@ -61,6 +62,10 @@ describe 'Usuário inicia uma ordem serviço pendente' do
     expect(page).to have_content 'Prazo: 14 dias'
     expect(page).to have_content 'Veículo: ISX8398'
     expect(page).to have_link 'ISX8398'
+    expect(page).to have_content "Iniciada em: #{I18n.l(Time.current, format: :short)}"
+    expect(page).to have_button 'Encerrar Ordem de Serviço'
+    expect(page).not_to have_button 'Iniciar Ordem de Serviço'
+    expect(service_order.vehicle.status).to eq 'on_delivery'
   end
 
   it 'e não existem veículos aptos para fazer a entrega' do 
@@ -79,6 +84,6 @@ describe 'Usuário inicia uma ordem serviço pendente' do
     select 'Econômica', from: 'Modalidade de Transporte'
     click_button 'Iniciar Ordem de Serviço'
 
-    expect(page).to have_content 'Ops, nenhum veículo em operação é apto para atender esta Ordem de Serviço'
+    expect(page).to have_content 'Ops, nenhum veículo disponível para atender esta Ordem de Serviço'
   end
 end

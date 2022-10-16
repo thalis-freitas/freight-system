@@ -1,7 +1,6 @@
 class ModeOfTransportsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_mode_of_transport, only:[:show, :edit, :update, :inactive, :active]
-  before_action :mode_of_transport_params, only:[:create, :update]
   before_action :admins_only, only:[:new, :create, :edit, :update, :active, :inactive]
 
   def index

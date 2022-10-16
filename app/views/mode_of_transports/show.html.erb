@@ -15,12 +15,12 @@
   <li><b><%= ModeOfTransport.human_attribute_name(:flat_rate) %>:</b>
     <%= number_to_currency(@mode_of_transport.flat_rate.to_f/100) %>
   </li>
-    <li><b><%= ModeOfTransport.human_attribute_name(:status) %>:</b>
-      <% if @mode_of_transport.active? %>
-        <b class="text-primary"><%= t(@mode_of_transport.status, count: 1).capitalize %></b>
-      <% else %>
-        <b class="text-danger"><%= t(@mode_of_transport.status, count: 1) %></b>
-      <% end %>
+  <li><b><%= ModeOfTransport.human_attribute_name(:status) %>:</b>
+    <% if @mode_of_transport.active? %>
+      <b class="text-primary"><%= t(@mode_of_transport.status, count: 1).capitalize %></b>
+    <% else %>
+      <b class="text-danger"><%= t(@mode_of_transport.status, count: 1) %></b>
+    <% end %>
   </li>
 </ul>
 
@@ -40,7 +40,7 @@
 <div class="d-flex flex-wrap">
   <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
     <table class="table">
-    <h4><%= t(:price_by_weight_setting, count: 2) %></h4>
+      <h4><%= t(:price_by_weight_setting, count: 2) %></h4>
       <thead>
         <tr>
           <th scope="col"><%= t :weight %></th>
@@ -67,7 +67,7 @@
 
   <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
     <table class="table">
-    <h4><%= t(:distance_pricing_setup, count: 2) %></h4>
+      <h4><%= t(:distance_pricing_setup, count: 2) %></h4>
       <thead>
         <tr>
           <th scope="col"><%= t :distance %></th>
@@ -94,7 +94,7 @@
 
   <div class="table-responsive mt-3 col-12 col-lg-6 border p-2">
     <table class="table">
-    <h4><%= t(:deadline_setting, count: 2) %></h4>
+      <h4><%= t(:deadline_setting, count: 2) %></h4>
       <thead>
         <tr>
           <th scope="col"><%= t :distance %></th>

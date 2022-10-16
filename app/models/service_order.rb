@@ -3,12 +3,13 @@ class ServiceOrder < ApplicationRecord
   has_one :mode_of_transport, through: :initiate_service_order
   has_one :associate_vehicle
   has_one :vehicle, through: :associate_vehicle
+  has_one :overdue_reason
   before_validation :generate_code, on: :create
   validates :product_code, length: { is: 17 }, allow_blank: true
   validates :height, :width, :depth, :weight, :total_distance, comparison: { greater_than: 0 }
   validates :recipient_phone, length: { in: 10..11 }, allow_blank: true
   validates :source_address, :product_code, :destination_address, :recipient, :recipient_phone, presence: true
-  enum status: { pending: 0, in_progress: 5 }
+  enum status: { pending: 0, in_progress: 5, closed_on_deadline: 10, closed_in_arrears: 15 }
 
   def ==(other)
     self.source_address == other[:source_address] &&
@@ -27,9 +28,13 @@ class ServiceOrder < ApplicationRecord
     self.update!(price: ModeOfTransportFinder.new(self.mode_of_transport, self).calculate_price,
                  deadline: ModeOfTransportFinder.new(self.mode_of_transport, self).calculate_deadline)
   end
+  
+  def on_deadline?
+    Time.current <= self.started_in + self.deadline.hours
+  end
 
   private 
-  
+
   def generate_code
     self.code = SecureRandom.alphanumeric(15).upcase
   end

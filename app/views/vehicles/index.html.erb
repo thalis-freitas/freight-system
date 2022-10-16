@@ -3,7 +3,7 @@
   <%= link_to "#{t :register} #{Vehicle.model_name.human}", new_vehicle_path, class:'btn btn-primary mb-4 mt-2' %>
 <% end %>
 
-  <%= render 'search_form' %>
+<%= render 'search_form' %>
 
 <% if @vehicles.in_operation.any? %>
   <div class="container-list container-fluid">

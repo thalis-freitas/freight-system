@@ -7,6 +7,7 @@ describe 'Usuário cadastra um veículo' do
                                                     year_of_manufacture: '2011', maximum_capacity: 23000}})
     expect(response).to redirect_to new_user_session_path
   end
+  
   it 'e não é admin' do
     vehicle = Vehicle.new()
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')

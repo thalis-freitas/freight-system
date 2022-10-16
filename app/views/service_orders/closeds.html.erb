@@ -1,0 +1,39 @@
+<h2><%= "#{ServiceOrder.model_name.human(count: 2)} #{t(:closed, count: 2)}" %></h2>
+
+<% if @service_orders.any? %>
+  <div class="container-list">
+    <% @service_orders.each do |service_order| %>
+    <div class="contents bg-dark text-light">
+      <ul>
+        <h5 class= "mt-2"> <%= link_to service_order.code, service_order_path(service_order)%></h5>
+        <li><%= ServiceOrder.human_attribute_name(:status) %>:
+          <% if service_order.closed_on_deadline? %>
+            <b class="text-success"><%= t(service_order.status, count:1) %></b>
+          <% else service_order.closed_in_arrears? %>
+            <b class="text-danger"><%= t(service_order.status, count:1) %></b>
+          <% end %>
+        </li>
+        <li><%=t(:modality)%>: <b><%= link_to service_order.mode_of_transport.name, mode_of_transport_path(service_order.mode_of_transport) %></b></li>
+        <li><%= ServiceOrder.human_attribute_name(:vehicle) %> 
+          <b><%= link_to service_order.vehicle.nameplate, vehicle_path(service_order.vehicle) %></b>
+        </li>
+        <li><%= ServiceOrder.human_attribute_name(:deadline) %>:
+          <% if service_order.deadline <= 120 %>
+            <%= service_order.deadline %> <%= t(:hours) %>
+          <% else %>    
+                <%= service_order.deadline/24 %> <%= t(:days) %>
+          <% end %>
+        </li>
+        <li><%= ServiceOrder.human_attribute_name(:started_in) %>:
+          <%= l(service_order.started_in, format: :short) %>
+        </li>
+        <li><%= ServiceOrder.human_attribute_name(:closed_in) %>:
+          <%= l(service_order.closed_in, format: :short) %>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+<% else %>
+  <p><%= t :no_service_orders_closed %></p>
+<% end %>
