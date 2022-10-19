@@ -47,7 +47,7 @@ class ServiceOrdersController < ApplicationController
       @service_order.started_in = Time.current
       @service_order.mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
       @service_order.register_price_and_deadline
-      @service_order.vehicle = @vehicles.first
+      @service_order.vehicle = @vehicles.sort_by!{|vehicle| vehicle.maximum_capacity}.first
       @service_order.vehicle.on_delivery!
       redirect_to @service_order
     else

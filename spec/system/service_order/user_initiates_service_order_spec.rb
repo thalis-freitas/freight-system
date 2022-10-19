@@ -86,4 +86,27 @@ describe 'Usuário inicia uma ordem serviço pendente' do
 
     expect(page).to have_content 'Ops, nenhum veículo disponível para atender esta Ordem de Serviço'
   end
+
+  it 'e deve ser alocado o veículo com a menor capacidade máxima que for compatível com a ordem de serviço' do 
+    service_order = ServiceOrder.create!(source_address: 'Avenida Tocantins, 384 - Jataí', product_code: 'SBDNF-PRIFM-SHFMD',
+                                         height: 87, width: 135, depth: 38, weight: 55, destination_address: 'Zona Portuária, 30 - Rio Grande',
+                                         recipient: 'Maurício Peixoto', recipient_phone: '53933204958', total_distance: 1730)
+    economica = ModeOfTransport.create!(name:'Econômica', minimum_distance: 500, maximum_distance: 4000, 
+                                        minimum_weight: 20, maximum_weight: 800, flat_rate: 0, status: :active)    
+    PriceByWeight.create!(minimum_weight: 20, maximum_weight: 120, value: 0, mode_of_transport: economica)
+    PricePerDistance.create!(minimum_distance: 1501, maximum_distance: 2500, rate: 380, mode_of_transport: economica)
+    Deadline.create!(minimum_distance: 1001, maximum_distance: 2000, estimated_time: 336, mode_of_transport: economica)
+    user = User.create!(name: 'Marcelo Costa', email: 'marcelo@sistemadefrete.com.br', password: 'pass1234')
+    vehicle = Vehicle.create!(nameplate: 'ISX8398', brand: 'Mercedez Benz', model: '710 PLUS', year_of_manufacture: '2020',
+                              maximum_capacity: 6700)
+    second_vehicle = Vehicle.create!(nameplate: 'LVN8395', brand: 'Foton', model: 'Minitruck 3.5', year_of_manufacture: '2020',
+                                     maximum_capacity: 1450)                  
+
+    login_as user                 
+    visit service_order_path(service_order)
+    select 'Econômica', from: 'Modalidade de Transporte'
+    click_button 'Iniciar Ordem de Serviço'
+
+    expect(service_order.vehicle).to eq second_vehicle
+  end
 end
