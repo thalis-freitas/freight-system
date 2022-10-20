@@ -16,7 +16,9 @@ describe 'Usuário busca por um veículo' do
     within('nav') do 
       click_on 'Veículos'
     end
-    expect(page).to have_button 'Buscar Veículo'
+    within('main') do 
+      expect(page).to have_button 'Buscar Veículo'
+    end
   end
 
   it 'e encontra o veículo' do 
@@ -26,8 +28,10 @@ describe 'Usuário busca por um veículo' do
     
     login_as admin       
     visit vehicles_path
-    fill_in'query', with: 'HPK3528'
-    click_on 'Buscar'
+    within('main') do 
+      fill_in 'query', with: 'HPK3528'
+      click_on 'Buscar'
+    end
 
     expect(page).to have_content "Resultados da busca por HPK3528"
     expect(page).to have_content '1 veículo encontrado'
@@ -47,8 +51,10 @@ describe 'Usuário busca por um veículo' do
 
     login_as admin       
     visit vehicles_path
-    fill_in'query', with: 'hpk'
-    click_on 'Buscar'
+    within('main') do 
+      fill_in 'query', with: 'hpk'
+      click_on 'Buscar'
+    end
 
     expect(page).to have_content '2 veículos encontrados'
     expect(page).to have_link'HPK3528'
@@ -62,9 +68,10 @@ describe 'Usuário busca por um veículo' do
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin) 
     login_as admin
     visit vehicles_path
-    fill_in'query', with: 'hpk'
-    click_on 'Buscar'
-
+    within('main') do 
+      fill_in 'query', with: 'hpk'
+      click_on 'Buscar'
+    end
     expect(page).to have_content 'Nenhum veículo encontrado'
   end
 
@@ -72,8 +79,10 @@ describe 'Usuário busca por um veículo' do
     admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin) 
     login_as admin
     visit vehicles_path
-    fill_in'query', with: ''
-    click_on 'Buscar'
+    within('main') do 
+      fill_in 'query', with: ''
+      click_on 'Buscar'
+    end
     expect(page).to have_content 'É necessário preencher o campo para fazer a busca'
     expect(page).not_to have_content 'Resultados da busca por'
   end

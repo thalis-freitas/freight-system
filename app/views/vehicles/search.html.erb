@@ -1,18 +1,20 @@
-<%= render 'search_form' %>
+<div class="container">
+  <%= render 'search_form' %>
 
-<% unless @vehicles.nil? %>
-  <% if @vehicles.any? %>
-    <h2><%= t :search_results %> <b class="text-primary"><%= @nameplate%></b></h2>
-    <h3 class="text-center col-12 col-lg-4"><%= @vehicles.count %> <%= Vehicle.model_name.human(count: @vehicles.count).downcase %> <%= t(:found, count: @vehicles.count) %></h3>
-    <% @vehicles.each do |vehicle| %>
-      <div class="border-top border-secondary col-12 col-lg-4"> 
-        <h4 class="text-primary mt-2 text-center"><%= link_to vehicle.nameplate.upcase, vehicle_path(vehicle) %></h4>
-        
-        <%= render vehicle %>
+  <% unless @vehicles.nil? %>
+    <% if @vehicles.any? %>
+      <h2><%= t :search_results %> <b class="text-primary"><%= @nameplate%></b></h2>
+      <h3 class="text-center col-12 col-lg-4"><%= @vehicles.count %> <%= Vehicle.model_name.human(count: @vehicles.count).downcase %> <%= t(:found, count: @vehicles.count) %></h3>
+      <% @vehicles.each do |vehicle| %>
+        <div class="border-top border-secondary col-12 col-lg-4"> 
+          <h4 class="text-primary mt-2 text-center"><%= link_to vehicle.nameplate.upcase, vehicle_path(vehicle) %></h4>
+          
+          <%= render vehicle %>
 
-      </div>
+        </div>
+      <% end %>
+    <% else %>
+    <h4 class="text-center col-12 col-lg-4"><%= t(:none) %> <%= Vehicle.model_name.human(count: 1).downcase %> <%= t(:found, count: 1) %></h3>
     <% end %>
-  <% else %>
-  <h4 class="text-center col-12 col-lg-4"><%= t(:none) %> <%= Vehicle.model_name.human(count: 1).downcase %> <%= t(:found, count: 1) %></h3>
   <% end %>
-<% end %>
+</div>

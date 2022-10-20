@@ -21,6 +21,7 @@ describe 'Usuário encerra uma ordem de serviço' do
     visit root_path 
     click_link 'ABC123456789DEF'
     click_button 'Encerrar Ordem de Serviço'
+    
     expect(page).not_to have_button 'Encerrar Ordem de Serviço'
     expect(page).not_to have_content 'Status: Em andamento'
     expect(page).to have_content "Iniciada em: #{I18n.l(1.week.ago, format: :short)}"

@@ -85,10 +85,19 @@ class ServiceOrdersController < ApplicationController
   end
 
   def search 
-    if params["query"].strip != "" && params["query"].length == 15
-      @service_orders = ServiceOrder.where("code LIKE ?", "%#{params["query"]}%")
+    @code = params["query"]
+    if user_signed_in?
+      if @code.strip != ""
+        @service_orders = ServiceOrder.where("code LIKE ?", "%#{@code}%")
+      else
+        flash.now[:alert] = "#{t(:need_to_fill_in_the_field_to_search)}"
+      end
     else
-      flash.now[:alert] = "#{t(:to_perform_the_search_it_is_necessary_to_fill_in_the_field_with_the_complete_code)}"
+      if @code.strip != "" && @code.length == 15
+        @service_orders = ServiceOrder.where("code LIKE ?", "%#{@code}%")
+      else
+        flash.now[:alert] = "#{t(:to_perform_the_search_it_is_necessary_to_fill_in_the_field_with_the_complete_code)}"
+      end
     end
   end
 

@@ -45,5 +45,8 @@
   <% end %>
   <h2 class="mt-5"><%= link_to "#{ServiceOrder.model_name.human(count: 2)} #{t(:closed, count: 2)}", closeds_service_orders_path %></h2>
 <% else %>
-  <%= render 'service_orders/search_form' %>
+  <div class="mt-5 container">
+  <h5 class="mb-4 text-secondary"><%= t(:welcome_to_the_shipping_system_to_check_the_status_of_your_order_enter_the_tracking_code) %></h5>
+    <%= render 'service_orders/search_form' %>
+  </div>
 <% end %>

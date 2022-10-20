@@ -2,11 +2,14 @@
   <%= form_with(url: search_service_orders_path, method: :get) do |f| %>
     <div class="row">
       <div class="col-6 col-lg-7">
-        <%= f.label :query, t(:track_delivery) %>
         <%= f.text_field :query, class:'form-control'%>
       </div>
-        <div class="col-2 col-lg-2 mt-2">
-        <%= f.submit "#{t(:query)}", class:'btn btn-outline-success mt-3' %>  
+        <div class="col-2 col-lg-2">
+        <% if user_signed_in? %>
+          <%= f.submit t(:search_os), class:'btn btn-outline-success' %> 
+        <% else %>
+          <%= f.submit t(:track_delivery), class:'btn btn-outline-success' %>  
+        <% end %>
       </div>
     </div>
   <% end %>

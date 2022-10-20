@@ -1,13 +1,28 @@
-<%= render 'search_form' %>
+<% unless user_signed_in? %>
+  <%= render 'search_form' %>
+<% end %>
 
 <% unless @service_orders.nil? %>
   <div class="container">
-    <% if @service_orders.any? && @service_orders[0].pending? == false %>
+    <% if @service_orders.any? %>
+      <% if user_signed_in? %>
+        <h2><%= t(:search_results)%> <span class="text-primary"> <%= @code %> </span> </h2>
+        <h3 class="ms-3"><%= @service_orders.count %> <%= t(:service_order_found, count: @service_orders.count) %></h3>
+        <hr>
+      <% end %> 
       <% @service_orders.each do |service_order| %>
         <ul class="mt-3">
-          <h2><%=  ServiceOrder.human_attribute_name(:code) %> <%= service_order.code %></h2>
+          <h4><%= ServiceOrder.human_attribute_name(:code) %> 
+            <% if user_signed_in? %>
+              <%= link_to service_order.code, service_order_path(service_order) %>
+            <% else %>
+              <%= service_order.code %>
+            <% end %>
+          </h4>
           <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
-            <% if service_order.in_progress? %>
+            <% if service_order.pending? %>
+              <b class="text-warning"><%= t(service_order.status, count:1) %></b>
+            <% elsif service_order.in_progress? %>
               <b class="text-primary"><%= t(service_order.status, count:1) %></b>
             <% elsif service_order.closed_on_deadline? %>
               <b class="text-success"><%= t(service_order.status, count:1) %></b>
@@ -20,31 +35,34 @@
               <%= service_order.overdue_reason.overdue_reason  %>
             </li>
           <% end %>
-          <li><b><%=t(:vehicle_allocated) %>:</b>
-            <%= service_order.vehicle.nameplate %>, <%= service_order.vehicle.brand %> - <%= service_order.vehicle.model %>
-          </li>
-          <li><b><%= ServiceOrder.human_attribute_name(:source_address) %>:</b>
-            <%= service_order.source_address %>
-          </li>
-          <li><b><%= ServiceOrder.human_attribute_name(:destination_address) %>:</b>
-            <%= service_order.destination_address %>
-          </li>
-          <li><b><%= ServiceOrder.human_attribute_name(:started_in) %>:</b>
-            <%= l(service_order.started_in, format: :short) %>
-          </li>
-          <% if service_order.in_progress? %>
-            <li><b><%= t(:delivery_forecast) %>:</b>
-              <%= l((service_order.started_in + service_order.deadline), format: :short)  %>
+            <li><b><%= ServiceOrder.human_attribute_name(:source_address) %>:</b>
+              <%= service_order.source_address %>
             </li>
-          <% elsif service_order.closed_on_deadline? || service_order.closed_in_arrears? %>
-            <li><b><%= ServiceOrder.human_attribute_name(:closed_in) %>:</b>
-              <%= l(service_order.closed_in, format: :short)  %>
+            <li><b><%= ServiceOrder.human_attribute_name(:destination_address) %>:</b>
+              <%= service_order.destination_address %>
             </li>
+          <% unless service_order.pending? %>
+            <li><b><%=t(:vehicle_allocated) %>:</b>
+              <%= service_order.vehicle.nameplate %>, <%= service_order.vehicle.brand %> - <%= service_order.vehicle.model %>
+            </li>
+            <li><b><%= ServiceOrder.human_attribute_name(:started_in) %>:</b>
+              <%= l(service_order.started_in, format: :short) %>
+            </li>
+            <% if service_order.in_progress? %>
+              <li><b><%= t(:delivery_forecast) %>:</b>
+                <%= l((service_order.started_in + service_order.deadline), format: :short)  %>
+              </li>
+            <% elsif service_order.closed_on_deadline? || service_order.closed_in_arrears? %>
+              <li><b><%= ServiceOrder.human_attribute_name(:closed_in) %>:</b>
+                <%= l(service_order.closed_in, format: :short)  %>
+              </li>
+            <% end %>
           <% end %>
         </ul>
+        <hr>
       <% end %>
     <% else %>
-      <h4 class="mt-3"><%= t(:no_service_order_found) %></h3>
+      <h5 class="mt-3 text-secondary"><%= t(:no_service_order_found) %></h5>
     <% end %>
   </div>
 <% end %>

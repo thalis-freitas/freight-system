@@ -69,14 +69,14 @@ describe 'Usuário edita uma configuração de preço por peso de uma modalidade
 
     login_as admin  
     visit edit_mode_of_transport_price_by_weight_path(mode_of_transport, price_by_weight)
-    fill_in 'Peso mínimo', with: '20'
-    fill_in 'Peso máximo', with: '70'
-    fill_in 'Valor por km', with: '200'
+    fill_in 'Peso mínimo', with: '0'
+    fill_in 'Peso máximo', with: '100'
+    fill_in 'Valor por km', with: '130'
     click_button 'Salvar'
 
     expect(page).to have_content 'Configuração de preço por peso atualizada com sucesso'
     expect(page).to have_content 'Express'
-    expect(page).to have_content 'De 20kg a 70kg R$ 2,00'
+    expect(page).to have_content 'De 0kg a 100kg R$ 1,30'
   end
 
   it 'e deixa campos obrigatórios em branco' do

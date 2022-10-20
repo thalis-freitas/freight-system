@@ -1,18 +1,18 @@
 <h2><%= ModeOfTransport.model_name.human(count: 2) %></h2>
 <% if current_user.admin? %>
-  <%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn btn-primary mb-4 mt-2' %>
+  <%= link_to "#{t :register} #{ModeOfTransport.model_name.human}", new_mode_of_transport_path, class:'btn btn-primary mb-4 mode_of_transport-2' %>
 <% end %>
 <% if @mode_of_transports.active.any? %>
   <div class="container-list">
-    <% @mode_of_transports.active.each do |mt| %>
+    <% @mode_of_transports.active.each do |mode_of_transport| %>
       <div class="contents">
         <ul>
-          <h4 class= "mt-2"><%= link_to mt.name, mode_of_transport_path(mt)%></h4>
-          <li><%="#{ModeOfTransport.human_attribute_name(:minimum_distance)}: #{mt.minimum_distance}km"%></li>
-          <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mt.maximum_distance}km"%></li>
-          <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mt.minimum_weight}kg"%></li>
-          <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mt.maximum_weight}kg"%></li>
-          <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate.to_f/100)}"%></li>
+          <h4 class="mt-2"><%= link_to mode_of_transport.name, mode_of_transport_path(mode_of_transport)%></h4>
+          <li><%="#{ModeOfTransport.human_attribute_name(:minimum_distance)}: #{mode_of_transport.minimum_distance}km"%></li>
+          <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mode_of_transport.maximum_distance}km"%></li>
+          <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mode_of_transport.minimum_weight}kg"%></li>
+          <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mode_of_transport.maximum_weight}kg"%></li>
+          <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mode_of_transport.flat_rate.to_f/100)}"%></li>
         </ul>
       </div>
     <% end %>
@@ -25,15 +25,15 @@
 <h2 class="mt-5 mb-3"><%="#{ModeOfTransport.model_name.human(count: ModeOfTransport.inactive.count)} #{t(:inactive, count: ModeOfTransport.inactive.count)} " %></h2>
   <% if @mode_of_transports.inactive.any? %>
     <div class="container-list">
-      <% @mode_of_transports.inactive.each do |mt| %>
+      <% @mode_of_transports.inactive.each do |mode_of_transport| %>
         <div class="contents bg-dark text-light">
           <ul>
-            <h4 class= "mt-2 link"><%= link_to mt.name, mode_of_transport_path(mt)%></h4>
-            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_distance)}: #{mt.minimum_distance}km"%></li>
-            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mt.maximum_distance}km"%></li>
-            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mt.minimum_weight}kg"%></li>
-            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mt.maximum_weight}kg"%></li>
-            <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mt.flat_rate.to_f/100)}"%></li>
+            <h4 class="mt-2"><%= link_to mode_of_transport.name, mode_of_transport_path(mode_of_transport)%></h4>
+            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_distance)}: #{mode_of_transport.minimum_distance}km"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_distance)}: #{mode_of_transport.maximum_distance}km"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:minimum_weight)}: #{mode_of_transport.minimum_weight}kg"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:maximum_weight)}: #{mode_of_transport.maximum_weight}kg"%></li>
+            <li><%="#{ModeOfTransport.human_attribute_name(:flat_rate)}: #{number_to_currency(mode_of_transport.flat_rate.to_f/100)}"%></li>
           </ul>
         </div>
       <% end %>

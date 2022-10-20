@@ -43,3 +43,5 @@ pt-BR:
   days: 'dias'
   modality: 'Modalidade'
   overdue_reason: 'Motivo do atraso'
+  search_os: 'Buscar OS'
+  welcome_to_the_shipping_system_to_check_the_status_of_your_order_enter_the_tracking_code: 'Boas vindas ao sistema de frete! Para consultar o status do seu pedido preencha o campo abaixo com o código de rastreio'

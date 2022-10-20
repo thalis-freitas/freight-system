@@ -24,8 +24,11 @@ pt-BR:
   vehicle_allocated: 'Veículo alocado'
   delivery_forecast: 'Previsão de entrega'
   delivered_in: 'Entregue em'
-  no_service_order_found: 'Nenhuma Ordem de Serviço encontrada'
+  no_service_order_found: 'Nenhuma ordem de serviço encontrada'
   to_perform_the_search_it_is_necessary_to_fill_in_the_field_with_the_complete_code: 'Para realizar a busca é necessário preencher o campo com o código completo (15 caracteres)'
+  service_order_found:
+    one: 'ordem de serviço encontrada'
+    other: 'ordens de serviço encontradas'
   activerecord:
     models:
       service_order: 

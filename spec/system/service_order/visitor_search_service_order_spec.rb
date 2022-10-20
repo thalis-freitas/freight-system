@@ -4,9 +4,25 @@ describe 'Visitante busca por uma ordem de serviço' do
   it 'na página inicial' do 
     visit root_path
     within('main') do 
-      expect(page).to have_field 'Rastrear entrega'
-      expect(page).to have_button 'Buscar'
+      expect(page).to have_field 'query'
+      expect(page).to have_button 'Rastrear entrega'
     end
+  end
+
+  it 'e encontra uma ordem de serviço pendente' do 
+    allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('ABC123456789DEF')
+    ServiceOrder.create!(source_address: 'Rua Santa Maria, 7354 | Rio Branco - AC', product_code: 'MMAPS-WISMD-LEMDH',
+                         height: 380, width: 308, depth: 240, weight: 24000, destination_address: 'Avenida São Jorge, 9707 | Araraquara - SP',
+                         recipient: 'Luiza Gomes', recipient_phone: '11991218343', total_distance: 3225)
+    visit root_path
+    fill_in 'query', with: 'ABC123456789DEF'
+    click_button 'Rastrear entrega' 
+
+    expect(page).to have_content 'Código ABC123456789DEF'
+    expect(page).not_to have_link 'ABC123456789DEF'
+    expect(page).to have_content 'Status: Pendente'
+    expect(page).to have_content 'Endereço de origem: Rua Santa Maria, 7354 | Rio Branco - AC'
+    expect(page).to have_content 'Endereço destino: Avenida São Jorge, 9707 | Araraquara - SP'
   end
 
   it 'e encontra uma ordem de serviço em andamento' do 
@@ -25,8 +41,8 @@ describe 'Visitante busca por uma ordem de serviço' do
  
     service_order.register_price_and_deadline
     visit root_path
-    fill_in 'Rastrear entrega', with: 'ABC123456789DEF'
-    click_button 'Buscar'
+    fill_in 'query', with: 'ABC123456789DEF'
+    click_button 'Rastrear entrega'
 
     expect(page).to have_content 'Código ABC123456789DEF'
     expect(page).to have_content "Iniciada em: #{I18n.l(16.hours.ago, format: :short)}"
@@ -37,7 +53,7 @@ describe 'Visitante busca por uma ordem de serviço' do
     expect(page).to have_content "Previsão de entrega: #{I18n.l(16.hours.ago + service_order.deadline, format: :short)}"
   end
 
-  it 'e encontra uma ordem de serviço entregue no prazo' do 
+  it 'e encontra uma ordem de serviço encerrada no prazo' do 
     express = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                       minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
     PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: express)
@@ -53,8 +69,8 @@ describe 'Visitante busca por uma ordem de serviço' do
                                     
     service_order.register_price_and_deadline
     visit root_path
-    fill_in 'Rastrear entrega', with: 'ABC123456789DEF'
-    click_button 'Buscar'
+    fill_in 'query', with: 'ABC123456789DEF'
+    click_button 'Rastrear entrega'
 
     expect(page).to have_content 'Código ABC123456789DEF'
     expect(page).to have_content "Iniciada em: #{I18n.l(1.day.ago, format: :short)}"
@@ -65,7 +81,7 @@ describe 'Visitante busca por uma ordem de serviço' do
     expect(page).to have_content "Encerrada em: #{I18n.l(3.hours.ago, format: :short)}"
   end
 
-  it 'e encontra uma ordem de serviço entregue em atraso' do 
+  it 'e encontra uma ordem de serviço encerrada em atraso' do 
     express = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                       minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
     PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: express)
@@ -83,8 +99,8 @@ describe 'Visitante busca por uma ordem de serviço' do
     service_order.register_price_and_deadline
 
     visit root_path
-    fill_in 'Rastrear entrega', with: 'ABC123456789DEF'
-    click_button 'Buscar'
+    fill_in 'query', with: 'ABC123456789DEF'
+    click_button 'Rastrear entrega'
 
     expect(page).to have_content 'Código ABC123456789DEF'
     expect(page).to have_content "Iniciada em: #{I18n.l(1.month.ago, format: :short)}"
@@ -96,26 +112,25 @@ describe 'Visitante busca por uma ordem de serviço' do
     expect(page).to have_content "Encerrada em: #{I18n.l(3.hours.ago, format: :short)}"
   end
 
+  it 'e não encontra nenhuma ordem de serviço' do
+    visit root_path
+    fill_in 'query', with: 'ABC123456789DEF'
+    click_on 'Rastrear entrega'
+    expect(page).to have_content 'Nenhuma ordem de serviço encontrada'
+  end
+
   it 'sem preencher o campo' do 
     visit root_path
-    fill_in 'Rastrear entrega', with: ''
-    click_button 'Buscar'
+    fill_in 'query', with: ''
+    click_button 'Rastrear entrega'
 
     expect(page).to have_content 'Para realizar a busca é necessário preencher o campo com o código completo (15 caracteres)'
   end
 
-  it 'e não encontra nenhua ordem de serviço' do
-    visit root_path
-    fill_in 'Rastrear entrega', with: 'ABC123456789DEF'
-    click_on 'Buscar'
-
-    expect(page).to have_content 'Nenhuma Ordem de Serviço encontrada'
-  end
-
   it 'com código inválido' do 
     visit root_path
-    fill_in 'Rastrear entrega', with: 'ABC'
-    click_button 'Buscar'
+    fill_in 'query', with: 'ABC'
+    click_button 'Rastrear entrega'
 
     expect(page).to have_content 'Para realizar a busca é necessário preencher o campo com o código completo (15 caracteres)'
   end
