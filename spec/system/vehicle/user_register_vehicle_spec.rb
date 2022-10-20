@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário cadastra veículos' do
+describe 'Usuário cadastra um veículo' do
   it 'se estiver autenticado' do 
     visit new_vehicle_path
     expect(current_path).to eq new_user_session_path
@@ -14,7 +14,7 @@ describe 'Usuário cadastra veículos' do
     expect(page).not_to have_link 'Cadastrar Veículo'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user 
     visit new_vehicle_path

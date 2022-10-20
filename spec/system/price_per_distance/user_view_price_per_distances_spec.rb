@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário vê as configurações de preço por distância de uma modalidade de transporte' do
-  it 'a partir do menu' do 
+  it 'com sucesso' do 
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     mode_of_transport = ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
                                                 minimum_weight: 20, maximum_weight: 500, flat_rate: 500, status: :active)

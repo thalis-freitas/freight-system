@@ -1,11 +1,21 @@
 require 'rails_helper'
 
 describe 'Usuário vê ordens de serviço encerradas' do 
+  it 'se estiver autenticado' do 
+    visit root_path
+    expect(page).not_to have_link 'Ordens de Serviço encerradas'
+  end
+
   it 'a partir da página inicial' do 
     user = User.create!(name: 'Marcelo Costa', email: 'marcelo@sistemadefrete.com.br', password: 'pass1234')
     login_as user 
     visit root_path
     expect(page).to have_link 'Ordens de Serviço encerradas'
+  end
+
+  it 'a partir da url se estiver autenticado' do 
+    visit closeds_service_orders_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
   it 'com sucesso' do 

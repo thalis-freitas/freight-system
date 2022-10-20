@@ -107,6 +107,8 @@ describe 'Usuário inicia uma ordem serviço pendente' do
     select 'Econômica', from: 'Modalidade de Transporte'
     click_button 'Iniciar Ordem de Serviço'
 
+    expect(page).to have_content 'Veículo: LVN8395'
+    expect(page).not_to have_content 'Veículo: ISX8398'
     expect(service_order.vehicle).to eq second_vehicle
   end
 end

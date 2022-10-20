@@ -18,7 +18,7 @@ describe 'Usuário cadastra uma configuração de prazo para uma modalidade de t
     expect(page).not_to have_link 'Cadastrar configuração de prazo'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                                 minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')

@@ -18,7 +18,7 @@ describe 'Usuário edita um veículo' do
     expect(page).not_to have_link 'Editar Modalidade de Transporte'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
                               maximum_capacity: 23000)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
@@ -71,7 +71,6 @@ describe 'Usuário edita um veículo' do
     expect(page).to have_content 'Ano de fabricação: 2014'
     expect(page).to have_content 'Modelo: ATEGO 1315'
     expect(page).to have_content 'Capacidade máxima: 13000kg'
-
   end
 
   it 'e deixa campos obrigatórios em branco' do

@@ -20,7 +20,7 @@ describe 'Usuário edita uma ordem de serviço' do
     expect(page).not_to have_link 'Editar Ordem de Serviço'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
                                          height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
                                          recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)

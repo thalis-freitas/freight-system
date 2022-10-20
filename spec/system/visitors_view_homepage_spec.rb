@@ -11,6 +11,5 @@ describe 'Usuário não autenticado visita a tela inicial' do
     visit root_path
     expect(page).not_to have_content 'Ordens de Serviço pendentes'    
     expect(page).not_to have_content 'Ordens de Serviço em andamento'
-    expect(page).not_to have_link 'Ordens de Serviço encerradas'
    end
 end

@@ -20,15 +20,16 @@
             <% end %>
           </h4>
           <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
-            <% if service_order.pending? %>
+          <% case service_order.status %>
+            <% when 'pending' %>
               <b class="text-warning"><%= t(service_order.status, count:1) %></b>
-            <% elsif service_order.in_progress? %>
+            <% when 'in_progress' %>
               <b class="text-primary"><%= t(service_order.status, count:1) %></b>
-            <% elsif service_order.closed_on_deadline? %>
+            <% when 'closed_on_deadline' %>
               <b class="text-success"><%= t(service_order.status, count:1) %></b>
-            <% elsif service_order.closed_in_arrears? %>
+            <% when 'closed_in_arrears' %>
               <b class="text-danger"><%= t(service_order.status, count:1) %></b>
-            <% end %>
+          <% end %>
           </li>
           <% if service_order.closed_in_arrears? %>
             <li><b><%= ServiceOrder.human_attribute_name(:overdue_reason) %>:</b>

@@ -38,8 +38,8 @@ describe 'Visitante busca por uma ordem de serviço' do
                                          height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
                                          recipient: 'Joana Matos', recipient_phone: "71999284839", total_distance: 100,
                                          status: :in_progress, mode_of_transport: express, started_in: 16.hours.ago, vehicle: vehicle)
- 
     service_order.register_price_and_deadline
+
     visit root_path
     fill_in 'query', with: 'ABC123456789DEF'
     click_button 'Rastrear entrega'
@@ -66,8 +66,8 @@ describe 'Visitante busca por uma ordem de serviço' do
                                          height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 | Gramado - RS',
                                          recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120, started_in: 1.day.ago,
                                          closed_in: 3.hours.ago, mode_of_transport: express, vehicle: vehicle, status: :closed_on_deadline)       
-                                    
     service_order.register_price_and_deadline
+    
     visit root_path
     fill_in 'query', with: 'ABC123456789DEF'
     click_button 'Rastrear entrega'

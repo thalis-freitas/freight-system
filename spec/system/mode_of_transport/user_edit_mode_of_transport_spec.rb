@@ -18,7 +18,7 @@ describe 'Usuário edita uma modalidade de transporte' do
     expect(page).not_to have_link 'Editar Modalidade de Transporte'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                                 minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')

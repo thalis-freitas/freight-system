@@ -6,7 +6,7 @@ describe 'Usuário vê veículos' do
     expect(page).not_to have_content 'Veículos'
   end
 
-  it 'a partir da da url se estiver autenticado' do 
+  it 'a partir da url se estiver autenticado' do 
     visit vehicles_path
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'

@@ -22,7 +22,7 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
     expect(page).not_to have_link 'Editar'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
                                                 minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,

@@ -25,14 +25,15 @@
     <%= @service_order.weight %>kg
   </li>
   <li><b><%= ServiceOrder.human_attribute_name(:status) %>:</b>
-    <% if @service_order.pending? %>
-      <b class="text-warning"><%= t(@service_order.status, count:1) %></b>
-    <% elsif @service_order.in_progress? %>
-      <b class="text-primary"><%= t(@service_order.status, count:1) %></b>
-    <% elsif @service_order.closed_on_deadline? %>
-      <b class="text-success"><%= t(@service_order.status, count:1) %></b>
-    <% elsif @service_order.closed_in_arrears? %>
-      <b class="text-danger"><%= t(@service_order.status, count:1) %></b>
+    <% case @service_order.status %>
+      <% when 'pending' %>
+        <b class="text-warning"><%= t(@service_order.status, count:1) %></b>
+      <% when 'in_progress' %>
+        <b class="text-primary"><%= t(@service_order.status, count:1) %></b>
+      <% when 'closed_on_deadline' %>
+        <b class="text-success"><%= t(@service_order.status, count:1) %></b>
+      <% when 'closed_in_arrears' %>
+        <b class="text-danger"><%= t(@service_order.status, count:1) %></b>
     <% end %>
   </li>
   <% unless @service_order.pending? %>
@@ -130,7 +131,7 @@
     </div>
   <% else %>
     <div class="mt-3 col-12 col-lg-6">
-      <h5 class="mt-3 alert alert-danger " role="alert"><%="#{t(:no_transport_mode)} #{t(:compatible, count:1)}"%></h5>
+      <h5 class="mt-3 alert alert-danger" role="alert"><%="#{t(:no_transport_mode)} #{t(:compatible, count:1)}"%></h5>
     </div>
   <% end %>
 <% end %>

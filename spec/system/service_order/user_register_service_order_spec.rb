@@ -14,7 +14,7 @@ describe 'Usuário cadastra uma ordem de serviço' do
     expect(page).not_to have_link 'Cadastrar Ordem de Serviço'
   end
 
-  it 'a partir da da url se for admin' do 
+  it 'a partir da url se for admin' do 
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user 
     visit new_service_order_path

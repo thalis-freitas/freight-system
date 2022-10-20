@@ -12,12 +12,13 @@
     <%=vehicle.model %>
   </li>
   <li><b><%= Vehicle.human_attribute_name(:status) %>:
-  <% if vehicle.in_operation? %>
-    <span class="text-primary"><%= t (vehicle.status) %></span>
-  <% elsif vehicle.in_maintenance? %>
-    <span class="text-danger"><%= t (vehicle.status) %></span>
-  <% else %>
-    <span class="text-success"><%= t (vehicle.status) %></span>
-  <% end %>
+    <% case vehicle.status %>
+      <% when 'in_operation' %>
+        <span class="text-primary"><%= t (vehicle.status) %></span>
+      <% when 'in_maintenance' %>
+        <span class="text-danger"><%= t (vehicle.status) %></span>
+      <% when 'on_delivery' %>
+        <span class="text-success"><%= t (vehicle.status) %></span>
+    <% end %>
   </b></li>
 </ul>
