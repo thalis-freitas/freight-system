@@ -1,14 +1,18 @@
 require 'rails_helper'
 
 describe 'Usuário faz autenticação' do
-  it 'com sucesso' do 
-    User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
-
+  it 'a partir da página inicial' do 
     visit root_path
     within('nav') do
       click_link 'Entrar'
     end
     expect(current_path).to eq new_user_session_path
+  end
+
+  it 'com sucesso' do 
+    User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
+
+    visit new_user_session_path
     within('form') do
       fill_in 'E-mail', with: 'daiane_silva@sistemadefrete.com.br'
       fill_in 'Senha', with: 'senha123'

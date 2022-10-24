@@ -117,8 +117,8 @@ describe 'Usuário encerra uma ordem de serviço' do
 
     login_as user 
     visit service_order_path(service_order)
-
     click_button 'Encerrar Ordem de Serviço em atraso'
+    
     expect(page).not_to have_button 'Encerrar Ordem de Serviço em atraso'
     expect(page).to have_content 'Status: Encerrada em atraso'
     expect(page).to have_content "Encerrada em: #{I18n.l(Time.current, format: :short)}"

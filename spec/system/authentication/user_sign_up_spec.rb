@@ -10,11 +10,11 @@ describe 'Usuário cria uma conta' do
     fill_in 'Senha', with: 'pass1234'
     fill_in 'Confirme sua senha', with: 'pass1234'
     click_on 'Salvar'
-    
+    user = User.last
+
     expect(page).to have_content 'Marcus Lima'
     expect(page).to have_button 'Sair'
     expect(page).to have_content 'Boas vindas! Você realizou seu registro com sucesso.'
-    user = User.last
     expect(user.name).to eq 'Marcus Lima'
   end
 
@@ -50,6 +50,7 @@ describe 'Usuário cria uma conta' do
     fill_in 'Nome', with: ''
     fill_in 'E-mail', with: ''
     click_on 'Salvar'
+    
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'E-mail não pode ficar em branco'
     expect(page).to have_content 'Senha não pode ficar em branco'

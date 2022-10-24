@@ -4,6 +4,8 @@
 
 * Versão Ruby: 3.1.2
 
+* Versão Rails: 7.0.4
+
 * Gems utilizadas para configurar o ambiente de testes: "rspec-rails" e "capybara"
 
 * Gem "devise" utilizada para autenticação
