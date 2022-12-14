@@ -1,32 +1,38 @@
 require 'rails_helper'
 
-describe 'Usuário edita uma configuração de preço por distância de uma modalidade de transporte' do 
-  it 'se estiver autenticado' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+describe 'Usuário edita uma configuração de preço por distância de uma modalidade de transporte' do
+  it 'se estiver autenticado' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)
+                                                  mode_of_transport:)
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)
+  it 'se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
+                             mode_of_transport:)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
     expect(page).not_to have_link 'Editar'
   end
 
-  it 'a partir da url se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+  it 'a partir da url se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)
+                                                  mode_of_transport:)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
@@ -36,14 +42,16 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'a partir do menu' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)                                        
-    
-    login_as admin                         
+                                                  mode_of_transport:)
+
+    login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Modalidades de Transporte'
     end
     click_link 'Express'
@@ -52,7 +60,7 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
     expect(current_path).to eq edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     expect(page).to have_content 'Editar configuração de preço por distância'
     expect(page).to have_content 'Modalidade Express'
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Distância mínima', with: '20'
       expect(page).to have_field 'Distância máxima', with: '80'
       expect(page).to have_field 'Taxa (em centavos)', with: '500'
@@ -62,11 +70,13 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'com sucesso' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)    
-    login_as admin  
+                                                  mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     fill_in 'Distância mínima', with: '25'
     fill_in 'Distância máxima', with: '90'
@@ -79,11 +89,13 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'e deixa campos obrigatórios em branco' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)    
-    login_as admin  
+                                                  mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     fill_in 'Distância mínima', with: ''
     fill_in 'Distância máxima', with: ''
@@ -99,11 +111,13 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'com dados inválidos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)    
-    login_as admin  
+                                                  mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     fill_in 'Distância mínima', with: '2900'
     fill_in 'Distância máxima', with: '10'
@@ -117,11 +131,13 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'com distâncias não atendidas pela modalidade de transporte' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)    
-    login_as admin  
+                                                  mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     fill_in 'Distância mínima', with: '5'
     fill_in 'Distância máxima', with: '2700'
@@ -133,11 +149,13 @@ describe 'Usuário edita uma configuração de preço por distância de uma moda
 
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
     price_per_distance = PricePerDistance.create!(minimum_distance: 20, maximum_distance: 80, rate: 500,
-                                                  mode_of_transport: mode_of_transport)    
-    login_as admin  
+                                                  mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_price_per_distance_path(mode_of_transport, price_per_distance)
     click_button 'Salvar'
 

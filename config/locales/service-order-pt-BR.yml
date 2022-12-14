@@ -29,6 +29,11 @@ pt-BR:
   service_order_found:
     one: 'ordem de serviço encontrada'
     other: 'ordens de serviço encontradas'
+  service_order_successfully_registered: 'Ordem de Serviço cadastrada com sucesso'
+  unable_to_register_service_order: 'Não foi possível cadastrar a Ordem de Serviço'
+  service_order_successfully_updated: 'Ordem de Serviço atualizada com sucesso'
+  unable_to_update_service_order: 'Não foi possível atualizar a Ordem de Serviço'
+  register_service_order: 'Cadastrar Ordem de Serviço'
   activerecord:
     models:
       service_order: 

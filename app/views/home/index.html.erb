@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <h2><%="#{ServiceOrder.model_name.human(count: 2)} #{t(:pending, count: 2).downcase}"%></h2>
   <% if current_user.admin? %>
-    <%= link_to 'Cadastrar Ordem de Serviço', new_service_order_path, class:'btn btn-primary mt-3 mb-3' %> 
+    <%= link_to t(:register_service_order), new_service_order_path, class:'btn btn-primary mt-3 mb-3' %> 
   <% end %>
   <% if @service_orders.pending.any? %>
     <div class="container-list">

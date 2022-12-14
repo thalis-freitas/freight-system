@@ -7,8 +7,8 @@ class User < ApplicationRecord
   validate :validate_email_domain
 
   def validate_email_domain
-    unless self.email.end_with? "@sistemadefrete.com.br" 
-      self.errors.add(:email, 'inválido') if self.email != ''
-    end
+    return if email.end_with? '@sistemadefrete.com.br'
+
+    errors.add(:email, 'inválido') if email != ''
   end
 end

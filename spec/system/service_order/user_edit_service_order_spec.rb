@@ -1,29 +1,38 @@
 require 'rails_helper'
 
-describe 'Usuário edita uma ordem de serviço' do 
-  it 'se estiver autenticado' do 
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
+describe 'Usuário edita uma ordem de serviço' do
+  it 'se estiver autenticado' do
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
     visit edit_service_order_path(service_order)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
+  it 'se for admin' do
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit service_order_path(service_order)
     expect(page).not_to have_link 'Editar Ordem de Serviço'
   end
 
-  it 'a partir da url se for admin' do 
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
+  it 'a partir da url se for admin' do
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit edit_service_order_path(service_order)
@@ -34,11 +43,14 @@ describe 'Usuário edita uma ordem de serviço' do
   it 'a partir da página inicial' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('ABC123456789DEF')
-    ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
-    
-    login_as admin                         
+    ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                         product_code: 'AMDNF-EOLDF-SHNFK',
+                         height: 70, width: 40, depth: 30, weight: 2,
+                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                         total_distance: 1120)
+
+    login_as admin
     visit root_path
     click_link 'ABC123456789DEF'
     click_link 'Editar Ordem de Serviço'
@@ -60,10 +72,13 @@ describe 'Usuário edita uma ordem de serviço' do
 
   it 'com sucesso' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
-    login_as admin  
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
+    login_as admin
     visit edit_service_order_path(service_order)
     fill_in 'Telefone', with: '5433489283'
     click_button 'Salvar'
@@ -75,11 +90,14 @@ describe 'Usuário edita uma ordem de serviço' do
 
   it 'e deixa campos obrigatórios em branco' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
-    
-    login_as admin  
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
+
+    login_as admin
     visit edit_service_order_path(service_order)
     fill_in 'Endereço de origem', with: ''
     fill_in 'Código do produto', with: ''
@@ -109,11 +127,14 @@ describe 'Usuário edita uma ordem de serviço' do
 
   it 'com dados inválidos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
-    
-    login_as admin  
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
+
+    login_as admin
     visit edit_service_order_path(service_order)
     fill_in 'Código do produto', with: 'A'
     fill_in 'Altura', with: '0'
@@ -135,29 +156,39 @@ describe 'Usuário edita uma ordem de serviço' do
 
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo', product_code: 'AMDNF-EOLDF-SHNFK',
-                                         height: 70, width: 40, depth: 30, weight: 2, destination_address: 'Rua da Imprensa, 48 - Gramado',
-                                         recipient: 'João Cerqueira', recipient_phone: '54988475495', total_distance: 1120)
-    
-    login_as admin  
+    service_order = ServiceOrder.create!(source_address: 'Rua Paracatu, 957 - São Paulo',
+                                         product_code: 'AMDNF-EOLDF-SHNFK', height: 70,
+                                         width: 40, depth: 30, weight: 2,
+                                         destination_address: 'Rua da Imprensa, 48 - Gramado',
+                                         recipient: 'João Cerqueira', recipient_phone: '54988475495',
+                                         total_distance: 1120)
+
+    login_as admin
     visit edit_service_order_path(service_order)
     click_button 'Salvar'
     expect(page).to have_content 'Nenhuma modificação encontrada'
   end
 
-  it 'se o status for pendente' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: mode_of_transport)
-    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850, mode_of_transport: mode_of_transport)
-    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, mode_of_transport: mode_of_transport)
+  it 'se o status for pendente' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport:)
+    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850,
+                             mode_of_transport:)
+    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                     mode_of_transport:)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
 
-    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
-                                         height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
-                                         recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
-                                         status: :in_progress, mode_of_transport: mode_of_transport, vehicle: vehicle, started_in: 1.day.ago)
+    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana',
+                                         product_code: 'MDKSJ-CADGM-ASM24', height: 120,
+                                         width: 65, depth: 70, weight: 12,
+                                         destination_address: 'Avenida São Rafael, 478 - Salvador',
+                                         recipient: 'Joana Matos', recipient_phone: '71999284839',
+                                         total_distance: 100, status: :in_progress,
+                                         mode_of_transport:, vehicle:, started_in: 1.day.ago)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     service_order.register_price_and_deadline
 
@@ -166,17 +197,24 @@ describe 'Usuário edita uma ordem de serviço' do
     expect(page).not_to have_link 'Editar Ordem de Serviço'
   end
 
-  it 'a partir da url se o status for pendente' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport: mode_of_transport)
-    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850, mode_of_transport: mode_of_transport)
-    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, mode_of_transport: mode_of_transport)
+  it 'a partir da url se o status for pendente' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    PriceByWeight.create!(minimum_weight: 0, maximum_weight: 50, value: 100, mode_of_transport:)
+    PricePerDistance.create!(minimum_distance: 21, maximum_distance: 150, rate: 850,
+                             mode_of_transport:)
+    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                     mode_of_transport:)
 
-    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana', product_code: 'MDKSJ-CADGM-ASM24',
-                                         height: 120, width: 65, depth: 70, weight: 12, destination_address: 'Avenida São Rafael, 478 - Salvador',
-                                         recipient: 'Joana Matos', recipient_phone: '71999284839', total_distance: 100,
-                                         status: :in_progress, mode_of_transport: mode_of_transport, started_in: 1.day.ago)
+    service_order = ServiceOrder.create!(source_address: 'Avenida Getúlio Vargas, 250 - Feira de Santana',
+                                         product_code: 'MDKSJ-CADGM-ASM24', height: 120,
+                                         width: 65, depth: 70, weight: 12,
+                                         destination_address: 'Avenida São Rafael, 478 - Salvador',
+                                         recipient: 'Joana Matos', recipient_phone: '71999284839',
+                                         total_distance: 100, status: :in_progress,
+                                         mode_of_transport:, started_in: 1.day.ago)
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     service_order.register_price_and_deadline
 

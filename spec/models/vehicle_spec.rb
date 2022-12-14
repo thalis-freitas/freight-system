@@ -29,13 +29,13 @@ RSpec.describe Vehicle, type: :model do
     end
 
     context 'length' do
-      it 'ano de fabricação deve ter 4 caracteres' do 
+      it 'ano de fabricação deve ter 4 caracteres' do
         vehicle = Vehicle.new(year_of_manufacture: '11')
         vehicle.valid?
         expect(vehicle.errors[:year_of_manufacture]).to include 'não possui o tamanho esperado (4 caracteres)'
       end
 
-      it 'placa de identificação deve ter 7 caracteres' do 
+      it 'placa de identificação deve ter 7 caracteres' do
         vehicle = Vehicle.new(nameplate: 'MPV029374539')
         vehicle.valid?
         expect(vehicle.errors[:nameplate]).to include 'não possui o tamanho esperado (7 caracteres)'
@@ -43,17 +43,17 @@ RSpec.describe Vehicle, type: :model do
     end
 
     context 'comparison' do
-      it 'capacidade máxima deve ser maior que 0' do 
+      it 'capacidade máxima deve ser maior que 0' do
         vehicle = Vehicle.new(maximum_capacity: '-5')
         vehicle.valid?
         expect(vehicle.errors[:maximum_capacity]).to include 'deve ser maior que 0'
       end
     end
 
-    context 'uniqueness' do 
-      it 'placa de identificação deve ser única' do 
+    context 'uniqueness' do
+      it 'placa de identificação deve ser única' do
         Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                        maximum_capacity: 23000)
+                        maximum_capacity: 23_000)
         vehicle = Vehicle.new(nameplate: 'HPK3528')
         vehicle.valid?
         expect(vehicle.errors[:nameplate]).to include 'já está em uso'
@@ -61,9 +61,9 @@ RSpec.describe Vehicle, type: :model do
     end
 
     describe '#inactive' do
-      it 'um veículo tem por padrão status em operação' do 
-        vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                                  maximum_capacity: 23000)
+      it 'um veículo tem por padrão status em operação' do
+        vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E',
+                                  year_of_manufacture: '2011', maximum_capacity: 23_000)
         expect(vehicle.in_operation?).to eq true
         expect(vehicle.in_maintenance?).to eq false
       end
@@ -71,10 +71,10 @@ RSpec.describe Vehicle, type: :model do
 
     describe '#==(other)' do
       it 'retorna true se os atributos forem iguais' do
-        vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                                  maximum_capacity: 23000)
-        second_vehicle = Vehicle.new(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                                     maximum_capacity: 23000)
+        vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E',
+                                  year_of_manufacture: '2011', maximum_capacity: 23_000)
+        second_vehicle = Vehicle.new(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E',
+                                     year_of_manufacture: '2011', maximum_capacity: 23_000)
         expect(vehicle == second_vehicle).to eq true
       end
     end

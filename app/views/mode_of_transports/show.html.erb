@@ -81,7 +81,7 @@
             <td scope="row"> <%= t :from %> <%= price_per_distance.minimum_distance %>km <%= t :to %> <%= price_per_distance.maximum_distance %>km</td>
             <td><%= number_to_currency(price_per_distance.rate.to_f/100) %></td>
             <% if current_user.admin? %>
-              <td><%= link_to 'Editar', edit_mode_of_transport_price_per_distance_path(@mode_of_transport, price_per_distance) %></td>
+              <td><%= link_to t(:edit), edit_mode_of_transport_price_per_distance_path(@mode_of_transport, price_per_distance) %></td>
             <% end %>
           </tr>
         <% end %>
@@ -112,7 +112,7 @@
               <td><%= (deadline.estimated_time / 24) %> dias </td>
             <% end %>
             <% if current_user.admin? %>
-              <td><%= link_to 'Editar', edit_mode_of_transport_deadline_path(@mode_of_transport, deadline) %></td>
+              <td><%= link_to t(:edit), edit_mode_of_transport_deadline_path(@mode_of_transport, deadline) %></td>
             <% end %>
           </tr>
         <% end %>

@@ -8,12 +8,23 @@ class ApplicationController < ActionController::Base
   end
 
   def admins_only
-    unless current_user.admin?
-      return redirect_to root_path, alert: t(:unauthorized_access)
-    end
+    return if current_user.admin?
+
+    redirect_to root_path, alert: t(:unauthorized_access)
   end
 
   def set_mode_of_transport_id
     @mode_of_transport = ModeOfTransport.find(params[:mode_of_transport_id])
+  end
+
+  def no_modification_found
+    flash.now[:alert] = t(:no_modification_found)
+    render :edit
+  end
+
+  def formatted_phone
+    @service_order.recipient_phone.insert(0, '(')
+    @service_order.recipient_phone.insert(3, ')')
+    @service_order.recipient_phone.insert(-5, '-')
   end
 end

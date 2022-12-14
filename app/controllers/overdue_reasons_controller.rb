@@ -1,6 +1,6 @@
 class OverdueReasonsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service_order_id, only:[:new, :create]
+  before_action :set_service_order_id, only: %i[new create]
 
   def new
     @overdue_reason = OverdueReason.new

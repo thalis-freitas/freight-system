@@ -6,28 +6,28 @@ class PriceByWeight < ApplicationRecord
   validate :validate_maximum_weight
 
   def ==(other)
-    "#{self.minimum_weight}"  == "#{other[:minimum_weight]}" && 
-    "#{self.maximum_weight}"  == "#{other[:maximum_weight]}" && 
-    "#{self.value}"  == "#{other[:value]}"
+    minimum_weight.to_s == (other[:minimum_weight]).to_s &&
+      maximum_weight.to_s == (other[:maximum_weight]).to_s &&
+      value.to_s == (other[:value]).to_s
   end
 
   def validate_minimum_weight
-    if self.minimum_weight.present? 
-      if self.minimum_weight < self.mode_of_transport.minimum_weight
-        self.errors.add(:minimum_weight, "deve ser maior ou igual a #{self.mode_of_transport.minimum_weight}")
-      elsif self.minimum_weight >= self.mode_of_transport.maximum_weight
-        self.errors.add(:minimum_weight, "deve ser menor que #{self.mode_of_transport.maximum_weight}")
-      end
+    return if minimum_weight.blank?
+
+    if minimum_weight < mode_of_transport.minimum_weight
+      errors.add(:minimum_weight, "deve ser maior ou igual a #{mode_of_transport.minimum_weight}")
+    elsif minimum_weight >= mode_of_transport.maximum_weight
+      errors.add(:minimum_weight, "deve ser menor que #{mode_of_transport.maximum_weight}")
     end
   end
 
   def validate_maximum_weight
-    if self.maximum_weight.present? 
-      if self.maximum_weight > self.mode_of_transport.maximum_weight
-        self.errors.add(:maximum_weight, "deve ser menor ou igual a #{self.mode_of_transport.maximum_weight}")
-      elsif self.maximum_weight <= self.mode_of_transport.minimum_weight
-        self.errors.add(:maximum_weight, "deve ser maior que #{self.mode_of_transport.minimum_weight}")
-      end
+    return if maximum_weight.blank?
+
+    if maximum_weight > mode_of_transport.maximum_weight
+      errors.add(:maximum_weight, "deve ser menor ou igual a #{mode_of_transport.maximum_weight}")
+    elsif maximum_weight <= mode_of_transport.minimum_weight
+      errors.add(:maximum_weight, "deve ser maior que #{mode_of_transport.minimum_weight}")
     end
   end
 end

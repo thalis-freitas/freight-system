@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_16_025856) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_13_190304) do
   create_table "associate_vehicles", force: :cascade do |t|
     t.integer "service_order_id", null: false
     t.integer "vehicle_id", null: false
@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_025856) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.index ["nameplate"], name: "index_vehicles_on_nameplate", unique: true
   end
 
   add_foreign_key "associate_vehicles", "service_orders"

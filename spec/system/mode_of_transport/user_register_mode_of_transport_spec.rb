@@ -1,38 +1,39 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra modalidade de transporte' do
-  it 'se estiver autenticado' do 
+  it 'se estiver autenticado' do
     visit new_mode_of_transport_path
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
+  it 'se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transports_path
     expect(page).not_to have_link 'Cadastrar Modalidade de Transporte'
   end
 
-  it 'a partir da url se for admin' do 
+  it 'a partir da url se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    login_as user
     visit new_mode_of_transport_path
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
   end
 
   it 'a partir do menu' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Modalidades de Transporte'
     end
     click_link 'Cadastrar Modalidade de Transporte'
 
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Nome'
       expect(page).to have_field 'Distância mínima', type: 'number'
       expect(page).to have_field 'Distância máxima', type: 'number'
@@ -42,10 +43,11 @@ describe 'Usuário cadastra modalidade de transporte' do
       expect(page).to have_button 'Salvar'
     end
   end
-  
+
   it 'com sucesso' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_mode_of_transport_path
     fill_in 'Nome', with: 'Express'
@@ -67,8 +69,9 @@ describe 'Usuário cadastra modalidade de transporte' do
   end
 
   it 'com dados incompletos' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_mode_of_transport_path
     fill_in 'Nome', with: ''
@@ -87,9 +90,10 @@ describe 'Usuário cadastra modalidade de transporte' do
     expect(page).to have_content 'Taxa fixa não pode ficar em branco'
   end
 
-  it 'com dados inválidos' do 
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+  it 'com dados inválidos' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_mode_of_transport_path
     fill_in 'Distância mínima', with: '-1'

@@ -3,6 +3,11 @@ pt-BR:
   in_operation: 'Em operação'
   in_maintenance: 'Em manutenção'
   on_delivery: 'Em entrega'
+  vehicle_successfully_registered: 'Veículo cadastrado com sucesso'
+  unable_to_register_vehicle: 'Não foi possível cadastrar o Veículo'
+  successfully_updated_vehicle: 'Veículo atualizado com sucesso'
+  unable_to_update_vehicle: 'Não foi possível atualizar o Veículo'
+  vehicle_status_updated_for: 'Status do Veículo atualizado para'
   activerecord:
     models:
       vehicle: 

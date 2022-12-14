@@ -1,41 +1,46 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra configuração de preço por peso para uma modalidade de transporte' do
-  it 'se estiver autenticado' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
+  it 'se estiver autenticado' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
+  it 'se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
     expect(page).not_to have_link 'Cadastrar configuração de preço por peso'
   end
 
-  it 'a partir da url se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
+  it 'a partir da url se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    login_as user
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
   end
 
   it 'a partir do menu' do
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Modalidades de Transporte'
     end
     click_link 'Express'
@@ -44,20 +49,23 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
     expect(current_path).to eq new_mode_of_transport_price_by_weight_path(mode_of_transport)
     expect(page).to have_content 'Cadastrar configuração de preço por peso'
     expect(page).to have_content 'Modalidade Express'
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Peso mínimo', type: 'number'
       expect(page).to have_field 'Peso máximo', type: 'number'
       expect(page).to have_field 'Valor por km (em centavos)', type: 'number'
       expect(page).to have_button 'Salvar'
     end
   end
-  
+
   it 'com sucesso' do
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
-    mode_of_transport_2 = ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
-                                                  minimum_weight: 20, maximum_weight: 800, flat_rate: 0, status: :active)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
+    ModeOfTransport.create!(name: 'Econômica', minimum_distance: 100, maximum_distance: 4000,
+                            minimum_weight: 20, maximum_weight: 800, flat_rate: 0,
+                            status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
 
     login_as admin
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
@@ -72,9 +80,11 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
   end
 
   it 'com dados incompletos' do
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
 
     login_as admin
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
@@ -91,11 +101,13 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
     expect(page).to have_content 'Valor por km não pode ficar em branco'
   end
 
-  it 'com dados inválidos' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500, status: :active)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+  it 'com dados inválidos' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 0, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
     fill_in 'Peso mínimo', with: '300'
@@ -108,11 +120,13 @@ describe 'Usuário cadastra configuração de preço por peso para uma modalidad
     expect(page).to have_content 'Valor por km deve ser maior ou igual a 0'
   end
 
-  it 'com pesos não atendidos pela modalidade de transporte' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 10, maximum_weight: 200, flat_rate: 1500, status: :active)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+  it 'com pesos não atendidos pela modalidade de transporte' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20, maximum_distance: 2000,
+                                                minimum_weight: 10, maximum_weight: 200, flat_rate: 1500,
+                                                status: :active)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_mode_of_transport_price_by_weight_path(mode_of_transport)
     fill_in 'Peso mínimo', with: '5'

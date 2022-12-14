@@ -8,6 +8,12 @@ pt-BR:
   inactive: 
     one: 'Inativa'
     other: 'Inativas'
+  mode_of_transport_successfully_registered: 'Modalidade de Transporte cadastrada com sucesso'
+  unable_to_register_mode_of_transport: 'Não foi possível cadastrar a Modalidade de Transporte'
+  mode_of_transport_successfully_updated: 'Modalidade de Transporte atualizada com sucesso'
+  unable_to_update_mode_of_transport: 'Não foi possível atualizar a Modalidade de Transporte'
+  mode_of_transport_activated_successfully: 'Modalidade de Transporte ativada com sucesso'
+  mode_of_transport_disabled_successfully: 'Modalidade de Transporte desativada com sucesso'
   activerecord:
     models:
       mode_of_transport: 

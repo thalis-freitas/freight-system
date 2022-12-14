@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário faz autenticação' do
-  it 'a partir da página inicial' do 
+  it 'a partir da página inicial' do
     visit root_path
     within('nav') do
       click_link 'Entrar'
@@ -9,7 +9,7 @@ describe 'Usuário faz autenticação' do
     expect(current_path).to eq new_user_session_path
   end
 
-  it 'com sucesso' do 
+  it 'com sucesso' do
     User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
 
     visit new_user_session_path
@@ -18,22 +18,22 @@ describe 'Usuário faz autenticação' do
       fill_in 'Senha', with: 'senha123'
       click_button 'Entrar'
     end
-    
-    within('nav') do 
+
+    within('nav') do
       expect(page).not_to have_link 'Entrar'
       expect(page).to have_button 'Sair'
       expect(page).to have_content 'Daiane Silva'
-    end  
+    end
     expect(page).to have_content 'Login efetuado com sucesso'
   end
 
-  it 'e faz logout' do 
+  it 'e faz logout' do
     User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
 
     visit new_user_session_path
     fill_in 'E-mail', with: 'daiane_silva@sistemadefrete.com.br'
     fill_in 'Senha', with: 'senha123'
-    within('form') do 
+    within('form') do
       click_on 'Entrar'
     end
     click_button 'Sair'

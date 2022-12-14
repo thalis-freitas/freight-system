@@ -5,12 +5,12 @@ class Vehicle < ApplicationRecord
   validates :maximum_capacity, comparison: { greater_than: 0 }
   validates :nameplate, uniqueness: true
   enum status: { in_operation: 0, in_maintenance: 5, on_delivery: 10 }
-  
+
   def ==(other)
-    self.nameplate  == other[:nameplate] &&
-    self.brand  == other[:brand] && 
-    self.model == other[:model] && 
-    self.year_of_manufacture  == other[:year_of_manufacture] && 
-    "#{self.maximum_capacity}"  == "#{other[:maximum_capacity]}" 
+    nameplate == other[:nameplate] &&
+      brand == other[:brand] &&
+      model == other[:model] &&
+      year_of_manufacture == other[:year_of_manufacture] &&
+      maximum_capacity.to_i == (other[:maximum_capacity]).to_i
   end
 end

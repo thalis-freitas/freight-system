@@ -2,6 +2,10 @@ pt-BR:
   distance_pricing_setup:
     one: 'configuração de preço por distância'
     other: 'Configuração de preços por distância'
+  price_per_distance_successfully_registered: 'Configuração de preço por distância cadastrada com sucesso'
+  unable_to_register_price_per_distance: 'Não foi possível cadastrar a configuração de preço por distância'
+  price_per_distance_successfully_updated: 'Configuração de preço por distância atualizada com sucesso'
+  unable_to_update_price_per_distance: 'Não foi possível atualizar a configuração de preço por distância'
   activerecord:
     models:
       price_per_distance: 'preços por distância'

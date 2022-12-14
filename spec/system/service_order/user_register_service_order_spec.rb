@@ -1,30 +1,31 @@
 require 'rails_helper'
 
-describe 'Usuário cadastra uma ordem de serviço' do 
-  it 'se estiver autenticado' do 
+describe 'Usuário cadastra uma ordem de serviço' do
+  it 'se estiver autenticado' do
     visit new_service_order_path
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
+  it 'se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit root_path
     expect(page).not_to have_link 'Cadastrar Ordem de Serviço'
   end
 
-  it 'a partir da url se for admin' do 
+  it 'a partir da url se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    login_as user
     visit new_service_order_path
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
   end
 
   it 'a partir da página inicial' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit root_path
     click_link 'Cadastrar Ordem de Serviço'
@@ -44,9 +45,10 @@ describe 'Usuário cadastra uma ordem de serviço' do
       expect(page).to have_button 'Salvar'
     end
   end
-  
+
   it 'com sucesso' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
     allow(SecureRandom).to receive(:alphanumeric).with(15).and_return('ABC123456789DEF')
 
     login_as admin
@@ -63,6 +65,7 @@ describe 'Usuário cadastra uma ordem de serviço' do
     fill_in 'Distância total', with: '480'
     click_button 'Salvar'
 
+    expect(page).to have_content 'Ordem de Serviço cadastrada com sucesso'
     expect(page).to have_content 'Ordem de Serviço ABC123456789DEF'
     expect(page).to have_content 'Endereço de origem: Avenida Esbertalina Barbosa Damiani, 85 - São Mateus'
     expect(page).to have_content 'Código do produto: AMROS-SMDNT-EPSLD'
@@ -76,7 +79,8 @@ describe 'Usuário cadastra uma ordem de serviço' do
   end
 
   it 'com dados incompletos' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
 
     login_as admin
     visit new_service_order_path
@@ -107,8 +111,9 @@ describe 'Usuário cadastra uma ordem de serviço' do
     expect(page).to have_content 'Distância total não pode ficar em branco'
   end
 
-  it 'com dados inválidos' do 
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
+  it 'com dados inválidos' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
 
     login_as admin
     visit new_service_order_path

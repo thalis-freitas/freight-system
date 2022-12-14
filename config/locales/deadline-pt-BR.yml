@@ -3,6 +3,10 @@ pt-BR:
     one: 'configuração de prazo'
     other: 'Configuração de prazos'
   in_hours: 'em horas'
+  deadline_successfully_registered: 'Configuração de prazo cadastrada com sucesso'
+  unable_to_register_deadline: 'Não foi possível cadastrar a configuração de prazo'
+  deadline_successfully_updated: 'Configuração de prazo atualizada com sucesso'
+  unable_to_update_deadline: 'Não foi possível atualizar a configuração de prazo'
   activerecord:
     models:
       deadline: 'Prazo'

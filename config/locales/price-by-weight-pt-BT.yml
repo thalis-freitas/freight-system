@@ -4,6 +4,10 @@ pt-BR:
     one: 'configuração de preço por peso'
     other: 'Configuração de preços por peso'
   for_the_modality: 'para a modalidade'
+  price_by_weight_successfully_registered: 'Configuração de preço por peso cadastrada com sucesso'
+  unable_to_register_price_by_weight: 'Não foi possível cadastrar a configuração de preço por peso'
+  price_by_weight_successfully_updated: 'Configuração de preço por peso atualizada com sucesso'
+  unable_to_update_price_by_weight: 'Não foi possível atualizar a configuração de preço por peso'
   activerecord:
     models:
       price_by_weight: 'preços por peso'

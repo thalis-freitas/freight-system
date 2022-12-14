@@ -5,9 +5,10 @@
   * [Passo a passo para rodar a app](#passo-a-passo-para-rodar-a-app)
   * [Contas sugeridas para testar a app](#contas-sugeridas-para-testar-a-app)
   * [Comando para rodar os testes](#comando-para-rodar-os-testes)
-  * [Mais informações](#mais-informações)
+  * [Comando para detectar ofensas](#comando-para-detectar-ofensas)
+  * [Configurações necessárias](#configurações-necessárias)
+  * [Gems instaladas](#gems-instaladas)
   
-
 ## O Projeto
 
 <p align = "justify"> Sistema de Frete desenvolvido em Ruby on Rails utilizando TDD. Desafio da 1ª etapa do treinamento do TreinaDev Delas. </p>
@@ -72,13 +73,27 @@ senha: password
 $ rspec
 ```
 
-## Mais informações
+## Comando para detectar ofensas
 
-* Versão Ruby: `3.1.2`
+```
+$ rubocop
+```
 
-* Versão Rails: `7.0.4`
+## Configurações necessárias
 
-* Gems utilizadas para configurar o ambiente de testes: `rspec-rails` e `capybara`
+- [Ruby](https://ruby-doc.org/core-3.1.2/): `3.1.2`
 
-* Gem utilizada para autenticação: `devise`
+- [Rails](https://rubyonrails.org/index.html): `7.0.4`
+
+- [NodeJS](https://nodejs.org/en/): `18.12.0`
+
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/): `1.22.19`
+
+## Gems instaladas
+
+- [rspec-rails](https://rspec.info/)
+- [capybara](https://rubydoc.info/github/teamcapybara/capybara)
+- [devise](https://github.com/heartcombo/devise)
+- [rubocop](https://github.com/rubocop/rubocop)
+- [simplecov](https://github.com/simplecov-ruby/simplecov)
  

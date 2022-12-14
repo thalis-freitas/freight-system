@@ -6,8 +6,8 @@ class PricePerDistance < ApplicationRecord
   validates :rate, comparison: { greater_than_or_equal_to: 0 }
 
   def ==(other)
-    "#{self.minimum_distance}"  == "#{other[:minimum_distance]}" && 
-    "#{self.maximum_distance}"  == "#{other[:maximum_distance]}" && 
-    "#{self.rate}"  == "#{other[:rate]}"
+    minimum_distance.to_s == (other[:minimum_distance]).to_s &&
+      maximum_distance.to_s == (other[:maximum_distance]).to_s &&
+      rate.to_s == (other[:rate]).to_s
   end
 end

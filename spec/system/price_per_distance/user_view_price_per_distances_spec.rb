@@ -1,18 +1,23 @@
 require 'rails_helper'
 
 describe 'Usuário vê as configurações de preço por distância de uma modalidade de transporte' do
-  it 'com sucesso' do 
+  it 'com sucesso' do
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
-    mode_of_transport = ModeOfTransport.create!(name:'Econômica', minimum_distance: 100, maximum_distance: 4000, 
-                                                minimum_weight: 20, maximum_weight: 500, flat_rate: 500, status: :active)
-    PricePerDistance.create!(minimum_distance: 100, maximum_distance: 500, rate: 800, mode_of_transport: mode_of_transport)
-    PricePerDistance.create!(minimum_distance: 501, maximum_distance: 1000, rate: 1500, mode_of_transport: mode_of_transport)
-    PricePerDistance.create!(minimum_distance: 1001, maximum_distance: 2000, rate: 2200, mode_of_transport: mode_of_transport)
-    PricePerDistance.create!(minimum_distance: 2001, maximum_distance: 4000, rate: 3000, mode_of_transport: mode_of_transport)
+    mode_of_transport = ModeOfTransport.create!(name: 'Econômica', minimum_distance: 100, maximum_distance: 4000,
+                                                minimum_weight: 20, maximum_weight: 500, flat_rate: 500,
+                                                status: :active)
+    PricePerDistance.create!(minimum_distance: 100, maximum_distance: 500, rate: 800,
+                             mode_of_transport:)
+    PricePerDistance.create!(minimum_distance: 501, maximum_distance: 1000, rate: 1500,
+                             mode_of_transport:)
+    PricePerDistance.create!(minimum_distance: 1001, maximum_distance: 2000, rate: 2200,
+                             mode_of_transport:)
+    PricePerDistance.create!(minimum_distance: 2001, maximum_distance: 4000, rate: 3000,
+                             mode_of_transport:)
 
     login_as user
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Modalidades de Transporte'
     end
     click_link 'Econômica'

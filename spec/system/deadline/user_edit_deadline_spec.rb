@@ -1,32 +1,38 @@
 require 'rails_helper'
 
-describe 'Usuário edita uma configuração de prazo de uma modalidade de transporte' do 
-  it 'se estiver autenticado' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)       
+describe 'Usuário edita uma configuração de prazo de uma modalidade de transporte' do
+  it 'se estiver autenticado' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                                mode_of_transport:)
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)   
+  it 'se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                     mode_of_transport:)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit mode_of_transport_path(mode_of_transport)
     expect(page).not_to have_link 'Editar'
   end
 
-  it 'a partir da url se for admin' do 
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)  
+  it 'a partir da url se for admin' do
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                                mode_of_transport:)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
@@ -36,14 +42,16 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'a partir do menu' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)                                       
-  
-    login_as admin                         
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 20, maximum_distance: 100, estimated_time: 3,
+                                mode_of_transport:)
+
+    login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Modalidades de Transporte'
     end
     click_link 'Express'
@@ -52,7 +60,7 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
     expect(current_path).to eq edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     expect(page).to have_content 'Editar configuração de prazo'
     expect(page).to have_content 'Modalidade Express'
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Distância mínima', with: '20'
       expect(page).to have_field 'Distância máxima', with: '100'
       expect(page).to have_field 'Prazo em horas', with: '3'
@@ -62,12 +70,14 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'com sucesso' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)                                       
-               
-    login_as admin  
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3,
+                                mode_of_transport:)
+
+    login_as admin
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     fill_in 'Distância mínima', with: '20'
     fill_in 'Distância máxima', with: '100'
@@ -81,12 +91,14 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'e deixa campos obrigatórios em branco' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)                                       
-               
-    login_as admin  
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3,
+                                mode_of_transport:)
+
+    login_as admin
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     fill_in 'Distância mínima', with: ''
     fill_in 'Distância máxima', with: ''
@@ -102,12 +114,14 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'com dados inválidos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)                                       
-               
-    login_as admin  
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3,
+                                mode_of_transport:)
+
+    login_as admin
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     fill_in 'Distância mínima', with: '2500'
     fill_in 'Distância máxima', with: '5'
@@ -121,12 +135,14 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'com distâncias não atendidas pela modalidade de transporte' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)                                       
-              
-    login_as admin  
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3,
+                                mode_of_transport:)
+
+    login_as admin
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     fill_in 'Distância mínima', with: '15'
     fill_in 'Distância máxima', with: '4000'
@@ -138,11 +154,13 @@ describe 'Usuário edita uma configuração de prazo de uma modalidade de transp
 
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    mode_of_transport = ModeOfTransport.create!(name:'Express', minimum_distance: 20, maximum_distance: 2000, 
-                                                minimum_weight: 0, maximum_weight: 500, flat_rate: 1500, status: :active)
-    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3, 
-                                mode_of_transport: mode_of_transport)  
-    login_as admin  
+    mode_of_transport = ModeOfTransport.create!(name: 'Express', minimum_distance: 20,
+                                                maximum_distance: 2000, minimum_weight: 0,
+                                                maximum_weight: 500, flat_rate: 1500,
+                                                status: :active)
+    deadline = Deadline.create!(minimum_distance: 25, maximum_distance: 105, estimated_time: 3,
+                                mode_of_transport:)
+    login_as admin
     visit edit_mode_of_transport_deadline_path(mode_of_transport, deadline)
     click_button 'Salvar'
 

@@ -1,39 +1,40 @@
 class DeadlinesController < ApplicationController
   before_action :authenticate_user!
-  before_action :admins_only, only:[:new, :create, :edit, :update]
-  before_action :set_deadline, only:[:edit, :update]
-  before_action :set_mode_of_transport_id, only:[:new, :edit, :create, :update]
+  before_action :admins_only, only: %i[new create edit update]
+  before_action :set_deadline, only: %i[edit update]
+  before_action :set_mode_of_transport_id, only: %i[new edit create update]
 
   def new
     @deadline = Deadline.new
   end
 
-  def create 
+  def edit; end
+
+  def create
     @deadline = Deadline.new(deadline_params)
     @deadline.mode_of_transport = @mode_of_transport
     if @deadline.save
-      redirect_to @mode_of_transport, notice: "#{t(:deadline_setting, count:1).capitalize} #{t(:successfully_registered)}"
+      redirect_to @mode_of_transport,
+                  notice: t(:deadline_successfully_registered)
     else
-      flash.now[:alert] = "#{t(:could_not_register)} a #{t(:deadline_setting, count:1)}"
+      flash.now[:alert] = t(:unable_to_register_deadline)
       render :new
     end
   end
 
-  def edit; end
-
-  def update 
+  def update
     if @deadline == deadline_params
-      flash.now[:alert] = "#{t(:no_modification_found)}"
-      render :edit
+      no_modification_found
     elsif @deadline.update(deadline_params)
-      redirect_to mode_of_transport_path(@deadline.mode_of_transport), notice: "#{t(:deadline_setting, count:1).capitalize} #{t :successfully_updated}"
+      redirect_to mode_of_transport_path(@deadline.mode_of_transport),
+                  notice: t(:deadline_successfully_updated)
     else
-      flash.now[:alert] = "#{t(:unable_to_update)} a #{t(:deadline_setting, count:1)}" 
+      flash.now[:alert] = t(:unable_to_update_deadline)
       render :edit
     end
   end
 
-  private 
+  private
 
   def deadline_params
     params.require(:deadline).permit(:minimum_distance, :maximum_distance, :estimated_time, :mode_of_transport_id)

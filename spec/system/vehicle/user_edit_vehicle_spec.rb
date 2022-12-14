@@ -1,28 +1,28 @@
 require 'rails_helper'
 
-describe 'Usuário edita um veículo' do 
-  it 'se estiver autenticado' do 
+describe 'Usuário edita um veículo' do
+  it 'se estiver autenticado' do
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
     visit edit_vehicle_path(vehicle)
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
+  it 'se for admin' do
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
     user = User.create!(name: 'Daiane Silva', email: 'daiane_silva@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit vehicle_path(vehicle)
     expect(page).not_to have_link 'Editar Modalidade de Transporte'
   end
 
-  it 'a partir da url se for admin' do 
+  it 'a partir da url se for admin' do
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    login_as user
     visit edit_vehicle_path(vehicle)
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
@@ -30,18 +30,18 @@ describe 'Usuário edita um veículo' do
 
   it 'a partir do menu' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
-    
-    login_as admin                         
+    Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
+                    maximum_capacity: 23_000)
+
+    login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Veículos'
     end
     click_link 'HPK3528'
     click_link 'Editar Veículo'
 
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Modelo', with: 'Cargo 2428 E'
       expect(page).to have_field 'Marca', with: 'Ford'
       expect(page).to have_field 'Ano de fabricação', with: '2011'
@@ -54,9 +54,9 @@ describe 'Usuário edita um veículo' do
   it 'com sucesso' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
 
-    login_as admin  
+    login_as admin
     visit edit_vehicle_path(vehicle)
     fill_in 'Modelo', with: 'ATEGO 1315'
     fill_in 'Marca', with: 'Mercedez Benz'
@@ -76,9 +76,9 @@ describe 'Usuário edita um veículo' do
   it 'e deixa campos obrigatórios em branco' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
 
-    login_as admin  
+    login_as admin
     visit edit_vehicle_path(vehicle)
     fill_in 'Modelo', with: ''
     fill_in 'Marca', with: ''
@@ -100,9 +100,9 @@ describe 'Usuário edita um veículo' do
   it 'com dados inválidos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
+                              maximum_capacity: 23_000)
 
-    login_as admin  
+    login_as admin
     visit edit_vehicle_path(vehicle)
     fill_in 'Ano de fabricação', with: '20'
     fill_in 'Capacidade máxima', with: '0'
@@ -117,8 +117,8 @@ describe 'Usuário edita um veículo' do
   it 'sem modificar os campos' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
-    login_as admin  
+                              maximum_capacity: 23_000)
+    login_as admin
     visit edit_vehicle_path(vehicle)
     click_button 'Salvar'
     expect(page).to have_content 'Nenhuma modificação encontrada'
@@ -126,11 +126,11 @@ describe 'Usuário edita um veículo' do
 
   it 'com placa de identificação que já está em uso' do
     admin = User.create!(name: 'Marta Alves', email: 'marta@sistemadefrete.com.br', password: 'password', role: :admin)
-    Vehicle.create!(nameplate: 'HQZ9585', brand: 'Volvo', model: 'VM 310', year_of_manufacture: '2016', 
-                    maximum_capacity: 17500, status: :in_maintenance)
+    Vehicle.create!(nameplate: 'HQZ9585', brand: 'Volvo', model: 'VM 310', year_of_manufacture: '2016',
+                    maximum_capacity: 17_500, status: :in_maintenance)
     vehicle = Vehicle.create!(nameplate: 'HPK3528', brand: 'Ford', model: 'Cargo 2428 E', year_of_manufacture: '2011',
-                              maximum_capacity: 23000)
-    login_as admin  
+                              maximum_capacity: 23_000)
+    login_as admin
     visit edit_vehicle_path(vehicle)
     fill_in 'Placa de identificação', with: 'HQZ9585'
     click_button 'Salvar'

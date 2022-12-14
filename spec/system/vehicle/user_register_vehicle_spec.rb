@@ -1,38 +1,39 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra um veículo' do
-  it 'se estiver autenticado' do 
+  it 'se estiver autenticado' do
     visit new_vehicle_path
     expect(current_path).to eq new_user_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se'
   end
 
-  it 'se for admin' do 
+  it 'se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
     login_as user
     visit vehicles_path
     expect(page).not_to have_link 'Cadastrar Veículo'
   end
 
-  it 'a partir da url se for admin' do 
+  it 'a partir da url se for admin' do
     user = User.create!(name: 'Marcus Lima', email: 'marcus_lima@sistemadefrete.com.br', password: 'senha123')
-    login_as user 
+    login_as user
     visit new_vehicle_path
     expect(current_path).to eq root_path
     expect(page).to have_content 'Acesso não autorizado'
   end
 
   it 'a partir do menu' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit root_path
-    within('nav') do 
+    within('nav') do
       click_link 'Veículos'
     end
     click_link 'Cadastrar Veículo'
 
-    within('main form') do 
+    within('main form') do
       expect(page).to have_field 'Modelo'
       expect(page).to have_field 'Marca'
       expect(page).to have_field 'Ano de fabricação', type: 'number'
@@ -43,8 +44,9 @@ describe 'Usuário cadastra um veículo' do
   end
 
   it 'com sucesso' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_vehicle_path
     fill_in 'Modelo', with: 'Cargo 2428 E'
@@ -64,8 +66,9 @@ describe 'Usuário cadastra um veículo' do
   end
 
   it 'com dados incompletos' do
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_vehicle_path
     fill_in 'Modelo', with: ''
@@ -85,9 +88,10 @@ describe 'Usuário cadastra um veículo' do
     expect(page).to have_content 'Placa de identificação não pode ficar em branco'
   end
 
-  it 'com dados inválidos' do 
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+  it 'com dados inválidos' do
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_vehicle_path
     fill_in 'Ano de fabricação', with: '99'
@@ -100,15 +104,16 @@ describe 'Usuário cadastra um veículo' do
     expect(page).to have_content 'Placa de identificação não possui o tamanho esperado (7 caracteres)'
   end
 
-  it 'com placa de identificação que já está em uso' do 
+  it 'com placa de identificação que já está em uso' do
     Vehicle.create!(nameplate: 'KER0414', brand: 'Volks', model: 'Constelallation 17.250', year_of_manufacture: '2012',
-                    maximum_capacity: 16000)
-    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password', role: :admin)
-    
+                    maximum_capacity: 16_000)
+    admin = User.create!(name: 'Luís dos Santos', email: 'luis_s@sistemadefrete.com.br', password: 'password',
+                         role: :admin)
+
     login_as admin
     visit new_vehicle_path
     fill_in 'Placa de identificação', with: 'KER0414'
-    click_button 'Salvar'   
+    click_button 'Salvar'
 
     expect(page).to have_content 'Placa de identificação já está em uso'
   end
