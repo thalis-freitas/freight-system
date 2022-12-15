@@ -1,8 +1,8 @@
 <% if @mode_of_transport.errors.any? %>
-  <div class="alert alert-warning container" role="alert">
-      <b><%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b>
+  <div class="container" role="alert">
+    <b><%= t(:check_the_errors, count: @mode_of_transport.errors.count) %>:</b>
     <% @mode_of_transport.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %>
+      <div class="alert alert-warning"><%= msg %>
       </div>
     <% end %>
   </div>
