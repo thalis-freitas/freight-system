@@ -1,8 +1,8 @@
 <% if @vehicle.errors.any? %>
-  <div class="alert alert-warning container" role="alert">
+  <div class="container" role="alert">
     <b><%= t(:check_the_errors, count: @vehicle.errors.count) %>:</b>
     <% @vehicle.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %></div>
+      <div class="alert alert-warning"><%= msg %></div>
     <% end %>
   </div>
 <% end %>

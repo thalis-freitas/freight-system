@@ -2,10 +2,10 @@
   <h3 class="text-secondary"><%="#{t(:modality).capitalize} #{@mode_of_transport.name}"%></h3>
 </div>
 <% if @price_by_weight.errors.any? %>
-  <div class="alert alert-warning container" role="alert">
+  <div class="container" role="alert">
     <b><%= t(:check_the_errors, count: @price_by_weight.errors.count) %>:</b>
     <% @price_by_weight.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %> </div>
+      <div class="alert alert-warning"><%= msg %></div>
     <% end %>
   </div>
 <% end %>

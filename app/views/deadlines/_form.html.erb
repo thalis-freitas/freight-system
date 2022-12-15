@@ -1,16 +1,13 @@
 <div class="container">
   <h3 class="text-secondary"><%="#{t(:modality).capitalize} #{@mode_of_transport.name}"%></h3>
-</div>
-<% if @deadline.errors.any? %>
-  <div class="alert alert-warning container" role="alert">
-    <b><%= t(:check_the_errors, count: @deadline.errors.count) %>:</b>
-    <% @deadline.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %> </div>
-    <% end %>
-  </div>
-<% end %>
-
-<div class="container">
+  <% if @deadline.errors.any? %>
+    <div class="container" role="alert">
+      <b><%= t(:check_the_errors, count: @deadline.errors.count) %>:</b>
+      <% @deadline.errors.full_messages.each do |msg| %>
+        <div class="alert alert-warning"><%= msg %> </div>
+      <% end %>
+    </div>
+  <% end %>
   <%= form_with model: [@mode_of_transport, @deadline] do |f| %>
     <div class="row">
       <div class="mb-2 col-5 col-lg-2">

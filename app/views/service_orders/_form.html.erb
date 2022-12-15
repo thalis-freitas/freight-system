@@ -1,8 +1,8 @@
 <% if @service_order.errors.any? %>
-  <div class="alert alert-warning container" role="alert">
-      <b><%= t(:check_the_errors, count: @service_order.errors.count) %>:</b>
+  <div class="container" role="alert">
+    <b><%= t(:check_the_errors, count: @service_order.errors.count) %>:</b>
     <% @service_order.errors.full_messages.each do |msg| %>
-      <div> - <%= msg %>
+      <div class="alert alert-warning"><%= msg %>
       </div>
     <% end %>
   </div>
