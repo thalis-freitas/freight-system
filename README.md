@@ -13,6 +13,8 @@
 
 <p align = "justify"> Sistema de Frete desenvolvido em Ruby on Rails utilizando TDD. Desafio da 1ª etapa do treinamento do TreinaDev Delas. </p>
 
+![Imagem de demonstração](https://github.com/Thalis-Freitas/freight-system/blob/59760da00fd07294dcd5bf7a64932925e3b7dfe8/app/assets/images/imagem-demonstra%C3%A7%C3%A3o.jpeg)
+
 ## Passo a passo para rodar a app
 
 <p align = "justify"> 1 - Clone o projeto: </p>
