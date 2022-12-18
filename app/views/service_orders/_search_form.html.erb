@@ -1,16 +1,20 @@
-<div class="container">
-  <%= form_with(url: search_service_orders_path, method: :get) do |f| %>
-    <div class="row">
-      <div class="col-6 col-lg-7">
-        <%= f.text_field :query, class:'form-control'%>
+<% if user_signed_in? %>
+  <div>
+<% else %>
+  <div class="container">
+<% end %>
+    <%= form_with(url: search_service_orders_path, method: :get) do |f| %>
+      <div class="row">
+        <div class="col-6 col-lg-7">
+          <%= f.text_field :query, class:'form-control'%>
+        </div>
+          <div class="col-2 col-lg-2">
+          <% if user_signed_in? %>
+            <%= f.submit t(:search_os), class:'btn btn-outline-success' %> 
+          <% else %>
+            <%= f.submit t(:track_delivery), class:'btn btn-outline-success' %>  
+          <% end %>
+        </div>
       </div>
-        <div class="col-2 col-lg-2">
-        <% if user_signed_in? %>
-          <%= f.submit t(:search_os), class:'btn btn-outline-success' %> 
-        <% else %>
-          <%= f.submit t(:track_delivery), class:'btn btn-outline-success' %>  
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
